@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Window Flags" type="Application" factoryName="Application" folderName="Core">
+    <option name="MAIN_CLASS_NAME" value="core.WindowFlags" />
+    <module name="Raylib-J_Examples" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/core" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

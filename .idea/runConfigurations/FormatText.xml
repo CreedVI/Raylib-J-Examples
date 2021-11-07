@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="FormatText" type="Application" factoryName="Application" folderName="Text" nameIsGenerated="true">
+    <option name="MAIN_CLASS_NAME" value="text.FormatText" />
+    <module name="Raylib-J_Examples" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/text" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="text.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,10 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Text Input Box" type="Application" factoryName="Application" folderName="Text">
+    <option name="MAIN_CLASS_NAME" value="text.TextInputBox" />
+    <module name="Raylib-J_Examples" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/text" />
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>

@@ -1,0 +1,83 @@
+package shaders;
+
+import com.raylib.java.Raylib;
+import com.raylib.java.rlgl.shader.Shader;
+import com.raylib.java.textures.Image;
+import com.raylib.java.textures.Texture2D;
+
+import static com.raylib.java.core.Color.*;
+import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_FLOAT;
+
+public class TextureDrawing{
+
+    /*******************************************************************************************
+     *
+     *   raylib [textures] example - Texture drawing
+     *
+     *   This example illustrates how to draw on a blank texture using a shader
+     *
+     *   This example has been created using raylib 2.0 (www.raylib.com)
+     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *
+     *   Example contributed by Michał Ciesielski and reviewed by Ramon Santamaria (@raysan5)
+     *
+     *   Copyright (c) 2019 Michał Ciesielski and Ramon Santamaria (@raysan5)
+     *
+     ********************************************************************************************/
+
+
+    public static void main(String[] args){
+
+        // Initialization
+        //--------------------------------------------------------------------------------------
+        int screenWidth = 800;
+        int screenHeight = 450;
+
+        Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shaders] example - texture drawing");
+
+        Image imBlank = rlj.textures.GenImageColor(1024, 1024, BLANK);
+        Texture2D texture = rlj.textures.LoadTextureFromImage(imBlank);  // Load blank texture to fill on shader
+        rlj.textures.UnloadImage(imBlank);
+
+        // NOTE: Using GLSL 330 shader version, on OpenGL ES 2.0 use GLSL 100 shader version
+        Shader shader = rlj.core.LoadShader(null, "resources/shaders/glsl330/cubes_panning.fs");
+
+        float time = 0.0f;
+        int timeLoc = rlj.core.GetShaderLocation(shader, "uTime");
+        rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, SHADER_UNIFORM_FLOAT);
+
+        rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
+        // -------------------------------------------------------------------------------------------------------------
+
+        // Main game loop
+        while (!rlj.core.WindowShouldClose())    // Detect window close button or ESC key
+        {
+            // Update
+            //----------------------------------------------------------------------------------
+            time = (float)rlj.core.GetTime();
+            rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, SHADER_UNIFORM_FLOAT);
+            //----------------------------------------------------------------------------------
+
+            // Draw
+            //----------------------------------------------------------------------------------
+            rlj.core.BeginDrawing();
+
+            rlj.core.ClearBackground(RAYWHITE);
+
+            rlj.core.BeginShaderMode(shader);    // Enable our custom shader for next shapes/textures drawings
+            rlj.textures.DrawTexture(texture, 0, 0, WHITE);  // Drawing BLANK texture, all magic happens on shader
+            rlj.core.EndShaderMode();            // Disable our custom shader, return to default shader
+
+            rlj.text.DrawText("BACKGROUND is PAINTED and ANIMATED on SHADER!", 10, 10, 20, MAROON);
+
+            rlj.core.EndDrawing();
+            //----------------------------------------------------------------------------------
+        }
+
+        // De-Initialization
+        //--------------------------------------------------------------------------------------
+        rlj.core.UnloadShader(shader);
+        //--------------------------------------------------------------------------------------
+    }
+
+}
