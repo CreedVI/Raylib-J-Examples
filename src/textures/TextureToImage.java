@@ -40,7 +40,6 @@ public class TextureToImage{
         // (RAM -> VRAM)
         rlj.textures.UnloadImage(image); // Unload image data from CPU memory (RAM)
 
-        // TODO: Find why GetTextureData was deleted
         image = rTextures.LoadImageFromTexture(texture); // Retrieve image data from GPU memory (VRAM -> RAM)
         rlj.textures.UnloadTexture(texture); // Unload texture from GPU memory (VRAM)
 

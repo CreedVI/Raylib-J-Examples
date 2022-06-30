@@ -301,7 +301,6 @@ public class Unicode{
 
                 // Draw the main text message
                 Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2, msgRect.y + verticalPadding / 2, msgRect.width - horizontalPadding, msgRect.height);
-                // TODO: Find why DrawTextRec was deleted
                 DrawTextBoxed(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
 
                 // Draw the info text below the main message

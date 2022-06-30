@@ -168,7 +168,6 @@ public class MousePainting{
             // Image saving logic
             // NOTE: Saving painted texture to a default named image
             if ((btnSaveMouseHover && rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) || rlj.core.IsKeyPressed(KEY_S)){
-                // TODO: Find why GetTextureData was deleted
                 Image image = rTextures.LoadImageFromTexture(target.texture);
                 rlj.textures.ImageFlipVertical(image);
                 rlj.textures.ExportImage(image, "my_amazing_texture_painting.png");

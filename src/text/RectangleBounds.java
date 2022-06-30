@@ -107,7 +107,6 @@ public class RectangleBounds {
             rlj.shapes.DrawRectangleLinesEx(container, 3, borderColor); // Draw container border
 
             // Draw text in container (add some padding)
-            // TODO: Find why DrawTextRec was deleted
             DrawTextBoxed(font, text, new Rectangle(container.x + 4, container.y + 4, container.width - 4, container.height - 4), 20.0f, 2.0f, wordWrap, GRAY);
 
             DrawRectangleRec(resizer, borderColor);         // Draw the resize box

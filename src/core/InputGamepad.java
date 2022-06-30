@@ -65,7 +65,6 @@ public class InputGamepad {
             if (rlj.core.IsGamepadAvailable(0)){
                 rlj.text.DrawText("GP1: " + rlj.core.GetGamepadName(0), 10, 10, 10, Color.BLACK);
 
-                // TODO: Find why the IsGamepadName function from rCore was removed
                 if (rlj.core.GetGamepadName(0).equals(XBOX360_NAME_ID) || rlj.core.GetGamepadName(0).equals(XBOX360_LEGACY_NAME_ID)
                         || rlj.core.GetGamepadName(0).equals(XBOX1S_NAME_ID)){
                     rlj.textures.DrawTexture(texXboxPad, 0, 0, Color.DARKGRAY);
