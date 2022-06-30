@@ -25,7 +25,7 @@ public class ImageGeneration{
      ********************************************************************************************/
 
 
-    final static int NUM_TEXTURES = 7;      // Currently we have 7 generation algorithms
+    final static int NUM_TEXTURES = 6;      // Currently we have 6 generation algorithms
 
     public static void main(String[] args){
 
@@ -41,8 +41,6 @@ public class ImageGeneration{
         Image radialGradient = rlj.textures.GenImageGradientRadial(screenWidth, screenHeight, 0.0f, Color.WHITE, Color.BLACK);
         Image checked = rlj.textures.GenImageChecked(screenWidth, screenHeight, 32, 32, Color.RED, Color.BLUE);
         Image whiteNoise = rlj.textures.GenImageWhiteNoise(screenWidth, screenHeight, 0.5f);
-        // TODO: Find why GenImagePerlinNoise was deleted
-        Image perlinNoise = rlj.textures.GenImagePerlinNoise(screenWidth, screenHeight, 50, 50, 4.0f);
         Image cellular = rlj.textures.GenImageCellular(screenWidth, screenHeight, 32);
 
         Texture2D[] textures = new Texture2D[ NUM_TEXTURES];
@@ -52,7 +50,6 @@ public class ImageGeneration{
         textures[2] = rlj.textures.LoadTextureFromImage(radialGradient);
         textures[3] = rlj.textures.LoadTextureFromImage(checked);
         textures[4] = rlj.textures.LoadTextureFromImage(whiteNoise);
-        textures[5] = rlj.textures.LoadTextureFromImage(perlinNoise);
         textures[6] = rlj.textures.LoadTextureFromImage(cellular);
 
         // Unload image data (CPU RAM)
@@ -61,7 +58,6 @@ public class ImageGeneration{
         rlj.textures.UnloadImage(radialGradient);
         rlj.textures.UnloadImage(checked);
         rlj.textures.UnloadImage(whiteNoise);
-        rlj.textures.UnloadImage(perlinNoise);
         rlj.textures.UnloadImage(cellular);
 
         int currentTexture = 0;

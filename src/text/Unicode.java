@@ -6,12 +6,15 @@ import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
+import com.raylib.java.text.rText;
 import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.Config.ConfigFlag.FLAG_VSYNC_HINT;
+import static com.raylib.java.core.Color.WHITE;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
+import static com.raylib.java.shapes.rShapes.DrawRectangleRec;
 
 public class Unicode{
 
@@ -299,7 +302,7 @@ public class Unicode{
                 // Draw the main text message
                 Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2, msgRect.y + verticalPadding / 2, msgRect.width - horizontalPadding, msgRect.height);
                 // TODO: Find why DrawTextRec was deleted
-                rlj.text.DrawTextRec(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
+                DrawTextBoxed(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
 
                 // Draw the info text below the main message
                 int size = messages[message].text.length();
@@ -345,6 +348,133 @@ public class Unicode{
             // Set a random message for this emoji
             emoji[i].message = rCore.GetRandomValue(0, messages.length - 1);
         }
+    }
+    //--------------------------------------------------------------------------------------
+    // Module functions definition
+    //--------------------------------------------------------------------------------------
+
+    // Draw text using font inside rectangle limits
+    public static void DrawTextBoxed(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWarp, Color tint) {
+        DrawTextBoxedSelectable(font, text, rec, fontSize, spacing, wordWarp, tint, 0, 0, WHITE, WHITE);
+    }
+
+    public static final int MEASURE_STATE = 0;
+    public static final int DRAW_STATE = 1;
+
+    // Draw text using font inside rectangle limits with support for text selection
+    public static void DrawTextBoxedSelectable(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color tint, int selectStart, int selectLength, Color selectTint, Color selectBackTint) {
+        int length = rText.TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
+
+        float textOffsetY = 0;       // Offset between lines (on line break '\n')
+        float textOffsetX = 0;       // Offset X to next character to draw
+
+        float scaleFactor = fontSize / (float) font.baseSize;     // Character rectangle scaling factor
+
+        // Word/character wrapping mechanism variables
+        int state = wordWrap ? MEASURE_STATE : DRAW_STATE;
+
+        int startLine = -1;         // Index where to begin drawing (where a line begins)
+        int endLine = -1;           // Index where to stop drawing (where a line ends)
+        int lastk = -1;             // Holds last value of the character position
+
+        for(int i = 0, k = 0; i < length; i++, k++) {
+            // Get next codepoint from byte string and glyph index in font
+            int codepointByteCount = 0;
+            int codepoint = rText.GetCodepoint(new char[ text.charAt(i) ], codepointByteCount);
+            int index = rText.GetGlyphIndex(font, codepoint);
+
+            // NOTE: Normally we exit the decoding sequence as soon as a bad byte is found (and return 0x3f)
+            // but we need to draw all of the bad bytes using the '?' symbol moving one byte
+            if (codepoint == 0x3f) codepointByteCount = 1;
+            i += (codepointByteCount - 1);
+
+            float glyphWidth = 0;
+            if (codepoint != '\n')
+            {
+                glyphWidth = (font.glyphs[index].advanceX == 0) ? font.recs[index].width*scaleFactor : font.glyphs[index].advanceX*scaleFactor;
+
+                if (i + 1 < length) glyphWidth = glyphWidth + spacing;
+            }
+
+            // NOTE: When wordWrap is ON we first measure how much of the text we can draw before going outside of the rec container
+            // We store this info in startLine and endLine, then we change states, draw the text between those two variables
+            // and change states again and again recursively until the end of the text (or until we get outside of the container).
+            // When wordWrap is OFF we don't need the measure state so we go to the drawing state immediately
+            // and begin drawing on the next line before we can get outside the container.
+            if (state == MEASURE_STATE) {
+
+                // TODO: There are multiple types of spaces in UNICODE, maybe it's a good idea to add support for more
+                // Ref: http://jkorpela.fi/chars/spaces.html
+                if ((codepoint == ' ') || (codepoint == '\t') || (codepoint == '\n')) endLine = i;
+                if ((textOffsetX + glyphWidth) > rec.width) {
+                    endLine = (endLine < 1)? i : endLine;
+                    if (i == endLine) endLine -= codepointByteCount;
+                    if ((startLine + codepointByteCount) == endLine) endLine = (i - codepointByteCount);
+
+                    state = DRAW_STATE;
+                }
+                else if ((i + 1) == length) {
+                    endLine = i;
+                    state = DRAW_STATE;
+                }
+                else if (codepoint == '\n') state = DRAW_STATE;
+
+                if (state == DRAW_STATE) {
+                    textOffsetX = 0;
+                    i = startLine;
+                    glyphWidth = 0;
+
+                    // Save character position when we switch states
+                    int tmp = lastk;
+                    lastk = k - 1;
+                    k = tmp;
+                }
+            }else {
+                if (codepoint == '\n') {
+                    if (!wordWrap) {
+                        textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                        textOffsetX = 0;
+                    }
+                }else {
+                    if (!wordWrap && ((textOffsetX + glyphWidth) > rec.width)) {
+                        textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                        textOffsetX = 0;
+                    }
+
+                    // When text overflows rectangle height limit, just stop drawing
+                    if ((textOffsetY + font.baseSize*scaleFactor) > rec.height) break;
+
+                    // Draw selection background
+                    boolean isGlyphSelected = false;
+                    if ((selectStart >= 0) && (k >= selectStart) && (k < (selectStart + selectLength))) {
+                        DrawRectangleRec(new Rectangle(rec.x + textOffsetX - 1, rec.y + textOffsetY, glyphWidth, (float)font.baseSize*scaleFactor), selectBackTint);
+                        isGlyphSelected = true;
+                    }
+
+                    // Draw current character glyph
+                    if ((codepoint != ' ') && (codepoint != '\t')) {
+                        rlj.text.DrawTextCodepoint(font, codepoint, new Vector2(rec.x + textOffsetX, rec.y + textOffsetY), fontSize, isGlyphSelected? selectTint : tint);
+                    }
+                }
+
+                if (wordWrap && (i == endLine))
+                {
+                    textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                    textOffsetX = 0;
+                    startLine = endLine;
+                    endLine = -1;
+                    glyphWidth = 0;
+                    selectStart += lastk - k;
+                    k = lastk;
+
+                    state = MEASURE_STATE;
+                }
+            }
+
+            textOffsetX += glyphWidth;
+
+        }
+
     }
 
 }

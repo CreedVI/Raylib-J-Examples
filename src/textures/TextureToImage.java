@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class TextureToImage{
 
@@ -40,7 +41,7 @@ public class TextureToImage{
         rlj.textures.UnloadImage(image); // Unload image data from CPU memory (RAM)
 
         // TODO: Find why GetTextureData was deleted
-        image = rlj.textures.GetTextureData(texture); // Retrieve image data from GPU memory (VRAM -> RAM)
+        image = rTextures.LoadImageFromTexture(texture); // Retrieve image data from GPU memory (VRAM -> RAM)
         rlj.textures.UnloadTexture(texture); // Unload texture from GPU memory (VRAM)
 
         texture = rlj.textures.LoadTextureFromImage(image); // Recreate texture from retrieved image data (RAM -> VRAM)
