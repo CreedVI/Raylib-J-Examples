@@ -26,6 +26,8 @@ public class QuatConversion {
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2020-2021 Chris Camacho (@chriscamacho)
+     *
      ********************************************************************************************/
 
     public static void main(String[] args){

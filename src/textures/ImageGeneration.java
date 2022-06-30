@@ -23,6 +23,8 @@ public class ImageGeneration{
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2017-2021 Wilhem Barbier (@nounoursheureux)
+     *
      ********************************************************************************************/
 
 

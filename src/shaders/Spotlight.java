@@ -25,6 +25,8 @@ public class Spotlight{
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2019 Chris Camacho (@chriscamacho)
+     *
      ********************************************************************************************
      *
      *   The shader makes alpha holes in the forground to give the apearance of a top

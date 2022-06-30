@@ -26,6 +26,8 @@ public class WindowLetterbox{
      *   Original example contributed by Anata (@anatagawa) and reviewed by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2019 Anata (@anatagawa)
+     *
      ********************************************************************************************/
 
 

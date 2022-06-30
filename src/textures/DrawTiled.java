@@ -29,6 +29,8 @@ public class DrawTiled{
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2020 Vlad Adrian (@demizdor)
+     *
      ********************************************************************************************/
 
     final static int OPT_WIDTH = 220,       // Max width for the options container

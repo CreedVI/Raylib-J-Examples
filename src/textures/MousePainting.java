@@ -29,6 +29,8 @@ public class MousePainting{
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2019 Chris Dill (@MysteriousSpace)
+     *
      ********************************************************************************************/
 
     final static int MAX_COLORS_COUNT = 23;          // Number of colors available

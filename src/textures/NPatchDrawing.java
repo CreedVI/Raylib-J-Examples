@@ -15,14 +15,15 @@ public class NPatchDrawing{
      *
      *   raylib-j [textures] example - N-patch drawing
      *
-     *   NOTE: Images are loaded in CPU memory (RAM); textures are loaded in GPU memory (VRAM)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   This example has been created using raylib 2.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
-     *   Example contributed by Jorge A. Gomes (@overdev) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2018 Jorge A. Gomes (@overdev) and Ramon Santamaria (@raysan5)
+     *   Copyright (c) 2018 Jorge A. Gomes (@overdev)
      *
      ********************************************************************************************/
 

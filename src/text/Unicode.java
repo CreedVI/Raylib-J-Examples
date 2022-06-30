@@ -5,7 +5,6 @@ import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
-import com.raylib.java.shapes.rShapes;
 import com.raylib.java.text.Font;
 import com.raylib.java.text.rText;
 import com.raylib.java.textures.rTextures;
@@ -30,6 +29,8 @@ public class Unicode{
      *   raylib is licensed under an unmodified zlib/libpng license
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
+     *
+     *   Copyright (c) 2019 Vlad Adrian (@demizdor)
      *
      ********************************************************************************************/
 

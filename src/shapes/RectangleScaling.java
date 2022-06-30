@@ -24,6 +24,8 @@ public class RectangleScaling{
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2018 Vlad Adrian (@demizdor)
+     *
      ********************************************************************************************/
 
     final static int MOUSE_SCALE_MARK_SIZE = 12;

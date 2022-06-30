@@ -34,6 +34,8 @@ public class Eratosthenes{
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
      *
+     *   Copyright (c) 2019 ProfJski
+     *
      ********************************************************************************************/
 
     public static void main(String[] args){
