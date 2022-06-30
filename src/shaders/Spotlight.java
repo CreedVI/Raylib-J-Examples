@@ -3,12 +3,11 @@ package shaders;
 import com.raylib.java.Raylib;
 import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
 
 import static com.raylib.java.core.Color.*;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_FLOAT;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC2;
 
 public class Spotlight{
 
@@ -16,13 +15,13 @@ public class Spotlight{
      *
      *   raylib [shaders] example - Simple shader mask
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Chris Camacho (@chriscamacho -  http://bedroomcoders.co.uk/)
-     *   and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 Chris Camacho (@chriscamacho) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************
      *
@@ -94,7 +93,7 @@ public class Spotlight{
         // a pitch black half and a dimly lit half.
         int wLoc = rlj.core.GetShaderLocation(shdrSpot, "screenWidth");
         float sw = (float) rlj.core.GetScreenWidth();
-        rlj.core.SetShaderValue(shdrSpot, wLoc, new float[]{sw}, SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shdrSpot, wLoc, new float[]{sw}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
 
         // Randomize the locations and velocities of the spotlights
         // and initialize the shader locations
@@ -111,9 +110,9 @@ public class Spotlight{
             spots[i].inner = 28.0f * (i + 1);
             spots[i].radius = 48.0f * (i + 1);
 
-            rlj.core.SetShaderValue(shdrSpot, spots[i].posLoc, new float[]{spots[i].pos.x, spots[i].pos.y}, SHADER_UNIFORM_VEC2);
-            rlj.core.SetShaderValue(shdrSpot, spots[i].innerLoc, new float[]{spots[i].inner}, SHADER_UNIFORM_FLOAT);
-            rlj.core.SetShaderValue(shdrSpot, spots[i].radiusLoc, new float[]{spots[i].radius}, SHADER_UNIFORM_FLOAT);
+            rlj.core.SetShaderValue(shdrSpot, spots[i].posLoc, new float[]{spots[i].pos.x, spots[i].pos.y}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
+            rlj.core.SetShaderValue(shdrSpot, spots[i].innerLoc, new float[]{spots[i].inner}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+            rlj.core.SetShaderValue(shdrSpot, spots[i].radiusLoc, new float[]{spots[i].radius}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
         }
 
         rlj.core.SetTargetFPS(60);               // Set  to run at 60 frames-per-second
@@ -148,7 +147,7 @@ public class Spotlight{
                     if (spots[i].pos.y > (screenHeight - 64)) spots[i].vel.y = -spots[i].vel.y;
                 }
 
-                rlj.core.SetShaderValue(shdrSpot, spots[i].posLoc, new float[]{spots[i].pos.x, spots[i].pos.y}, SHADER_UNIFORM_VEC2);
+                rlj.core.SetShaderValue(shdrSpot, spots[i].posLoc, new float[]{spots[i].pos.x, spots[i].pos.y}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
             }
 
             // Draw

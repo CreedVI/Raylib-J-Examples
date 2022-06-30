@@ -6,7 +6,7 @@ import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
 
 import static com.raylib.java.core.input.Keyboard.KEY_RIGHT;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class ImageGeneration{
 
@@ -14,10 +14,13 @@ public class ImageGeneration{
      *
      *   raylib-j [textures] example - Procedural images generation
      *
-     *   This example has been created using raylib 1.8 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2O17 Wilhem Barbier (@nounoursheureux)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -38,6 +41,7 @@ public class ImageGeneration{
         Image radialGradient = rlj.textures.GenImageGradientRadial(screenWidth, screenHeight, 0.0f, Color.WHITE, Color.BLACK);
         Image checked = rlj.textures.GenImageChecked(screenWidth, screenHeight, 32, 32, Color.RED, Color.BLUE);
         Image whiteNoise = rlj.textures.GenImageWhiteNoise(screenWidth, screenHeight, 0.5f);
+        // TODO: Find why GenImagePerlinNoise was deleted
         Image perlinNoise = rlj.textures.GenImagePerlinNoise(screenWidth, screenHeight, 50, 50, 4.0f);
         Image cellular = rlj.textures.GenImageCellular(screenWidth, screenHeight, 32);
 
@@ -69,7 +73,7 @@ public class ImageGeneration{
         while (!rlj.core.WindowShouldClose()){
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON) || rlj.core.IsKeyPressed(KEY_RIGHT)){
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || rlj.core.IsKeyPressed(KEY_RIGHT)){
                 currentTexture = (currentTexture + 1) % NUM_TEXTURES; // Cycle between the textures
             }
             //----------------------------------------------------------------------------------

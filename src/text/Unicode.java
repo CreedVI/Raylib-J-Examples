@@ -2,16 +2,16 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.Config.ConfigFlag.FLAG_VSYNC_HINT;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class Unicode{
 
@@ -19,12 +19,13 @@ public class Unicode{
      *
      *   raylib [text] example - Using unicode with raylib
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Vlad Adrian (@demizdor) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 Vlad Adrian (@demizdor) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -198,7 +199,7 @@ public class Unicode{
             if (rlj.core.IsKeyPressed(KEY_SPACE)) RandomizeEmoji();
 
             // Set the selected emoji and copy its text to clipboard
-            if (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && (hovered != -1) && (hovered != selected)){
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && (hovered != -1) && (hovered != selected)){
                 selected = hovered;
                 selectedPos = hoveredPos;
                 rlj.core.SetClipboardText(messages[emoji[selected].message].text);
@@ -223,7 +224,7 @@ public class Unicode{
 
                 if (!rlj.shapes.CheckCollisionPointRec(mouse, emojiRect)){
                     rlj.text.DrawTextEx(fontEmoji, txt, pos, (float) fontEmoji.baseSize, 1.0f, selected == i ? emoji[i].color :
-                            Textures.Fade(Color.LIGHTGRAY, 0.4f));
+                            rTextures.Fade(Color.LIGHTGRAY, 0.4f));
                 }
                 else{
                     rlj.text.DrawTextEx(fontEmoji, txt, pos, (float) fontEmoji.baseSize, 1.0f, emoji[i].color);
@@ -297,6 +298,7 @@ public class Unicode{
 
                 // Draw the main text message
                 Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2, msgRect.y + verticalPadding / 2, msgRect.width - horizontalPadding, msgRect.height);
+                // TODO: Find why DrawTextRec was deleted
                 rlj.text.DrawTextRec(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
 
                 // Draw the info text below the main message
@@ -328,20 +330,20 @@ public class Unicode{
     // Fills the emoji array with random emoji (only those emojis present in fontEmoji)
     static void RandomizeEmoji(){
         hovered = selected = -1;
-        int start = Core.GetRandomValue(45, 360);
+        int start = rCore.GetRandomValue(45, 360);
 
         for (int i = 0; i < emoji.length; ++i){
             //Initialize emoji
             emoji[i] = new Emoji();
 
             // 0-179 emoji codepoints (from emoji char array)
-            emoji[i].index = Core.GetRandomValue(0, emojiCodepoints.length-1);
+            emoji[i].index = rCore.GetRandomValue(0, emojiCodepoints.length-1);
 
             // Generate a random color for this emoji
-            emoji[i].color = Textures.Fade(rlj.textures.ColorFromHSV((float) ((start * (i + 1)) % 360), 0.6f, 0.85f), 0.8f);
+            emoji[i].color = rTextures.Fade(rlj.textures.ColorFromHSV((float) ((start * (i + 1)) % 360), 0.6f, 0.85f), 0.8f);
 
             // Set a random message for this emoji
-            emoji[i].message = Core.GetRandomValue(0, messages.length - 1);
+            emoji[i].message = rCore.GetRandomValue(0, messages.length - 1);
         }
     }
 

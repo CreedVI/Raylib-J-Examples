@@ -7,7 +7,6 @@ import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.text.Font;
 
 import static com.raylib.java.core.input.Keyboard.*;
-import static com.raylib.java.rlgl.RLGL.TextureFilterMode.*;
 
 public class FontFilters{
 
@@ -19,10 +18,13 @@ public class FontFilters{
      *   display of the font when scaling it to different sizes, that way, it's not required
      *   to generate multiple fonts at multiple sizes (as long as the scaling is not very different)
      *
-     *   This example has been created using raylib 1.3.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 

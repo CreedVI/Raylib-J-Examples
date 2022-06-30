@@ -2,15 +2,28 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.Textures;
-
-import static com.raylib.java.rlgl.RLGL.PixelFormat.PIXELFORMAT_UNCOMPRESSED_R8G8B8A8;
+import com.raylib.java.textures.rTextures;
 
 //TODO.txt: FileIO still not working...
 
 public class RawData{
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [textures] example - Texture from raw data
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     public static void main(String[] args){
         // Initialization
@@ -24,7 +37,7 @@ public class RawData{
 
         // Load RAW image data (512x512, 32bit RGBA, no file header)
         Image fudesumiRaw = rlj.textures.LoadImageRaw("resources/fudesumi.raw", 384, 512,
-                PIXELFORMAT_UNCOMPRESSED_R8G8B8A8, 0);
+                RLGL.rlPixelFormat.RL_PIXELFORMAT_UNCOMPRESSED_R8G8B8A8, 0);
         Texture2D fudesumi = rlj.textures.LoadTextureFromImage(fudesumiRaw);  // Upload CPU (RAM) image to GPU (VRAM)
         rlj.textures.UnloadImage(fudesumiRaw);                                // Unload CPU (RAM) image data
 
@@ -49,7 +62,7 @@ public class RawData{
         }
 
         // Load pixels data into an image structure and create texture
-        Image checkedIm = new Image(pixels, width, height, PIXELFORMAT_UNCOMPRESSED_R8G8B8A8, 1);
+        Image checkedIm = new Image(pixels, width, height, RLGL.rlPixelFormat.RL_PIXELFORMAT_UNCOMPRESSED_R8G8B8A8, 1);
 
         Texture2D checked = rlj.textures.LoadTextureFromImage(checkedIm);
         rlj.textures.UnloadImage(checkedIm);         // Unload CPU (RAM) image data (pixels)
@@ -70,7 +83,7 @@ public class RawData{
             rlj.core.ClearBackground(Color.RAYWHITE);
 
             rlj.textures.DrawTexture(checked, screenWidth/2 - checked.width/2, screenHeight/2 - checked.height/2,
-                    Textures.Fade(Color.WHITE, 0.5f));
+                    rTextures.Fade(Color.WHITE, 0.5f));
             rlj.textures.DrawTexture(fudesumi, 430, -30, Color.WHITE);
 
             rlj.text.DrawText("CHECKED TEXTURE ", 84, 85, 30, Color.BROWN);

@@ -16,12 +16,13 @@ public class BlendModes{
      *
      *   NOTE: Images are loaded in CPU memory (RAM); textures are loaded in GPU memory (VRAM)
      *
-     *   This example has been created using raylib 3.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Karlo Licudine (@accidentalrebel) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2020 Karlo Licudine (@accidentalrebel)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -50,7 +51,7 @@ public class BlendModes{
         rlj.textures.UnloadImage(fgImage);
 
         final int blendCountMax = 4;
-        int blendMode = RLGL.BlendMode.BLEND_ALPHA;
+        int blendMode = RLGL.rlBlendMode.RL_BLEND_ALPHA;
 
         // Main game loop
         while (!rlj.core.WindowShouldClose())    // Detect window close button or ESC key
@@ -84,16 +85,16 @@ public class BlendModes{
 
             switch (blendMode)
             {
-                case RLGL.BlendMode.BLEND_ALPHA:
+                case RLGL.rlBlendMode.RL_BLEND_ALPHA:
                     rlj.text.DrawText("Current: BLEND_ALPHA", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
                     break;
-                case RLGL.BlendMode.BLEND_ADDITIVE:
+                case RLGL.rlBlendMode.RL_BLEND_ADDITIVE:
                     rlj.text.DrawText("Current: BLEND_ADDITIVE", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
                     break;
-                case RLGL.BlendMode.BLEND_MULTIPLIED:
+                case RLGL.rlBlendMode.RL_BLEND_MULTIPLIED:
                     rlj.text.DrawText("Current: BLEND_MULTIPLIED", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
                     break;
-                case RLGL.BlendMode.BLEND_ADD_COLORS:
+                case RLGL.rlBlendMode.RL_BLEND_ADD_COLORS:
                     rlj.text.DrawText("Current: BLEND_ADD_COLORS", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
                     break;
                 default:

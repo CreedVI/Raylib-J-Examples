@@ -8,6 +8,20 @@ import com.raylib.java.textures.Texture2D;
 
 public class TexturesPoly{
 
+    /*******************************************************************************************
+     *
+     *   raylib-j [textures] example - Textured polygon
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
+
     final static int MAX_POINTS = 11;
 
     public static void main(String[] args){

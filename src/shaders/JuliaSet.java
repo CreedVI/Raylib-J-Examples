@@ -2,15 +2,13 @@ package shaders;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.input.Mouse;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.RenderTexture;
 
 import static com.raylib.java.core.input.Keyboard.*;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_RIGHT_BUTTON;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_FLOAT;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC2;
 
 public class JuliaSet{
 
@@ -23,12 +21,13 @@ public class JuliaSet{
      *
      *   NOTE: Shaders used in this example are #version 330 (OpenGL 3.3).
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by eggmund (@eggmund) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 eggmund (@eggmund) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -76,11 +75,11 @@ public class JuliaSet{
 
         // Tell the shader what the screen dimensions, zoom, offset and c are
         float[] screenDims = {(float) rlj.core.GetScreenWidth(), (float) rlj.core.GetScreenHeight()};
-        rlj.core.SetShaderValue(shader, rlj.core.GetShaderLocation(shader, "screenDims"), screenDims, SHADER_UNIFORM_VEC2);
+        rlj.core.SetShaderValue(shader, rlj.core.GetShaderLocation(shader, "screenDims"), screenDims, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
-        rlj.core.SetShaderValue(shader, cLoc, c, SHADER_UNIFORM_VEC2);
-        rlj.core.SetShaderValue(shader, zoomLoc, new float[]{zoom}, SHADER_UNIFORM_FLOAT);
-        rlj.core.SetShaderValue(shader, offsetLoc, offset, SHADER_UNIFORM_VEC2);
+        rlj.core.SetShaderValue(shader, cLoc, c, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
+        rlj.core.SetShaderValue(shader, zoomLoc, new float[]{zoom}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, offsetLoc, offset, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
         int incrementSpeed = 0;         // Multiplier of speed to change c value
         boolean showControls = true;       // Show controls
@@ -126,7 +125,7 @@ public class JuliaSet{
                     c[1] = pointsOfInterest[5][1];
                 }
 
-                rlj.core.SetShaderValue(shader, cLoc, c, SHADER_UNIFORM_VEC2);
+                rlj.core.SetShaderValue(shader, cLoc, c, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
             }
 
             if (rlj.core.IsKeyPressed(KEY_SPACE)) pause = !pause;                 // Pause animation (c change)
@@ -140,9 +139,9 @@ public class JuliaSet{
 
                 // TODO.txt: The idea is to zoom and move around with mouse
                 // Probably offset movement should be proportional to zoom level
-                if (rlj.core.IsMouseButtonDown(MOUSE_LEFT_BUTTON) || rlj.core.IsMouseButtonDown(MOUSE_RIGHT_BUTTON)){
-                    if (rlj.core.IsMouseButtonDown(MOUSE_LEFT_BUTTON)) zoom += zoom * 0.003f;
-                    if (rlj.core.IsMouseButtonDown(MOUSE_RIGHT_BUTTON)) zoom -= zoom * 0.003f;
+                if (rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_LEFT) || rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_RIGHT)){
+                    if (rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_LEFT)) zoom += zoom * 0.003f;
+                    if (rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_RIGHT)) zoom -= zoom * 0.003f;
 
                     Vector2 mousePos = rlj.core.GetMousePosition();
 
@@ -157,15 +156,15 @@ public class JuliaSet{
                     offsetSpeed = new Vector2(0.0f, 0.0f);
                 }
 
-                rlj.core.SetShaderValue(shader, zoomLoc, new float[]{zoom}, SHADER_UNIFORM_FLOAT);
-                rlj.core.SetShaderValue(shader, offsetLoc, offset, SHADER_UNIFORM_VEC2);
+                rlj.core.SetShaderValue(shader, zoomLoc, new float[]{zoom}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+                rlj.core.SetShaderValue(shader, offsetLoc, offset, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
                 // Increment c value with time
                 float amount = rlj.core.GetFrameTime() * incrementSpeed * 0.0005f;
                 c[0] += amount;
                 c[1] += amount;
 
-                rlj.core.SetShaderValue(shader, cLoc, c, SHADER_UNIFORM_VEC2);
+                rlj.core.SetShaderValue(shader, cLoc, c, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
             }
             //----------------------------------------------------------------------------------
 

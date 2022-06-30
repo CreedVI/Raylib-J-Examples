@@ -2,7 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 
 public class RandomValues{
 
@@ -10,7 +10,7 @@ public class RandomValues{
      *
      *   raylib-j [core] example - Generate random values
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -31,7 +31,7 @@ public class RandomValues{
 
         int framesCounter = 0;          // Variable used to count frames
 
-        int randValue = Core.GetRandomValue(-8, 5);   // Get a random integer number between -8 and 5 (both included)
+        int randValue = rCore.GetRandomValue(-8, 5);   // Get a random integer number between -8 and 5 (both included)
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ public class RandomValues{
             // Every two seconds (120 frames) a new random value is generated
             if (((framesCounter/120)%2) == 1)
             {
-                randValue = Core.GetRandomValue(-8, 5);
+                randValue = rCore.GetRandomValue(-8, 5);
                 framesCounter = 0;
             }
             //----------------------------------------------------------------------------------

@@ -1,12 +1,12 @@
 package shaders;
 
 import com.raylib.java.Raylib;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
 
 import static com.raylib.java.core.Color.*;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_FLOAT;
 
 public class TextureDrawing{
 
@@ -16,12 +16,13 @@ public class TextureDrawing{
      *
      *   This example illustrates how to draw on a blank texture using a shader
      *
-     *   This example has been created using raylib 2.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Michał Ciesielski and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 Michał Ciesielski and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -44,7 +45,7 @@ public class TextureDrawing{
 
         float time = 0.0f;
         int timeLoc = rlj.core.GetShaderLocation(shader, "uTime");
-        rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         // -------------------------------------------------------------------------------------------------------------
@@ -55,7 +56,7 @@ public class TextureDrawing{
             // Update
             //----------------------------------------------------------------------------------
             time = (float)rlj.core.GetTime();
-            rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, SHADER_UNIFORM_FLOAT);
+            rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------
 
             // Draw

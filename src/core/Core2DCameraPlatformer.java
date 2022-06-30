@@ -2,7 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.core.camera.Camera2D;
 import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
@@ -16,7 +16,7 @@ public class Core2DCameraPlatformer{
      *
      *   raylib-j [core] example - 2d camera platformer
      *
-     *   This example has been created using raylib-j (version 0.2)
+     *   This example has been created using raylib-j (version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -119,11 +119,11 @@ public class Core2DCameraPlatformer{
         {
             // Update
             //----------------------------------------------------------------------------------
-            float deltaTime = Core.GetFrameTime();
+            float deltaTime = rCore.GetFrameTime();
 
             UpdatePlayer(player, envItems, envItemsLength, deltaTime);
 
-            camera.zoom += (Core.GetMouseWheelMove()*0.05f);
+            camera.zoom += (rCore.GetMouseWheelMove()*0.05f);
 
             if (camera.zoom > 3.0f) camera.zoom = 3.0f;
             else if (camera.zoom < 0.25f) camera.zoom = 0.25f;

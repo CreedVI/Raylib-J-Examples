@@ -2,20 +2,16 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.camera.Camera;
 import com.raylib.java.core.camera.Camera3D;
+import com.raylib.java.core.camera.rCamera;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.raymath.Vector3;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.rlgl.vr.VrDeviceInfo;
 import com.raylib.java.rlgl.vr.VrStereoConfig;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.RenderTexture;
-
-import static com.raylib.java.core.camera.Camera.CameraMode.CAMERA_FIRST_PERSON;
-import static com.raylib.java.core.camera.Camera.CameraProjection.CAMERA_PERSPECTIVE;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC2;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC4;
 
 public class VRSimulator{
 
@@ -23,7 +19,7 @@ public class VRSimulator{
      *
      *   raylib-j [core] example - VR Simulator (Oculus Rift CV1 parameters)
      *
-     *   This example has been created using raylib-j (Version 0.2)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -74,22 +70,22 @@ public class VRSimulator{
 
         // Update distortion shader with lens and distortion-scale parameters
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "leftLensCenter"),
-                config.leftLensCenter, SHADER_UNIFORM_VEC2);
+                config.leftLensCenter, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "rightLensCenter"),
-                config.rightLensCenter, SHADER_UNIFORM_VEC2);
+                config.rightLensCenter, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "leftScreenCenter"),
-                config.leftScreenCenter, SHADER_UNIFORM_VEC2);
+                config.leftScreenCenter, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "rightScreenCenter"),
-                config.rightScreenCenter, SHADER_UNIFORM_VEC2);
+                config.rightScreenCenter, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "scale"),
-                config.scale, SHADER_UNIFORM_VEC2);
+                config.scale, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "scaleIn"),
-                config.scaleIn, SHADER_UNIFORM_VEC2);
+                config.scaleIn, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "deviceWarpParam"),
-                device.lensDistortionValues, SHADER_UNIFORM_VEC4);
+                device.lensDistortionValues, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC4);
         rlj.core.SetShaderValue(distortion, rlj.core.GetShaderLocation(distortion, "chromaAbParam"),
-                device.chromaAbCorrection, SHADER_UNIFORM_VEC4);
+                device.chromaAbCorrection, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC4);
 
         // Initialize framebuffer for stereo rendering
         // NOTE: Screen size should match HMD aspect ratio
@@ -101,11 +97,11 @@ public class VRSimulator{
         camera.target = new Vector3(0.0f, 2.0f, 0.0f);      // Camera looking at point
         camera.up = new Vector3(0.0f, 1.0f, 0.0f);          // Camera up vector
         camera.fovy = 60.0f;                                // Camera field-of-view Y
-        camera.projection = CAMERA_PERSPECTIVE;             // Cam()era type
+        camera.projection = rCamera.CameraProjection.CAMERA_PERSPECTIVE;             // Cam()era type
 
         Vector3 cubePosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-        Camera.SetCameraMode(camera, CAMERA_FIRST_PERSON);         // Set first person camera mode
+        Camera3D.SetCameraMode(camera, rCamera.CameraMode.CAMERA_FIRST_PERSON);         // Set first person camera mode
 
         rlj.core.SetTargetFPS(90);                   // Set our game to run at 90 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -115,7 +111,7 @@ public class VRSimulator{
         {
             // Update
             //----------------------------------------------------------------------------------
-            Camera.UpdateCamera(camera);          // Update camera (simulator mode)
+            Camera3D.UpdateCamera(camera);          // Update camera (simulator mode)
             //----------------------------------------------------------------------------------
 
             // Draw

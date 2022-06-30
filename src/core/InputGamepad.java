@@ -9,7 +9,21 @@ import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.core.input.Gamepad.GamepadAxis.*;
 import static com.raylib.java.core.input.Gamepad.GamepadButton.*;
 
-public class InputGamepad{
+public class InputGamepad {
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [core] example - Input Gamepad
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     static String XBOX360_LEGACY_NAME_ID = "Xbox Controller";
     static String XBOX360_NAME_ID = "Xbox 360 Controller";
@@ -51,6 +65,7 @@ public class InputGamepad{
             if (rlj.core.IsGamepadAvailable(0)){
                 rlj.text.DrawText("GP1: " + rlj.core.GetGamepadName(0), 10, 10, 10, Color.BLACK);
 
+                // TODO: Find why the IsGamepadName function from rCore was removed
                 if (rlj.core.IsGamepadName(0, XBOX360_NAME_ID) || rlj.core.IsGamepadName(0, XBOX360_LEGACY_NAME_ID)
                         || rlj.core.IsGamepadName(0, XBOX1S_NAME_ID)){
                     rlj.textures.DrawTexture(texXboxPad, 0, 0, Color.DARKGRAY);

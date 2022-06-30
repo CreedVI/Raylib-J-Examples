@@ -2,7 +2,7 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 public class FollowingEyes{
@@ -11,7 +11,7 @@ public class FollowingEyes{
      *
      *   raylib-j [shapes] example - Following Eyes
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -31,8 +31,8 @@ public class FollowingEyes{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - following eyes");
 
-        Vector2 scleraLeftPosition = new Vector2( Core.GetScreenWidth()/2 - 100, Core.GetScreenHeight()/2);
-        Vector2 scleraRightPosition = new Vector2(Core.GetScreenWidth()/2 + 100, Core.GetScreenHeight()/2);
+        Vector2 scleraLeftPosition = new Vector2( rCore.GetScreenWidth()/2 - 100, rCore.GetScreenHeight()/2);
+        Vector2 scleraRightPosition = new Vector2(rCore.GetScreenWidth()/2 + 100, rCore.GetScreenHeight()/2);
         float scleraRadius = 80;
 
         Vector2 irisLeftPosition = scleraLeftPosition;

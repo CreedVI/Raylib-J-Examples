@@ -22,10 +22,13 @@ public class FontLoading{
      *     - XNA Spritefont > Sprite font image, following XNA Spritefont conventions,
      *                 Characters in image must follow some spacing and order rules
      *
-     *   This example has been created using raylib 2.6 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2016-2019 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 

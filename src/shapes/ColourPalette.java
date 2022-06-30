@@ -4,7 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
@@ -15,7 +15,7 @@ public class ColourPalette{
      *
      *   raylib-j [shapes] example - Colour Palette
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -93,13 +93,13 @@ public class ColourPalette{
 
             for (int i = 0; i < MAX_COLORS_COUNT; i++)    // Draw all rectangles
             {
-                rlj.shapes.DrawRectangleRec(colorsRecs[i], Textures.Fade(colors[i], colorState[i]? 0.6f : 1.0f));
+                rlj.shapes.DrawRectangleRec(colorsRecs[i], rTextures.Fade(colors[i], colorState[i]? 0.6f : 1.0f));
 
                 if (rlj.core.IsKeyDown(KEY_SPACE) || colorState[i])
                 {
                     rlj.shapes.DrawRectangle((int)colorsRecs[i].x, (int)(colorsRecs[i].y + colorsRecs[i].height - 26),
                             (int)colorsRecs[i].width, 20, BLACK);
-                    rlj.shapes.DrawRectangleLinesEx(colorsRecs[i], 6, Textures.Fade(BLACK, 0.3f));
+                    rlj.shapes.DrawRectangleLinesEx(colorsRecs[i], 6, rTextures.Fade(BLACK, 0.3f));
                     rlj.text.DrawText(colorNames[i],
                             (int)(colorsRecs[i].x + colorsRecs[i].width - rlj.text.MeasureText(colorNames[i], 10) - 12),
                             (int)(colorsRecs[i].y + colorsRecs[i].height - 20), 10, colors[i]);

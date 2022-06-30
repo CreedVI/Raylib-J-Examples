@@ -3,16 +3,30 @@ package core;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.core.camera.Camera3D;
+import com.raylib.java.core.camera.rCamera;
 import com.raylib.java.raymath.Matrix;
 import com.raylib.java.raymath.Quaternion;
 import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector3;
 
-import static com.raylib.java.core.camera.Camera.CameraProjection.CAMERA_PERSPECTIVE;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 import static com.raylib.java.raymath.Raymath.DEG2RAD;
 
-public class QuatConversion{
+public class QuatConversion {
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [core] example - Quat conversion
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     public static void main(String[] args){
         // Initialization
@@ -27,7 +41,7 @@ public class QuatConversion{
         camera.target = new Vector3(0.0f, 0.0f, 0.0f);      // Camera looking at point
         camera.up = new Vector3(0.0f, 1.0f, 0.0f);          // Camera up vector (rotation towards target)
         camera.fovy = 45.0f;                                // Camera field-of-view Y
-        camera.projection = CAMERA_PERSPECTIVE;                   // Camera mode type
+        camera.projection = rCamera.CameraProjection.CAMERA_PERSPECTIVE;                   // Camera mode type
 
         //TODO.txt: Module MODELS
         //Mesh mesh = GenMeshCylinder(0.2f, 1.0f, 32);

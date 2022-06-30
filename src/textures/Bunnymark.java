@@ -2,11 +2,11 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
 
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class Bunnymark{
 
@@ -14,10 +14,13 @@ public class Bunnymark{
      *
      *   raylib-j [textures] example - Bunnymark
      *
-     *   This example has been created using raylib 1.6 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2014-2019 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -67,18 +70,18 @@ public class Bunnymark{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
                 // Create more bunnies
                 for (int i = 0; i < 100; i++)
                 {
                     if (bunniesCount < MAX_BUNNIES)
                     {
-                        bunnies[bunniesCount].position = Core.GetMousePosition();
-                        bunnies[bunniesCount].speed.x = (float) Core.GetRandomValue(-250, 250)/60.0f;
-                        bunnies[bunniesCount].speed.y = (float) Core.GetRandomValue(-250, 250)/60.0f;
-                        bunnies[bunniesCount].color = new Color(Core.GetRandomValue(50, 240),
-                                Core.GetRandomValue(80, 240), Core.GetRandomValue(100, 240), 255);
+                        bunnies[bunniesCount].position = rCore.GetMousePosition();
+                        bunnies[bunniesCount].speed.x = (float) rCore.GetRandomValue(-250, 250)/60.0f;
+                        bunnies[bunniesCount].speed.y = (float) rCore.GetRandomValue(-250, 250)/60.0f;
+                        bunnies[bunniesCount].color = new Color(rCore.GetRandomValue(50, 240),
+                                rCore.GetRandomValue(80, 240), rCore.GetRandomValue(100, 240), 255);
                         bunniesCount++;
                     }
                 }

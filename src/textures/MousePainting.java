@@ -6,12 +6,12 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.RenderTexture;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.*;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_RIGHT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_RIGHT;
 
 public class MousePainting{
 
@@ -19,12 +19,13 @@ public class MousePainting{
      *
      *   raylib-j [textures] example - Mouse painting
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Chris Dill (@MysteriousSpace) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 Chris Dill (@MysteriousSpace) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -108,7 +109,7 @@ public class MousePainting{
                 }
             }
 
-            if ((colorMouseHover >= 0) && rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON)){
+            if ((colorMouseHover >= 0) && rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)){
                 colorSelected = colorMouseHover;
                 colorSelectedPrev = colorSelected;
             }
@@ -125,7 +126,7 @@ public class MousePainting{
                 rlj.core.EndTextureMode();
             }
 
-            if (rlj.core.IsMouseButtonDown(MOUSE_LEFT_BUTTON)){
+            if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT)){
                 // Paint circle into render texture
                 // NOTE: To avoid discontinuous circles, we could store
                 // previous-next mouse points and just draw a line using brush size
@@ -136,7 +137,7 @@ public class MousePainting{
                 rlj.core.EndTextureMode();
             }
 
-            if (rlj.core.IsMouseButtonDown(MOUSE_RIGHT_BUTTON)){
+            if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_RIGHT)){
                 if (!mouseWasPressed){
                     colorSelectedPrev = colorSelected;
                     colorSelected = 0;
@@ -151,7 +152,7 @@ public class MousePainting{
                 }
                 rlj.core.EndTextureMode();
             }
-            else if (rlj.core.IsMouseButtonReleased(MOUSE_RIGHT_BUTTON) && mouseWasPressed){
+            else if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_RIGHT) && mouseWasPressed){
                 colorSelected = colorSelectedPrev;
                 mouseWasPressed = false;
             }
@@ -166,8 +167,9 @@ public class MousePainting{
 
             // Image saving logic
             // NOTE: Saving painted texture to a default named image
-            if ((btnSaveMouseHover && rlj.core.IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) || rlj.core.IsKeyPressed(KEY_S)){
-                Image image = Textures.GetTextureData(target.texture);
+            if ((btnSaveMouseHover && rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) || rlj.core.IsKeyPressed(KEY_S)){
+                // TODO: Find why GetTextureData was deleted
+                Image image = rTextures.GetTextureData(target.texture);
                 rlj.textures.ImageFlipVertical(image);
                 rlj.textures.ExportImage(image, "my_amazing_texture_painting.png");
                 rlj.textures.UnloadImage(image);
@@ -196,7 +198,7 @@ public class MousePainting{
 
             // Draw drawing circle for reference
             if (mousePos.y > 50){
-                if (rlj.core.IsMouseButtonDown(MOUSE_RIGHT_BUTTON)){
+                if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_RIGHT)){
                     rlj.shapes.DrawCircleLines((int) mousePos.x, (int) mousePos.y, brushSize, GRAY);
                 }
                 else{
@@ -215,7 +217,7 @@ public class MousePainting{
             rlj.shapes.DrawRectangleLines(10, 10, 30, 30, LIGHTGRAY);
 
             if (colorMouseHover >= 0){
-                rlj.shapes.DrawRectangleRec(colorsRecs[colorMouseHover], Textures.Fade(WHITE, 0.6f));
+                rlj.shapes.DrawRectangleRec(colorsRecs[colorMouseHover], rTextures.Fade(WHITE, 0.6f));
             }
 
             rlj.shapes.DrawRectangleLinesEx(new Rectangle(colorsRecs[colorSelected].x - 2,
@@ -229,7 +231,7 @@ public class MousePainting{
             // Draw save image message
             if (showSaveMessage){
                 rlj.shapes.DrawRectangle(0, 0, rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight(),
-                                         Textures.Fade(RAYWHITE, 0.8f));
+                                         rTextures.Fade(RAYWHITE, 0.8f));
                 rlj.shapes.DrawRectangle(0, 150, rlj.core.GetScreenWidth(), 80, BLACK);
                 rlj.text.DrawText("IMAGE SAVED:  my_amazing_texture_painting.png", 150, 180, 20, RAYWHITE);
             }

@@ -2,10 +2,10 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.Easings;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
@@ -16,7 +16,7 @@ public class EasingsBox{
      *
      *   raylib-j [shapes] example - Easings Box
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -34,7 +34,7 @@ public static void main(String[] args){
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - easings box anim");
 
         // Box variables to be animated with easings
-        Rectangle rec = new Rectangle((float)Core.GetScreenWidth()/2, -100, 100, 100);
+        Rectangle rec = new Rectangle((float)rCore.GetScreenWidth()/2, -100, 100, 100);
         float rotation = 0.0f;
         float alpha = 1.0f;
 
@@ -57,7 +57,7 @@ public static void main(String[] args){
 
                     // NOTE: Remember that 3rd parameter of easing function refers to
                     // desired value variation, do not confuse it with expected final value!
-                    rec.y = Easings.EaseElasticOut(framesCounter, -100, (float)Core.GetScreenHeight()/2 + 100, 120);
+                    rec.y = Easings.EaseElasticOut(framesCounter, -100, (float)rCore.GetScreenHeight()/2 + 100, 120);
 
                     if (framesCounter >= 120)
                     {
@@ -69,7 +69,7 @@ public static void main(String[] args){
                 {
                     framesCounter++;
                     rec.height = Easings.EaseBounceOut(framesCounter, 100, -90, 120);
-                    rec.width = Easings.EaseBounceOut(framesCounter, 100, Core.GetScreenWidth(), 120);
+                    rec.width = Easings.EaseBounceOut(framesCounter, 100, rCore.GetScreenWidth(), 120);
 
                     if (framesCounter >= 120)
                     {
@@ -91,7 +91,7 @@ public static void main(String[] args){
                 case 3:     // Increase bar size to fill all screen
                 {
                     framesCounter++;
-                    rec.height = Easings.EaseCircOut(framesCounter, 10, Core.GetScreenWidth(), 120);
+                    rec.height = Easings.EaseCircOut(framesCounter, 10, rCore.GetScreenWidth(), 120);
 
                     if (framesCounter >= 120)
                     {
@@ -116,7 +116,7 @@ public static void main(String[] args){
             // Reset animation at any moment
             if (rlj.core.IsKeyPressed(KEY_SPACE))
             {
-                rec = new Rectangle((float)Core.GetScreenWidth()/2, -100, 100, 100);
+                rec = new Rectangle((float)rCore.GetScreenWidth()/2, -100, 100, 100);
                 rotation = 0.0f;
                 alpha = 1.0f;
                 state = 0;
@@ -131,9 +131,9 @@ public static void main(String[] args){
             rlj.core.ClearBackground(Color.RAYWHITE);
 
             rlj.shapes.DrawRectanglePro(rec, new Vector2(rec.width/2, rec.height/2), rotation,
-                    Textures.Fade(Color.BLACK, alpha));
+                    rTextures.Fade(Color.BLACK, alpha));
 
-            rlj.text.DrawText("PRESS [SPACE] TO RESET BOX ANIMATION!", 10, Core.GetScreenHeight() - 25, 20,
+            rlj.text.DrawText("PRESS [SPACE] TO RESET BOX ANIMATION!", 10, rCore.GetScreenHeight() - 25, 20,
                     Color.LIGHTGRAY);
 
             rlj.core.EndDrawing();

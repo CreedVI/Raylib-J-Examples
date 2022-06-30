@@ -2,17 +2,30 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
-import static com.raylib.java.rlgl.RLGL.BlendMode.BLEND_ADDITIVE;
-import static com.raylib.java.rlgl.RLGL.BlendMode.BLEND_ALPHA;
 
 public class ParticlesBlending{
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [textures] example - Particles blending
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     static class Particle{
         Vector2 position;
@@ -42,11 +55,11 @@ public class ParticlesBlending{
         {
             mouseTail[i] = new Particle();
             mouseTail[i].position = new Vector2();
-            mouseTail[i].color = new Color(Core.GetRandomValue(0, 255), Core.GetRandomValue(0, 255),
-                    Core.GetRandomValue(0, 255), 255);
+            mouseTail[i].color = new Color(rCore.GetRandomValue(0, 255), rCore.GetRandomValue(0, 255),
+                    rCore.GetRandomValue(0, 255), 255);
             mouseTail[i].alpha = 1.0f;
-            mouseTail[i].size = (float)Core.GetRandomValue(1, 30)/20.0f;
-            mouseTail[i].rotation = (float)Core.GetRandomValue(0, 360);
+            mouseTail[i].size = (float)rCore.GetRandomValue(1, 30)/20.0f;
+            mouseTail[i].rotation = (float)rCore.GetRandomValue(0, 360);
             mouseTail[i].active = false;
         }
 
@@ -54,7 +67,7 @@ public class ParticlesBlending{
 
         Texture2D smoke = rlj.textures.LoadTexture("resources/spark_flame.png");
 
-        int blending = BLEND_ALPHA;
+        int blending = RLGL.rlBlendMode.RL_BLEND_ALPHA;
 
         rlj.core.SetTargetFPS(60);
         //--------------------------------------------------------------------------------------
@@ -95,11 +108,11 @@ public class ParticlesBlending{
 
             if (rlj.core.IsKeyPressed(KEY_SPACE))
             {
-                if (blending == BLEND_ALPHA){
-                    blending = BLEND_ADDITIVE;
+                if (blending == RLGL.rlBlendMode.RL_BLEND_ALPHA){
+                    blending = RLGL.rlBlendMode.RL_BLEND_ADDITIVE;
                 }
                 else{
-                    blending = BLEND_ALPHA;
+                    blending = RLGL.rlBlendMode.RL_BLEND_ALPHA;
                 }
             }
             //----------------------------------------------------------------------------------
@@ -121,7 +134,7 @@ public class ParticlesBlending{
                             new Rectangle(mouseTail[i].position.x, mouseTail[i].position.y,
                                     smoke.width*mouseTail[i].size, smoke.height*mouseTail[i].size),
                             new Vector2((smoke.width*mouseTail[i].size/2.0f), smoke.height*mouseTail[i].size/2.0f),
-                            mouseTail[i].rotation, Textures.Fade(mouseTail[i].color, mouseTail[i].alpha));
+                            mouseTail[i].rotation, rTextures.Fade(mouseTail[i].color, mouseTail[i].alpha));
                 }
             }
 
@@ -129,7 +142,7 @@ public class ParticlesBlending{
 
             rlj.text.DrawText("PRESS SPACE to CHANGE BLENDING MODE", 180, 20, 20, Color.BLACK);
 
-            if (blending == BLEND_ALPHA){
+            if (blending == RLGL.rlBlendMode.RL_BLEND_ALPHA){
                 rlj.text.DrawText("ALPHA BLENDING", 290, screenHeight - 40, 20, Color.BLACK);
             }
             else{

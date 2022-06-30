@@ -11,12 +11,13 @@ public class ImageLoading{
      *
      *   raylib-j [textures] example - Image loading and texture creation
      *
-     *   NOTE: Images are loaded in CPU memory (RAM); textures are loaded in GPU memory (VRAM)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   This example has been created using raylib 1.3 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-     *
-     *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 

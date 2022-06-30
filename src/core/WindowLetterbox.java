@@ -3,7 +3,7 @@ package core;
 import com.raylib.java.Config;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
@@ -17,7 +17,7 @@ public class WindowLetterbox{
      *
      *   raylib-j [core] example - window scale letterbox (and virtual mouse)
      *
-     *   This example has been created using raylib-j (version 0.2)
+     *   This example has been created using raylib-j (version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -56,13 +56,13 @@ public class WindowLetterbox{
 
         // Render texture initialization, used to hold the rendering result so we can easily resize it
         RenderTexture target = rlj.textures.LoadRenderTexture(gameScreenWidth, gameScreenHeight);
-        rlj.textures.SetTextureFilter(target.texture, RLGL.TextureFilterMode.TEXTURE_FILTER_BILINEAR);  // Texture scale
+        rlj.textures.SetTextureFilter(target.texture, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_BILINEAR);  // Texture scale
         // filter to use
 
         Color[] colors = new Color[10];
         for (int i = 0; i < 10; i++)
-            colors[i] = new Color(Core.GetRandomValue(100, 250), Core.GetRandomValue(50, 150),
-                Core.GetRandomValue(10, 100), 255 );
+            colors[i] = new Color(rCore.GetRandomValue(100, 250), rCore.GetRandomValue(50, 150),
+                    rCore.GetRandomValue(10, 100), 255 );
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -80,8 +80,8 @@ public class WindowLetterbox{
             {
                 // Recalculate random colors for the bars
                 for (int i = 0; i < 10; i++)
-                    colors[i] = new Color(Core.GetRandomValue(100, 250), Core.GetRandomValue(50, 150),
-                            Core.GetRandomValue(10, 100), 255);
+                    colors[i] = new Color(rCore.GetRandomValue(100, 250), rCore.GetRandomValue(50, 150),
+                            rCore.GetRandomValue(10, 100), 255);
             }
 
             // Update virtual mouse (clamped mouse value behind game screen)

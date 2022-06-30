@@ -5,11 +5,11 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class RectangleBounds{
 
@@ -17,12 +17,13 @@ public class RectangleBounds{
      *
      *   raylib [text] example - Draw text inside a rectangle
      *
-     *   This example has been created using raylib 2.3 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Vlad Adrian (@demizdor) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2018 Vlad Adrian (@demizdor) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -68,13 +69,13 @@ public class RectangleBounds{
             Vector2 mouse = rlj.core.GetMousePosition();
 
             // Check if the mouse is inside the container and toggle border color
-            if (rlj.shapes.CheckCollisionPointRec(mouse, container)) borderColor = Textures.Fade(MAROON, 0.4f);
+            if (rlj.shapes.CheckCollisionPointRec(mouse, container)) borderColor = rTextures.Fade(MAROON, 0.4f);
             else if (!resizing) borderColor = MAROON;
 
             // Container resizing logic
             if (resizing)
             {
-                if (rlj.core.IsMouseButtonReleased(MOUSE_LEFT_BUTTON)) resizing = false;
+                if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) resizing = false;
 
                 float width = container.width + (mouse.x - lastMouse.x);
                 container.width = (width > minWidth)? ((width < maxWidth)? width : maxWidth) : minWidth;
@@ -85,7 +86,7 @@ public class RectangleBounds{
             else
             {
                 // Check if we're resizing
-                if (rlj.core.IsMouseButtonDown(MOUSE_LEFT_BUTTON) && rlj.shapes.CheckCollisionPointRec(mouse, resizer)) resizing = true;
+                if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT) && rlj.shapes.CheckCollisionPointRec(mouse, resizer)) resizing = true;
             }
 
             // Move resizer rectangle properly
@@ -104,6 +105,7 @@ public class RectangleBounds{
             rlj.shapes.DrawRectangleLinesEx(container, 3, borderColor); // Draw container border
 
             // Draw text in container (add some padding)
+            // TODO: Find why DrawTextRec was deleted
             rlj.text.DrawTextRec(font, text, new Rectangle(container.x + 4, container.y + 4, container.width - 4, container.height - 4), 20.0f, 2.0f, wordWrap, GRAY);
 
             rlj.shapes.DrawRectangleRec(resizer, borderColor);         // Draw the resize box

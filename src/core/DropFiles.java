@@ -2,7 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 public class DropFiles{
 
@@ -12,7 +12,7 @@ public class DropFiles{
      *
      *   This example only works on platforms that support drag & drop (Windows, Linux, OSX, Html5?)
      *
-     *   This example has been created using raylib-j (Version 0.3)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -61,10 +61,10 @@ public class DropFiles{
 
                 for (int i = 0; i < count; i++){
                     if (i % 2 == 0){
-                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, Textures.Fade(Color.LIGHTGRAY, 0.5f));
+                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, rTextures.Fade(Color.LIGHTGRAY, 0.5f));
                     }
                     else{
-                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, Textures.Fade(Color.LIGHTGRAY, 0.3f));
+                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, rTextures.Fade(Color.LIGHTGRAY, 0.3f));
                     }
 
                     rlj.text.DrawText(droppedFiles[i], 120, 100 + 40 * i, 10, Color.GRAY);

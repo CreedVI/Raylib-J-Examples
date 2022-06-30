@@ -4,13 +4,13 @@ import com.raylib.java.Config;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.*;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
-import static com.raylib.java.rlgl.RLGL.TextureFilterMode.TEXTURE_FILTER_TRILINEAR;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class DrawTiled{
 
@@ -18,10 +18,13 @@ public class DrawTiled{
      *
      *   raylib-j [textures] example - Draw part of the texture tiled
      *
-     *   This example has been created using raylib 3.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2020 Vlad Adrian (@demizdor) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -42,7 +45,7 @@ public class DrawTiled{
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
         Texture2D texPattern = rlj.textures.LoadTexture("resources/patterns.png");
-        rlj.textures.SetTextureFilter(texPattern, TEXTURE_FILTER_TRILINEAR); // Makes the texture smoother when upscaled
+        rlj.textures.SetTextureFilter(texPattern, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_TRILINEAR); // Makes the texture smoother when upscaled
 
         // Coordinates for all patterns inside the texture
          Rectangle[] recPattern = {
@@ -93,7 +96,7 @@ public class DrawTiled{
             screenHeight = rlj.core.GetScreenHeight();
 
             // Handle mouse
-            if (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
                 Vector2 mouse = rlj.core.GetMousePosition();
 

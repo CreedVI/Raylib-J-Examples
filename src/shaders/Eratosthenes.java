@@ -25,12 +25,13 @@ public class Eratosthenes{
      *
      *   NOTE: Shaders used in this example are #version 330 (OpenGL 3.3).
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by ProfJski and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 ProfJski and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 

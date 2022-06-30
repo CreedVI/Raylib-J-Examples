@@ -6,7 +6,21 @@ import com.raylib.java.shapes.Rectangle;
 
 import static com.raylib.java.core.input.Keyboard.KEY_S;
 
-public class ScissorTest{
+public class ScissorTest {
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [core] example - Scissor test
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     public static void main(String[] args){
         // Initialization

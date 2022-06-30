@@ -1,7 +1,7 @@
 package core;
 
 import com.raylib.java.Raylib;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.core.input.Keyboard;
 
 import java.io.IOException;
@@ -41,8 +41,8 @@ public class StorageValues{
             // Update
             //----------------------------------------------------------------------------------
             if (rlj.core.IsKeyPressed(Keyboard.KEY_R)){
-                score = Core.GetRandomValue(1000, 2000);
-                hiscore = Core.GetRandomValue(2000, 4000);
+                score = rCore.GetRandomValue(1000, 2000);
+                hiscore = rCore.GetRandomValue(2000, 4000);
             }
 
             if (rlj.core.IsKeyPressed(KEY_ENTER)){

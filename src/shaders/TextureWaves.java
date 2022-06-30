@@ -1,13 +1,12 @@
 package shaders;
 
 import com.raylib.java.Raylib;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
 
 import static com.raylib.java.core.Color.RAYWHITE;
 import static com.raylib.java.core.Color.WHITE;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_FLOAT;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC2;
 
 public class TextureWaves{
 
@@ -22,12 +21,13 @@ public class TextureWaves{
      *         on OpenGL ES 2.0 platforms (Android, Raspberry Pi, HTML5), use #version 100 shaders
      *         raylib comes with shaders ready for both versions, check raylib/shaders install folder
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Anata (@anatagawa) and reviewed by Ramon Santamaria (@raysan5)
-     *
-     *   Copyright (c) 2019 Anata (@anatagawa) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -63,13 +63,13 @@ public class TextureWaves{
         float[] speedY = {8.0f};
 
         float[] screenSize = { (float)rlj.core.GetScreenWidth(), (float)rlj.core.GetScreenHeight() };
-        rlj.core.SetShaderValue(shader, rlj.core.GetShaderLocation(shader, "size"), screenSize, SHADER_UNIFORM_VEC2);
-        rlj.core.SetShaderValue(shader, freqXLoc, freqX, SHADER_UNIFORM_FLOAT);
-        rlj.core.SetShaderValue(shader, freqYLoc, freqY, SHADER_UNIFORM_FLOAT);
-        rlj.core.SetShaderValue(shader, ampXLoc, ampX, SHADER_UNIFORM_FLOAT);
-        rlj.core.SetShaderValue(shader, ampYLoc, ampY, SHADER_UNIFORM_FLOAT);
-        rlj.core.SetShaderValue(shader, speedXLoc, speedX, SHADER_UNIFORM_FLOAT);
-        rlj.core.SetShaderValue(shader, speedYLoc, speedY, SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, rlj.core.GetShaderLocation(shader, "size"), screenSize, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
+        rlj.core.SetShaderValue(shader, freqXLoc, freqX, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, freqYLoc, freqY, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, ampXLoc, ampX, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, ampYLoc, ampY, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, speedXLoc, speedX, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        rlj.core.SetShaderValue(shader, speedYLoc, speedY, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
 
         float seconds = 0.0f;
 
@@ -83,7 +83,7 @@ public class TextureWaves{
             //----------------------------------------------------------------------------------
             seconds += rlj.core.GetFrameTime();
 
-            rlj.core.SetShaderValue(shader, secondsLoc, new float[]{seconds}, SHADER_UNIFORM_FLOAT);
+            rlj.core.SetShaderValue(shader, secondsLoc, new float[]{seconds}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------
 
             // Draw

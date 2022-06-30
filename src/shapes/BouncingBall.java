@@ -12,7 +12,7 @@ public class BouncingBall{
      *
      *   raylib-j [shapes] example - Bouncing Ball
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *

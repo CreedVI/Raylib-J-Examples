@@ -4,8 +4,8 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.shapes.Rectangle;
 
-import static com.raylib.java.core.Core.GetScreenHeight;
-import static com.raylib.java.core.Core.GetScreenWidth;
+import static com.raylib.java.core.rCore.GetScreenHeight;
+import static com.raylib.java.core.rCore.GetScreenWidth;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
 public class CollisionArea{
@@ -14,7 +14,7 @@ public class CollisionArea{
      *
      *   raylib-j [shapes] example - Collision Area
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
