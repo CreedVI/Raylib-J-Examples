@@ -2,8 +2,10 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.core.input.Gamepad.GamepadAxis.*;
@@ -39,12 +41,12 @@ public class InputGamepad {
 
         Raylib rlj = new Raylib();
 
-        rlj.core.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Set MSAA 4X hint before windows creation
+        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Set MSAA 4X hint before windows creation
 
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib-j [core] example - gamepad input");
 
-        Texture2D texPs3Pad = rlj.textures.LoadTexture("resources/ps3.png");
-        Texture2D texXboxPad = rlj.textures.LoadTexture("resources/xbox.png");
+        Texture2D texPs3Pad = rTextures.LoadTexture("resources/ps3.png");
+        Texture2D texXboxPad = rTextures.LoadTexture("resources/xbox.png");
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------

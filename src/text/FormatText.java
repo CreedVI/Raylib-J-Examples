@@ -2,6 +2,7 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 
 public class FormatText{
 
@@ -55,7 +56,7 @@ public class FormatText{
 
             rlj.text.DrawText(rlj.text.TextFormat("Lives: %02d", lives), 200, 160, 40, Color.BLUE);
 
-            rlj.text.DrawText(rlj.text.TextFormat("Elapsed Time: %02.02f ms", rlj.core.GetFrameTime()*1000), 200, 220, 20, Color.BLACK);
+            rlj.text.DrawText(rlj.text.TextFormat("Elapsed Time: %02.02f ms", rCore.GetFrameTime()*1000), 200, 220, 20, Color.BLACK);
 
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------

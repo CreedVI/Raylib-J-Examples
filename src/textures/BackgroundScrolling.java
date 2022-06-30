@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class BackgroundScrolling{
 
@@ -33,9 +34,9 @@ public class BackgroundScrolling{
 
         // NOTE: Be careful, background width must be equal or bigger than screen width
         // if not, texture should be draw more than two times for scrolling effect
-        Texture2D background = rlj.textures.LoadTexture("resources/cyberpunk_street_background.png");
-        Texture2D midground = rlj.textures.LoadTexture("resources/cyberpunk_street_midground.png");
-        Texture2D foreground = rlj.textures.LoadTexture("resources/cyberpunk_street_foreground.png");
+        Texture2D background = rTextures.LoadTexture("resources/cyberpunk_street_background.png");
+        Texture2D midground = rTextures.LoadTexture("resources/cyberpunk_street_midground.png");
+        Texture2D foreground = rTextures.LoadTexture("resources/cyberpunk_street_foreground.png");
 
         float scrollingBack = 0.0f;
         float scrollingMid = 0.0f;

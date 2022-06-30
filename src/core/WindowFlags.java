@@ -2,6 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 
@@ -52,7 +53,7 @@ public class WindowFlags{
         //SetConfigFlags(FLAG_VSYNC_HINT | FLAG_MSAA_4X_HINT | FLAG_WINDOW_HIGHDPI);
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [core] example - window flags");
 
-        Vector2 ballPosition = new Vector2(rlj.core.GetScreenWidth() / 2.0f, rlj.core.GetScreenHeight() / 2.0f);
+        Vector2 ballPosition = new Vector2(rCore.GetScreenWidth() / 2.0f, rCore.GetScreenHeight() / 2.0f);
         Vector2 ballSpeed = new Vector2(5.0f, 4.0f);
         float ballRadius = 20;
 
@@ -157,10 +158,10 @@ public class WindowFlags{
             // Bouncing ball logic
             ballPosition.x += ballSpeed.x;
             ballPosition.y += ballSpeed.y;
-            if ((ballPosition.x >= (rlj.core.GetScreenWidth() - ballRadius)) || (ballPosition.x <= ballRadius)){
+            if ((ballPosition.x >= (rCore.GetScreenWidth() - ballRadius)) || (ballPosition.x <= ballRadius)){
                 ballSpeed.x *= -1.0f;
             }
-            if ((ballPosition.y >= (rlj.core.GetScreenHeight() - ballRadius)) || (ballPosition.y <= ballRadius)){
+            if ((ballPosition.y >= (rCore.GetScreenHeight() - ballRadius)) || (ballPosition.y <= ballRadius)){
                 ballSpeed.y *= -1.0f;
             }
             //-----------------------------------------------------
@@ -177,14 +178,14 @@ public class WindowFlags{
             }
 
             rlj.shapes.DrawCircleV(ballPosition, ballRadius, Color.MAROON);
-            rlj.shapes.DrawRectangleLinesEx(new Rectangle(0, 0, rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight()),
+            rlj.shapes.DrawRectangleLinesEx(new Rectangle(0, 0, rCore.GetScreenWidth(), rCore.GetScreenHeight()),
                     4, Color.RAYWHITE);
 
-            rlj.shapes.DrawCircleV(rlj.core.GetMousePosition(), 10, Color.DARKBLUE);
+            rlj.shapes.DrawCircleV(rCore.GetMousePosition(), 10, Color.DARKBLUE);
 
             rlj.text.DrawFPS(10, 10);
 
-            rlj.text.DrawText("Screen Size: " + rlj.core.GetScreenWidth() + ", " + rlj.core.GetScreenHeight(),10,
+            rlj.text.DrawText("Screen Size: " + rCore.GetScreenWidth() + ", " + rCore.GetScreenHeight(),10,
                     40, 10, Color.GREEN);
 
             // Draw window state info

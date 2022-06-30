@@ -45,8 +45,8 @@ public class LinesBezier{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) start = rlj.core.GetMousePosition();
-            else if (rlj.core.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) end = rlj.core.GetMousePosition();
+            if (rCore.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) start = rCore.GetMousePosition();
+            else if (rCore.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) end = rCore.GetMousePosition();
             //----------------------------------------------------------------------------------
 
             // Draw

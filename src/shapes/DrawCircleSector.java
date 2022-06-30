@@ -29,7 +29,7 @@ public class DrawCircleSector{
         final int screenHeight = 450;
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - draw circle sector");
 
-        Vector2 center = new Vector2((rCore.GetScreenWidth() - 300)/2, rCore.GetScreenHeight()/2);
+        Vector2 center = new Vector2((rCore.GetScreenWidth() - 300)/2.0f, rCore.GetScreenHeight()/2.0f);
 
         float outerRadius = 180.0f;
         int startAngle = 0;

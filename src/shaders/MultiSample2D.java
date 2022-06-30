@@ -2,6 +2,7 @@ package shaders;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Image;
@@ -44,20 +45,20 @@ public class MultiSample2D{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib - multiple sample2D");
 
         Image imRed = rlj.textures.GenImageColor(800, 450, new Color(255, 0, 0, 255));
-        Texture2D texRed = rlj.textures.LoadTextureFromImage(imRed);
+        Texture2D texRed = rTextures.LoadTextureFromImage(imRed);
         rTextures.UnloadImage(imRed);
 
         Image imBlue = rlj.textures.GenImageColor(800, 450, new Color(0, 0, 255, 255));
-        Texture2D texBlue = rlj.textures.LoadTextureFromImage(imBlue);
+        Texture2D texBlue = rTextures.LoadTextureFromImage(imBlue);
         rTextures.UnloadImage(imBlue);
 
         Shader shader = rlj.core.LoadShader( null, "resources/shaders/color_mix.fs");
 
         // Get an additional sampler2D location to be enabled on drawing
-        int texBlueLoc = rlj.core.GetShaderLocation(shader, "texture1");
+        int texBlueLoc = rCore.GetShaderLocation(shader, "texture1");
 
         // Get shader uniform for divider
-        int dividerLoc = rlj.core.GetShaderLocation(shader, "divider");
+        int dividerLoc = rCore.GetShaderLocation(shader, "divider");
         float[] dividerValue = {0.5f};
 
         rlj.core.SetTargetFPS(60);                           // Set our game to run at 60 frames-per-second
@@ -68,13 +69,13 @@ public class MultiSample2D{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsKeyDown(KEY_RIGHT)) dividerValue[0] += 0.01f;
-            else if (rlj.core.IsKeyDown(KEY_LEFT)) dividerValue[0] -= 0.01f;
+            if (rCore.IsKeyDown(KEY_RIGHT)) dividerValue[0] += 0.01f;
+            else if (rCore.IsKeyDown(KEY_LEFT)) dividerValue[0] -= 0.01f;
 
             if (dividerValue[0] < 0.0f) dividerValue[0] = 0.0f;
             else if (dividerValue[0] > 1.0f) dividerValue[0] = 1.0f;
 
-            rlj.core.SetShaderValue(shader, dividerLoc, dividerValue, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+            rCore.SetShaderValue(shader, dividerLoc, dividerValue, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -97,7 +98,7 @@ public class MultiSample2D{
             rlj.core.EndShaderMode();
 
             rlj.text.DrawText("Use KEY_LEFT/KEY_RIGHT to move texture mixing in shader!", 80,
-                    rlj.core.GetScreenHeight() - 40, 20, Color.RAYWHITE);
+                    rCore.GetScreenHeight() - 40, 20, Color.RAYWHITE);
 
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------

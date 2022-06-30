@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
@@ -53,7 +54,7 @@ public class Bunnymark{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - bunnymark");
 
         // Load bunny texture
-        Texture2D texBunny = rlj.textures.LoadTexture("resources/wabbit_alpha.png");
+        Texture2D texBunny = rTextures.LoadTexture("resources/wabbit_alpha.png");
 
         Bunny[] bunnies = new Bunny[MAX_BUNNIES];    // Bunnies array
         for (int i = 0; i < bunnies.length; i++){
@@ -70,7 +71,7 @@ public class Bunnymark{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT))
+            if (rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
                 // Create more bunnies
                 for (int i = 0; i < 100; i++)
@@ -93,10 +94,10 @@ public class Bunnymark{
                 bunnies[i].position.x += bunnies[i].speed.x;
                 bunnies[i].position.y += bunnies[i].speed.y;
 
-                if (((bunnies[i].position.x + texBunny.width/2) > rlj.core.GetScreenWidth()) ||
-                        ((bunnies[i].position.x + texBunny.width/2) < 0)) bunnies[i].speed.x *= -1;
-                if (((bunnies[i].position.y + texBunny.height/2) > rlj.core.GetScreenHeight()) ||
-                        ((bunnies[i].position.y + texBunny.height/2 - 40) < 0)) bunnies[i].speed.y *= -1;
+                if (((bunnies[i].position.x + texBunny.width/2.0f) > rCore.GetScreenWidth()) ||
+                        ((bunnies[i].position.x + texBunny.width/2.0f) < 0)) bunnies[i].speed.x *= -1;
+                if (((bunnies[i].position.y + texBunny.height/2.0f) > rCore.GetScreenHeight()) ||
+                        ((bunnies[i].position.y + texBunny.height/2.0f - 40) < 0)) bunnies[i].speed.y *= -1;
             }
             //----------------------------------------------------------------------------------
 

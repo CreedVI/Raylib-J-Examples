@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class ShapesTextures{
 
@@ -38,7 +39,7 @@ public class ShapesTextures{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shaders] example - shapes and texture shaders");
 
-        Texture2D fudesumi = rlj.textures.LoadTexture("resources/fudesumi.png");
+        Texture2D fudesumi = rTextures.LoadTexture("resources/fudesumi.png");
 
         // Load shader to be used on some parts drawing
         // NOTE 1: Using GLSL 330 shader version, on OpenGL ES 2.0 use GLSL 100 shader version

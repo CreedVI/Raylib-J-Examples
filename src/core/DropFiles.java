@@ -2,6 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.textures.rTextures;
 
 public class DropFiles{
@@ -79,7 +80,7 @@ public class DropFiles{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rlj.core.ClearDroppedFiles();    // Clear internal buffers
+        rCore.ClearDroppedFiles();    // Clear internal buffers
         //--------------------------------------------------------------------------------------
 
     }

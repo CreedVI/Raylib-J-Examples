@@ -65,7 +65,7 @@ public class ParticlesBlending{
 
         float gravity = 3.0f;
 
-        Texture2D smoke = rlj.textures.LoadTexture("resources/spark_flame.png");
+        Texture2D smoke = rTextures.LoadTexture("resources/spark_flame.png");
 
         int blending = RLGL.rlBlendMode.RL_BLEND_ALPHA;
 
@@ -88,7 +88,7 @@ public class ParticlesBlending{
                 {
                     mouseTail[i].active = true;
                     mouseTail[i].alpha = 1.0f;
-                    mouseTail[i].position = rlj.core.GetMousePosition();
+                    mouseTail[i].position = rCore.GetMousePosition();
                     i = MAX_PARTICLES;
                 }
             }
@@ -129,7 +129,7 @@ public class ParticlesBlending{
             for (int i = 0; i < MAX_PARTICLES; i++)
             {
                 if (mouseTail[i].active){
-                    rlj.textures.DrawTexturePro(smoke,
+                    rTextures.DrawTexturePro(smoke,
                             new Rectangle(0.0f, 0.0f, smoke.width, smoke.height),
                             new Rectangle(mouseTail[i].position.x, mouseTail[i].position.y,
                                     smoke.width*mouseTail[i].size, smoke.height*mouseTail[i].size),

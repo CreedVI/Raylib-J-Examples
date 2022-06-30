@@ -2,6 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 import static com.raylib.java.core.input.Mouse.MouseButton.*;
@@ -42,7 +43,7 @@ public class InputMouse{
         {
             // Update
             //----------------------------------------------------------------------------------
-            ballPosition = rlj.core.GetMousePosition();
+            ballPosition = rCore.GetMousePosition();
 
             if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) ballColor = Color.MAROON;
             else if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) ballColor = Color.LIME;

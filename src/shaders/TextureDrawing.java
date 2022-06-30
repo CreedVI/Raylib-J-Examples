@@ -1,10 +1,12 @@
 package shaders;
 
 import com.raylib.java.Raylib;
+import com.raylib.java.core.rCore;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 
@@ -37,15 +39,15 @@ public class TextureDrawing{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shaders] example - texture drawing");
 
         Image imBlank = rlj.textures.GenImageColor(1024, 1024, BLANK);
-        Texture2D texture = rlj.textures.LoadTextureFromImage(imBlank);  // Load blank texture to fill on shader
-        rlj.textures.UnloadImage(imBlank);
+        Texture2D texture = rTextures.LoadTextureFromImage(imBlank);  // Load blank texture to fill on shader
+        rTextures.UnloadImage(imBlank);
 
         // NOTE: Using GLSL 330 shader version, on OpenGL ES 2.0 use GLSL 100 shader version
         Shader shader = rlj.core.LoadShader(null, "resources/shaders/glsl330/cubes_panning.fs");
 
         float time = 0.0f;
-        int timeLoc = rlj.core.GetShaderLocation(shader, "uTime");
-        rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+        int timeLoc = rCore.GetShaderLocation(shader, "uTime");
+        rCore.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         // -------------------------------------------------------------------------------------------------------------
@@ -55,8 +57,8 @@ public class TextureDrawing{
         {
             // Update
             //----------------------------------------------------------------------------------
-            time = (float)rlj.core.GetTime();
-            rlj.core.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+            time = (float) rCore.GetTime();
+            rCore.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------
 
             // Draw

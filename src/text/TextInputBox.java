@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 
 import static com.raylib.java.core.input.Keyboard.*;
 import static com.raylib.java.core.input.Mouse.MouseCursor.MOUSE_CURSOR_DEFAULT;
@@ -40,7 +41,7 @@ public class TextInputBox{
         StringBuilder name = new StringBuilder();
         int letterCount = 0;
 
-        Rectangle textBox = new Rectangle(screenWidth / 2 - 100, 180, 225, 50);
+        Rectangle textBox = new Rectangle(screenWidth / 2.0f - 100, 180, 225, 50);
         boolean mouseOnText;
 
         int framesCounter = 0;
@@ -104,7 +105,7 @@ public class TextInputBox{
 
             rlj.text.DrawText("PLACE MOUSE OVER INPUT BOX!", 240, 140, 20, Color.GRAY);
 
-            rlj.shapes.DrawRectangleRec(textBox, Color.LIGHTGRAY);
+            rShapes.DrawRectangleRec(textBox, Color.LIGHTGRAY);
             if (mouseOnText){
                 rlj.shapes.DrawRectangleLines((int) textBox.x, (int) textBox.y, (int) textBox.width, (int) textBox.height, Color.RED);
             }
@@ -134,17 +135,6 @@ public class TextInputBox{
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------
         }
-    }
-
-    // Check if any key is pressed
-    // NOTE: We limit keys check to keys between 32 (KEY_SPACE) and 126
-    boolean IsAnyKeyPressed(){
-        boolean keyPressed = false;
-        int key = rlj.core.GetKeyPressed();
-
-        if ((key >= 32) && (key <= 126)) keyPressed = true;
-
-        return keyPressed;
     }
 
 }

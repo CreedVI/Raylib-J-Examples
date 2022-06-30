@@ -2,8 +2,10 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
@@ -45,7 +47,7 @@ public class RectangleScaling{
         {
             // Update
             //----------------------------------------------------------------------------------
-            mousePosition = rlj.core.GetMousePosition();
+            mousePosition = rCore.GetMousePosition();
 
             if (rlj.shapes.CheckCollisionPointRec(mousePosition, rec) &&
                     rlj.shapes.CheckCollisionPointRec(mousePosition,
@@ -79,7 +81,7 @@ public class RectangleScaling{
 
             rlj.text.DrawText("Scale rectangle dragging from bottom-right corner!", 10, 10, 20, Color.GRAY);
 
-            rlj.shapes.DrawRectangleRec(rec, rTextures.Fade(Color.GREEN, 0.5f));
+            rShapes.DrawRectangleRec(rec, rTextures.Fade(Color.GREEN, 0.5f));
 
             if (mouseScaleReady)
             {

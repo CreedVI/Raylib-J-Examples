@@ -2,6 +2,7 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
@@ -31,8 +32,8 @@ public class BouncingBall{
 
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib [shapes] example - bouncing ball");
 
-        Vector2 ballPosition = new Vector2((float) rlj.core.GetScreenWidth() / 2,
-                (float) rlj.core.GetScreenHeight() / 2);
+        Vector2 ballPosition = new Vector2((float) rCore.GetScreenWidth() / 2,
+                (float) rCore.GetScreenHeight() / 2);
         Vector2 ballSpeed = new Vector2(5.0f, 4.0f);
         int ballRadius = 20;
 
@@ -57,10 +58,10 @@ public class BouncingBall{
                 ballPosition.y += ballSpeed.y;
 
                 // Check walls collision for bouncing
-                if ((ballPosition.x >= (rlj.core.GetScreenWidth() - ballRadius)) || (ballPosition.x <= ballRadius)){
+                if ((ballPosition.x >= (rCore.GetScreenWidth() - ballRadius)) || (ballPosition.x <= ballRadius)){
                     ballSpeed.x *= -1.0f;
                 }
-                if ((ballPosition.y >= (rlj.core.GetScreenHeight() - ballRadius)) || (ballPosition.y <= ballRadius)){
+                if ((ballPosition.y >= (rCore.GetScreenHeight() - ballRadius)) || (ballPosition.y <= ballRadius)){
                     ballSpeed.y *= -1.0f;
                 }
             }
@@ -77,7 +78,7 @@ public class BouncingBall{
             rlj.core.ClearBackground(Color.RAYWHITE);
 
             rlj.shapes.DrawCircleV(ballPosition, ballRadius, Color.MAROON);
-            rlj.text.DrawText("PRESS SPACE to PAUSE BALL MOVEMENT", 10, rlj.core.GetScreenHeight() - 25, 20,
+            rlj.text.DrawText("PRESS SPACE to PAUSE BALL MOVEMENT", 10, rCore.GetScreenHeight() - 25, 20,
                     Color.LIGHTGRAY);
 
             // On pause, we draw a blinking message

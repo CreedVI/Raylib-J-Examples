@@ -49,7 +49,7 @@ public class EasingsBall{
             if (state == 0)             // Move ball position X with easing
             {
                 framesCounter++;
-                ballPositionX = (int) Easings.EaseElasticOut(framesCounter, -100, screenWidth/2 + 100, 120);
+                ballPositionX = (int) Easings.EaseElasticOut(framesCounter, -100, screenWidth/2.0f + 100, 120);
 
                 if (framesCounter >= 120)
                 {

@@ -2,6 +2,7 @@ package shaders;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.shapes.Rectangle;
@@ -74,7 +75,7 @@ public class Eratosthenes{
             // NOTE: Rectangle uses font white character texture coordinates,
             // so shader can not be applied here directly because input vertexTexCoord
             // do not represent full screen coordinates (space where want to apply shader)
-            rlj.shapes.DrawRectangle(0, 0, rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight(), Color.BLACK);
+            rlj.shapes.DrawRectangle(0, 0, rCore.GetScreenWidth(), rCore.GetScreenHeight(), Color.BLACK);
             rlj.core.EndTextureMode();   // End drawing to texture (now we have a blank texture available for the shader)
 
             rlj.core.BeginShaderMode(shader);

@@ -9,6 +9,7 @@ import com.raylib.java.raymath.Vector3;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.rLights;
 import com.raylib.java.utils.rLights.*;
 
@@ -66,7 +67,7 @@ public class BasicLighting{
         */
 
         // Load models texture
-        Texture2D texture = rlj.textures.LoadTexture("resources/texel_checker.png");
+        Texture2D texture = rTextures.LoadTexture("resources/texel_checker.png");
 
         /* Assign texture to default model material
         modelA.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
@@ -77,12 +78,12 @@ public class BasicLighting{
                                    "resources/shaders/glsl330/lighting.fs");
 
         // Get some shader loactions
-        shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_MATRIX_MODEL] = rlj.core.GetShaderLocation(shader, "matModel");
-        shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_VECTOR_VIEW] = rlj.core.GetShaderLocation(shader, "viewPos");
+        shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_MATRIX_MODEL] = rCore.GetShaderLocation(shader, "matModel");
+        shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_VECTOR_VIEW] = rCore.GetShaderLocation(shader, "viewPos");
 
         // ambient light level
-        int ambientLoc = rlj.core.GetShaderLocation(shader, "ambient");
-        rlj.core.SetShaderValue(shader, ambientLoc, new float[]{0.2f, 0.2f, 0.2f, 1.0f}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC4);
+        int ambientLoc = rCore.GetShaderLocation(shader, "ambient");
+        rCore.SetShaderValue(shader, ambientLoc, new float[]{0.2f, 0.2f, 0.2f, 1.0f}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC4);
 
         float angle = 6.282f;
 
@@ -139,7 +140,7 @@ public class BasicLighting{
 
             // Update the light shader with the camera view position
             float[] cameraPos = new float[]{ camera.position.x, camera.position.y, camera.position.z };
-            rlj.core.SetShaderValue(shader, shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_VECTOR_VIEW], cameraPos, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC3);
+            rCore.SetShaderValue(shader, shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_VECTOR_VIEW], cameraPos, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC3);
             //----------------------------------------------------------------------------------
 
             // Draw

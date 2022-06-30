@@ -2,6 +2,7 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
@@ -40,9 +41,10 @@ public class RectangleBounds {
 
         rlj = new Raylib(screenWidth, screenHeight, "raylib [text] example - draw text inside a rectangle");
 
-        String text = "Text cannot escape\tthis container\t...word wrap also works when active so here's a long text for " +
-                "testing.\n\nLorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut " +
-                "labore et dolore magna aliqua. Nec ullamcorper sit amet risus nullam eget felis eget.";
+        String text = """
+                Text cannot escape\tthis container\t...word wrap also works when active so here's a long text for testing.
+
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Nec ullamcorper sit amet risus nullam eget felis eget.""";
 
         boolean resizing = false;
         boolean wordWrap = true;
@@ -58,7 +60,7 @@ public class RectangleBounds {
 
         Vector2 lastMouse = new Vector2(); // Stores last mouse coordinates
         Color borderColor = MAROON;         // Container border color
-        Font font = rlj.text.GetFontDefault();       // Get default system font
+        Font font = rText.GetFontDefault();       // Get default system font
 
         rlj.core.SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -70,7 +72,7 @@ public class RectangleBounds {
             //----------------------------------------------------------------------------------
             if (rlj.core.IsKeyPressed(KEY_SPACE)) wordWrap = !wordWrap;
 
-            Vector2 mouse = rlj.core.GetMousePosition();
+            Vector2 mouse = rCore.GetMousePosition();
 
             // Check if the mouse is inside the container and toggle border color
             if (rlj.shapes.CheckCollisionPointRec(mouse, container)) borderColor = rTextures.Fade(MAROON, 0.4f);
@@ -81,13 +83,13 @@ public class RectangleBounds {
                 if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) resizing = false;
 
                 float width = container.width + (mouse.x - lastMouse.x);
-                container.width = (width > minWidth) ? ((width < maxWidth) ? width : maxWidth) : minWidth;
+                container.width = (width > minWidth) ? Math.min(width, maxWidth) : minWidth;
 
                 float height = container.height + (mouse.y - lastMouse.y);
-                container.height = (height > minHeight) ? ((height < maxHeight) ? height : maxHeight) : minHeight;
+                container.height = (height > minHeight) ? Math.min(height, maxHeight) : minHeight;
             } else {
                 // Check if we're resizing
-                if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT) && rlj.shapes.CheckCollisionPointRec(mouse, resizer))
+                if (rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT) && rlj.shapes.CheckCollisionPointRec(mouse, resizer))
                     resizing = true;
             }
 
@@ -215,12 +217,12 @@ public class RectangleBounds {
             }else {
                 if (codepoint == '\n') {
                     if (!wordWrap) {
-                        textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                        textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
                         textOffsetX = 0;
                     }
                 }else {
                     if (!wordWrap && ((textOffsetX + glyphWidth) > rec.width)) {
-                        textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                        textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
                         textOffsetX = 0;
                     }
 
@@ -242,7 +244,7 @@ public class RectangleBounds {
 
                 if (wordWrap && (i == endLine))
                 {
-                    textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                    textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
                     textOffsetX = 0;
                     startLine = endLine;
                     endLine = -1;

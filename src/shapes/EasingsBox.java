@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.Easings;
 
@@ -49,68 +50,63 @@ public static void main(String[] args){
         {
             // Update
             //----------------------------------------------------------------------------------
-            switch (state)
-            {
-                case 0:     // Move box down to center of screen
+            switch (state) {
+                case 0 ->     // Move box down to center of screen
                 {
                     framesCounter++;
 
                     // NOTE: Remember that 3rd parameter of easing function refers to
                     // desired value variation, do not confuse it with expected final value!
-                    rec.y = Easings.EaseElasticOut(framesCounter, -100, (float)rCore.GetScreenHeight()/2 + 100, 120);
+                    rec.y = Easings.EaseElasticOut(framesCounter, -100, (float) rCore.GetScreenHeight() / 2 + 100, 120);
 
-                    if (framesCounter >= 120)
-                    {
+                    if (framesCounter >= 120) {
                         framesCounter = 0;
                         state = 1;
                     }
-                } break;
-                case 1:     // Scale box to an horizontal bar
+                }
+                case 1 ->     // Scale box to an horizontal bar
                 {
                     framesCounter++;
                     rec.height = Easings.EaseBounceOut(framesCounter, 100, -90, 120);
                     rec.width = Easings.EaseBounceOut(framesCounter, 100, rCore.GetScreenWidth(), 120);
 
-                    if (framesCounter >= 120)
-                    {
+                    if (framesCounter >= 120) {
                         framesCounter = 0;
                         state = 2;
                     }
-                } break;
-                case 2:     // Rotate horizontal bar rectangle
+                }
+                case 2 ->     // Rotate horizontal bar rectangle
                 {
                     framesCounter++;
                     rotation = Easings.EaseQuadOut(framesCounter, 0.0f, 270.0f, 240);
 
-                    if (framesCounter >= 240)
-                    {
+                    if (framesCounter >= 240) {
                         framesCounter = 0;
                         state = 3;
                     }
-                } break;
-                case 3:     // Increase bar size to fill all screen
+                }
+                case 3 ->     // Increase bar size to fill all screen
                 {
                     framesCounter++;
                     rec.height = Easings.EaseCircOut(framesCounter, 10, rCore.GetScreenWidth(), 120);
 
-                    if (framesCounter >= 120)
-                    {
+                    if (framesCounter >= 120) {
                         framesCounter = 0;
                         state = 4;
                     }
-                } break;
-                case 4:     // Fade out animation
+                }
+                case 4 ->     // Fade out animation
                 {
                     framesCounter++;
                     alpha = Easings.EaseSineOut(framesCounter, 1.0f, -1.0f, 160);
 
-                    if (framesCounter >= 160)
-                    {
+                    if (framesCounter >= 160) {
                         framesCounter = 0;
                         state = 5;
                     }
-                } break;
-                default: break;
+                }
+                default -> {
+                }
             }
 
             // Reset animation at any moment
@@ -130,7 +126,7 @@ public static void main(String[] args){
 
             rlj.core.ClearBackground(Color.RAYWHITE);
 
-            rlj.shapes.DrawRectanglePro(rec, new Vector2(rec.width/2, rec.height/2), rotation,
+            rShapes.DrawRectanglePro(rec, new Vector2(rec.width/2, rec.height/2), rotation,
                     rTextures.Fade(Color.BLACK, alpha));
 
             rlj.text.DrawText("PRESS [SPACE] TO RESET BOX ANIMATION!", 10, rCore.GetScreenHeight() - 25, 20,

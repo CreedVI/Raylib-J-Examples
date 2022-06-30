@@ -45,9 +45,9 @@ public class BasicShapes{
             // lines
             rlj.shapes.DrawRectangleGradientH(SCREEN_WIDTH/4*2 - 90, 170, 180, 130, Color.MAROON, Color.GOLD);
 
-            rlj.shapes.DrawTriangle(new Vector2(SCREEN_WIDTH/4*3, 80), new Vector2(SCREEN_WIDTH/4*3 - 60, 150), new Vector2(SCREEN_WIDTH/4*3 + 60, 150), Color.VIOLET);
+            rlj.shapes.DrawTriangle(new Vector2(SCREEN_WIDTH/4.0f*3, 80), new Vector2(SCREEN_WIDTH/4.0f*3 - 60, 150), new Vector2(SCREEN_WIDTH/4.0f*3 + 60, 150), Color.VIOLET);
 
-            rlj.shapes.DrawPoly(new Vector2(SCREEN_WIDTH/4*3, 320), 6, 80, 0, Color.BROWN);
+            rlj.shapes.DrawPoly(new Vector2(SCREEN_WIDTH/4.0f*3, 320), 6, 80, 0, Color.BROWN);
 //---
             rlj.shapes.DrawCircleGradient(SCREEN_WIDTH/4, 220, 60, Color.GREEN, Color.SKYBLUE);
 
@@ -55,7 +55,7 @@ public class BasicShapes{
             // this way, all LINES are rendered in a single draw pass
             rlj.shapes.DrawLine(18, 42, SCREEN_WIDTH - 18, 42, Color.BLACK);
             rlj.shapes.DrawCircleLines(SCREEN_WIDTH/4, 340, 80, Color.DARKBLUE);
-            rlj.shapes.DrawTriangleLines(new Vector2(SCREEN_WIDTH/4*3, 160), new Vector2(SCREEN_WIDTH/4*3 - 20, 230), new Vector2(SCREEN_WIDTH/4*3 + 20, 230), Color.DARKBLUE);
+            rlj.shapes.DrawTriangleLines(new Vector2(SCREEN_WIDTH/4.0f*3, 160), new Vector2(SCREEN_WIDTH/4.0f*3 - 20, 230), new Vector2(SCREEN_WIDTH/4.0f*3 + 20, 230), Color.DARKBLUE);
             rlj.core.EndDrawing();
         }
     }

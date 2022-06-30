@@ -2,6 +2,7 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.NPatchInfo;
@@ -68,7 +69,7 @@ public class NPatchDrawing{
         {
             // Update
             //----------------------------------------------------------------------------------
-            mousePosition = rlj.core.GetMousePosition();
+            mousePosition = rCore.GetMousePosition();
 
             // Resize the n-patches based on mouse position
             dstRec1.width = mousePosition.x - dstRec1.x;

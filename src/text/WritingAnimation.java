@@ -2,6 +2,7 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 
 import static com.raylib.java.core.input.Keyboard.*;
 
@@ -42,7 +43,7 @@ public class WritingAnimation{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsKeyDown(KEY_SPACE)) framesCounter += 8;
+            if (rCore.IsKeyDown(KEY_SPACE)) framesCounter += 8;
             else framesCounter++;
 
             if (rlj.core.IsKeyPressed(KEY_ENTER)) framesCounter = 0;

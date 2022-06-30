@@ -3,6 +3,7 @@ package shapes;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 
 import static com.raylib.java.core.rCore.GetScreenHeight;
 import static com.raylib.java.core.rCore.GetScreenWidth;
@@ -29,21 +30,21 @@ public class CollisionArea{
         //---------------------------------------------------------
         int screenWidth = 800;
         int screenHeight = 450;
-        Raylib rlj = new Raylib(800, 450, "raylib [shapes] example - collision area");
+        Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - collision area");
 
         // Box A: Moving box
-        Rectangle boxA = new Rectangle(10, GetScreenHeight()/2 - 50, 200, 100);
+        Rectangle boxA = new Rectangle(10, GetScreenHeight()/2.0f - 50, 200, 100);
         int boxASpeedX = 4;
 
         // Box B: Mouse moved box
-        Rectangle boxB = new Rectangle(GetScreenWidth()/2 - 30, GetScreenHeight()/2 - 30, 60, 60);
+        Rectangle boxB = new Rectangle(GetScreenWidth()/2.0f - 30, GetScreenHeight()/2.0f - 30, 60, 60);
 
         Rectangle boxCollision = new Rectangle(); // Collision rectangle
 
         int screenUpperLimit = 40;      // Top menu limits
 
         boolean pause = false;             // Movement pause
-        boolean collision = false;         // Collision detection
+        boolean collision;         // Collision detection
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //----------------------------------------------------------
@@ -88,13 +89,13 @@ public class CollisionArea{
 
             rlj.shapes.DrawRectangle(0, 0, screenWidth, screenUpperLimit, collision? Color.RED : Color.BLACK);
 
-            rlj.shapes.DrawRectangleRec(boxA, Color.GOLD);
-            rlj.shapes.DrawRectangleRec(boxB, Color.BLUE);
+            rShapes.DrawRectangleRec(boxA, Color.GOLD);
+            rShapes.DrawRectangleRec(boxB, Color.BLUE);
 
             if (collision)
             {
                 // Draw collision area
-                rlj.shapes.DrawRectangleRec(boxCollision, Color.LIME);
+                rShapes.DrawRectangleRec(boxCollision, Color.LIME);
 
                 // Draw collision message
                 rlj.text.DrawText("COLLISION!", GetScreenWidth()/2 - rlj.text.MeasureText("COLLISION!", 20)/2,

@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 import com.raylib.java.text.Font;
 import com.raylib.java.text.rText;
 import com.raylib.java.textures.rTextures;
@@ -174,7 +175,7 @@ public class Unicode{
 
         rlj = new Raylib();
 
-        rlj.core.SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
+        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib [text] example - unicode");
 
         // Load the font resources
@@ -208,7 +209,7 @@ public class Unicode{
                 rlj.core.SetClipboardText(messages[emoji[selected].message].text);
             }
 
-            Vector2 mouse = rlj.core.GetMousePosition();
+            Vector2 mouse = rCore.GetMousePosition();
             Vector2 pos = new Vector2(28.8f, 10.0f);
             hovered = -1;
             //----------------------------------------------------------------------------------
@@ -259,7 +260,7 @@ public class Unicode{
                 }
 
                 // Calculate size for the message box (approximate the height and width)
-                Vector2 sz = rlj.text.MeasureTextEx(font, messages[message].text, (float) font.baseSize, 1.0f);
+                Vector2 sz = rText.MeasureTextEx(font, messages[message].text, (float) font.baseSize, 1.0f);
                 if (sz.x > 300){
                     sz.y *= sz.x / 300;
                     sz.x = 300;
@@ -296,18 +297,18 @@ public class Unicode{
                 }
 
                 // Draw chat bubble
-                rlj.shapes.DrawRectangleRec(msgRect, emoji[selected].color);
+                DrawRectangleRec(msgRect, emoji[selected].color);
                 rlj.shapes.DrawTriangle(a, b, c, emoji[selected].color);
 
                 // Draw the main text message
-                Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2, msgRect.y + verticalPadding / 2, msgRect.width - horizontalPadding, msgRect.height);
+                Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2.0f, msgRect.y + verticalPadding / 2.0f, msgRect.width - horizontalPadding, msgRect.height);
                 DrawTextBoxed(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
 
                 // Draw the info text below the main message
                 int size = messages[message].text.length();
                 int len = rlj.text.GetCodepointsCount(messages[message].text);
                 String info = messages[message].language + " " + len + " characters " + size + " bytes";
-                sz = rlj.text.MeasureTextEx(rlj.text.GetFontDefault(), info, 10, 1.0f);
+                sz = rText.MeasureTextEx(rText.GetFontDefault(), info, 10, 1.0f);
                 pos = new Vector2(textRect.x + textRect.width - sz.x, msgRect.y + msgRect.height - sz.y - 2);
                 rlj.text.DrawText(info, (int) pos.x, (int) pos.y, 10, Color.RAYWHITE);
             }
@@ -323,9 +324,9 @@ public class Unicode{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rlj.text.UnloadFont(fontDefault);    // Unload font resource
-        rlj.text.UnloadFont(fontAsian);      // Unload font resource
-        rlj.text.UnloadFont(fontEmoji);      // Unload font resource
+        rText.UnloadFont(fontDefault);    // Unload font resource
+        rText.UnloadFont(fontAsian);      // Unload font resource
+        rText.UnloadFont(fontEmoji);      // Unload font resource
         //--------------------------------------------------------------------------------------
     }
 
@@ -431,12 +432,12 @@ public class Unicode{
             }else {
                 if (codepoint == '\n') {
                     if (!wordWrap) {
-                        textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                        textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
                         textOffsetX = 0;
                     }
                 }else {
                     if (!wordWrap && ((textOffsetX + glyphWidth) > rec.width)) {
-                        textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                        textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
                         textOffsetX = 0;
                     }
 
@@ -458,7 +459,7 @@ public class Unicode{
 
                 if (wordWrap && (i == endLine))
                 {
-                    textOffsetY += (font.baseSize + font.baseSize/2)*scaleFactor;
+                    textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
                     textOffsetX = 0;
                     startLine = endLine;
                     endLine = -1;

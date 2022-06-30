@@ -2,8 +2,10 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.text.Font;
+import com.raylib.java.text.rText;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -43,8 +45,12 @@ public class FontLoading{
 
         // Define characters to draw
         // NOTE: raylib supports UTF-8 encoding, following list is actually codified as UTF8 internally
-        String msg = "!\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI\nJKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmn\nopqrstuvwxyz" +
-            "{|}~¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓ\nÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷\nøùúûüýþÿ";
+        String msg = """
+                !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHI
+                JKLMNOPQRSTUVWXYZ[]^_`abcdefghijklmn
+                opqrstuvwxyz{|}~¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓ
+                ÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷
+                øùúûüýþÿ""";
 
         // NOTE: Textures/Fonts MUST be loaded after Window initialization (OpenGL context is required)
 
@@ -55,7 +61,7 @@ public class FontLoading{
         // NOTE: We define a font base size of 32 pixels tall and up-to 250 characters
         Font fontTtf = rlj.text.LoadFontEx("resources/pixantiqua.ttf", 32, null, 250);
 
-        boolean useTtf = false;
+        boolean useTtf;
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -64,12 +70,7 @@ public class FontLoading{
         while (!rlj.core.WindowShouldClose()) {   // Detect window close button or ESC key
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsKeyDown(KEY_SPACE)){
-                useTtf = true;
-            }
-            else{
-                useTtf = false;
-            }
+            useTtf = rCore.IsKeyDown(KEY_SPACE);
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -83,12 +84,12 @@ public class FontLoading{
             if (!useTtf)
             {
                 rlj.text.DrawTextEx(fontBm, msg, new Vector2(20.0f, 100.0f), (float)fontBm.baseSize, 2, Color.MAROON);
-                rlj.text.DrawText("Using BMFont (Angelcode) imported", 20, rlj.core.GetScreenHeight() - 30, 20, Color.GRAY);
+                rlj.text.DrawText("Using BMFont (Angelcode) imported", 20, rCore.GetScreenHeight() - 30, 20, Color.GRAY);
             }
             else
             {
                 rlj.text.DrawTextEx(fontTtf, msg, new Vector2(20.0f, 100.0f), (float)fontTtf.baseSize, 2, Color.LIME);
-                rlj.text.DrawText("Using TTF font generated", 20, rlj.core.GetScreenHeight() - 30, 20, Color.GRAY);
+                rlj.text.DrawText("Using TTF font generated", 20, rCore.GetScreenHeight() - 30, 20, Color.GRAY);
             }
 
             rlj.core.EndDrawing();
@@ -97,8 +98,8 @@ public class FontLoading{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rlj.text.UnloadFont(fontBm);     // AngelCode Font unloading
-        rlj.text.UnloadFont(fontTtf);    // TTF Font unloading
+        rText.UnloadFont(fontBm);     // AngelCode Font unloading
+        rText.UnloadFont(fontTtf);    // TTF Font unloading
         //--------------------------------------------------------------------------------------
 
     }

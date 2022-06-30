@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -36,19 +37,19 @@ public class BlendModes{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - blend modes");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Image bgImage = rlj.textures.LoadImage("resources/cyberpunk_street_background.png"); // Loaded in CPU
+        Image bgImage = rTextures.LoadImage("resources/cyberpunk_street_background.png"); // Loaded in CPU
         // memory (RAM)
-        Texture2D bgTexture = rlj.textures.LoadTextureFromImage(bgImage); // Image converted to texture, GPU memory
+        Texture2D bgTexture = rTextures.LoadTextureFromImage(bgImage); // Image converted to texture, GPU memory
         // (VRAM)
 
-        Image fgImage = rlj.textures.LoadImage("resources/cyberpunk_street_foreground.png"); // Loaded in CPU
+        Image fgImage = rTextures.LoadImage("resources/cyberpunk_street_foreground.png"); // Loaded in CPU
         // memory (RAM)
-        Texture2D fgTexture = rlj.textures.LoadTextureFromImage(fgImage); // Image converted to texture, GPU memory
+        Texture2D fgTexture = rTextures.LoadTextureFromImage(fgImage); // Image converted to texture, GPU memory
         // (VRAM)
 
         // Once image has been converted to texture and uploaded to VRAM, it can be unloaded from RAM
-        rlj.textures.UnloadImage(bgImage);
-        rlj.textures.UnloadImage(fgImage);
+        rTextures.UnloadImage(bgImage);
+        rTextures.UnloadImage(fgImage);
 
         final int blendCountMax = 4;
         int blendMode = RLGL.rlBlendMode.RL_BLEND_ALPHA;
@@ -83,22 +84,17 @@ public class BlendModes{
             // Draw the texts
             rlj.text.DrawText("Press SPACE to change blend modes.", 310, 350, 10, Color.GRAY);
 
-            switch (blendMode)
-            {
-                case RLGL.rlBlendMode.RL_BLEND_ALPHA:
-                    rlj.text.DrawText("Current: BLEND_ALPHA", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
-                    break;
-                case RLGL.rlBlendMode.RL_BLEND_ADDITIVE:
-                    rlj.text.DrawText("Current: BLEND_ADDITIVE", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
-                    break;
-                case RLGL.rlBlendMode.RL_BLEND_MULTIPLIED:
-                    rlj.text.DrawText("Current: BLEND_MULTIPLIED", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
-                    break;
-                case RLGL.rlBlendMode.RL_BLEND_ADD_COLORS:
-                    rlj.text.DrawText("Current: BLEND_ADD_COLORS", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
-                    break;
-                default:
-                    break;
+            switch (blendMode) {
+                case RLGL.rlBlendMode.RL_BLEND_ALPHA ->
+                        rlj.text.DrawText("Current: BLEND_ALPHA", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
+                case RLGL.rlBlendMode.RL_BLEND_ADDITIVE ->
+                        rlj.text.DrawText("Current: BLEND_ADDITIVE", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
+                case RLGL.rlBlendMode.RL_BLEND_MULTIPLIED ->
+                        rlj.text.DrawText("Current: BLEND_MULTIPLIED", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
+                case RLGL.rlBlendMode.RL_BLEND_ADD_COLORS ->
+                        rlj.text.DrawText("Current: BLEND_ADD_COLORS", (screenWidth / 2) - 60, 370, 10, Color.GRAY);
+                default -> {
+                }
             }
 
             rlj.text.DrawText("(c) Cyberpunk Street Environment by Luis Zuno (@ansimuz)", screenWidth - 330,

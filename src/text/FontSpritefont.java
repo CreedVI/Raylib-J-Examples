@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.text.Font;
+import com.raylib.java.text.rText;
 
 public class FontSpritefont{
 
@@ -46,13 +47,13 @@ public class FontSpritefont{
         Font font3 = rlj.text.LoadFont("resources/custom_jupiter_crash.png");  // Font loading
 
         Vector2 fontPosition1 =
-                new Vector2(screenWidth/2.0f - rlj.text.MeasureTextEx(font1, msg1, (float)font1.baseSize, -3).x/2,
+                new Vector2(screenWidth/2.0f - rText.MeasureTextEx(font1, msg1, (float)font1.baseSize, -3).x/2,
                 screenHeight/2.0f - font1.baseSize/2.0f - 80.0f );
 
-        Vector2 fontPosition2 = new Vector2(screenWidth/2.0f - rlj.text.MeasureTextEx(font2, msg2, (float)font2.baseSize, -2.0f).x/2.0f,
+        Vector2 fontPosition2 = new Vector2(screenWidth/2.0f - rText.MeasureTextEx(font2, msg2, (float)font2.baseSize, -2.0f).x/2.0f,
                 screenHeight/2.0f - font2.baseSize/2.0f - 10.0f);
 
-        Vector2 fontPosition3 = new Vector2(screenWidth/2.0f - rlj.text.MeasureTextEx(font3, msg3, (float)font3.baseSize, 2.0f).x/2.0f,
+        Vector2 fontPosition3 = new Vector2(screenWidth/2.0f - rText.MeasureTextEx(font3, msg3, (float)font3.baseSize, 2.0f).x/2.0f,
                 screenHeight/2.0f - font3.baseSize/2.0f + 50.0f);
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
@@ -82,9 +83,9 @@ public class FontSpritefont{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rlj.text.UnloadFont(font1);      // Font unloading
-        rlj.text.UnloadFont(font2);      // Font unloading
-        rlj.text.UnloadFont(font3);      // Font unloading
+        rText.UnloadFont(font1);      // Font unloading
+        rText.UnloadFont(font2);      // Font unloading
+        rText.UnloadFont(font3);      // Font unloading
         //--------------------------------------------------------------------------------------
     }
 
