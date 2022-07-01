@@ -2,14 +2,30 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.core.input.Gamepad.GamepadAxis.*;
 import static com.raylib.java.core.input.Gamepad.GamepadButton.*;
 
-public class InputGamepad{
+public class InputGamepad {
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [core] example - Input Gamepad
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     static String XBOX360_LEGACY_NAME_ID = "Xbox Controller";
     static String XBOX360_NAME_ID = "Xbox 360 Controller";
@@ -25,12 +41,12 @@ public class InputGamepad{
 
         Raylib rlj = new Raylib();
 
-        rlj.core.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Set MSAA 4X hint before windows creation
+        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Set MSAA 4X hint before windows creation
 
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib-j [core] example - gamepad input");
 
-        Texture2D texPs3Pad = rlj.textures.LoadTexture("resources/ps3.png");
-        Texture2D texXboxPad = rlj.textures.LoadTexture("resources/xbox.png");
+        Texture2D texPs3Pad = rTextures.LoadTexture("resources/ps3.png");
+        Texture2D texXboxPad = rTextures.LoadTexture("resources/xbox.png");
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -51,8 +67,8 @@ public class InputGamepad{
             if (rlj.core.IsGamepadAvailable(0)){
                 rlj.text.DrawText("GP1: " + rlj.core.GetGamepadName(0), 10, 10, 10, Color.BLACK);
 
-                if (rlj.core.IsGamepadName(0, XBOX360_NAME_ID) || rlj.core.IsGamepadName(0, XBOX360_LEGACY_NAME_ID)
-                        || rlj.core.IsGamepadName(0, XBOX1S_NAME_ID)){
+                if (rlj.core.GetGamepadName(0).equals(XBOX360_NAME_ID) || rlj.core.GetGamepadName(0).equals(XBOX360_LEGACY_NAME_ID)
+                        || rlj.core.GetGamepadName(0).equals(XBOX1S_NAME_ID)){
                     rlj.textures.DrawTexture(texXboxPad, 0, 0, Color.DARKGRAY);
 
                     // Draw buttons: xbox home
@@ -123,7 +139,7 @@ public class InputGamepad{
                     //rlj.text.DrawText(TextFormat("Xbox axis LT: %02.02f", rlj.core.GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_TRIGGER)), 10, 40, 10, Color.BLACK);
                     //rlj.text.DrawText(TextFormat("Xbox axis RT: %02.02f", rlj.core.GetGamepadAxisMovement(0, GAMEPAD_AXIS_RIGHT_TRIGGER)), 10, 60, 10, Color.BLACK);
                 }
-                else if (rlj.core.IsGamepadName(0, PS3_NAME_ID) || rlj.core.IsGamepadName(0, PS4_NAME_ID)){
+                else if (rlj.core.GetGamepadName(0).equals(PS3_NAME_ID) || rlj.core.GetGamepadName(0).equals(PS4_NAME_ID)){
                     rlj.textures.DrawTexture(texPs3Pad, 0, 0, Color.DARKGRAY);
 
                     // Draw buttons: ps

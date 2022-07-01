@@ -2,9 +2,9 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 
 public class DrawCircleSector{
 
@@ -12,13 +12,15 @@ public class DrawCircleSector{
      *
      *   raylib-j [shapes] example - Draw Circle Sector
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
      *   raylib is licensed under an unmodified zlib/libpng license
      *   Original example written and copyright by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
+     *
+     *   Copyright (c) 2018 Vlad Adrian (@demizdor)
      *
      ********************************************************************************************/
 
@@ -29,7 +31,7 @@ public class DrawCircleSector{
         final int screenHeight = 450;
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - draw circle sector");
 
-        Vector2 center = new Vector2((Core.GetScreenWidth() - 300)/2, Core.GetScreenHeight()/2);
+        Vector2 center = new Vector2((rCore.GetScreenWidth() - 300)/2.0f, rCore.GetScreenHeight()/2.0f);
 
         float outerRadius = 180.0f;
         int startAngle = 0;
@@ -52,14 +54,14 @@ public class DrawCircleSector{
 
             rlj.core.ClearBackground(Color.RAYWHITE);
 
-            rlj.shapes.DrawLine(500, 0, 500, Core.GetScreenHeight(), Textures.Fade(Color.LIGHTGRAY, 0.6f));
-            rlj.shapes.DrawRectangle(500, 0, Core.GetScreenWidth() - 500, Core.GetScreenHeight(),
-                    Textures.Fade(Color.LIGHTGRAY, 0.3f));
+            rlj.shapes.DrawLine(500, 0, 500, rCore.GetScreenHeight(), rTextures.Fade(Color.LIGHTGRAY, 0.6f));
+            rlj.shapes.DrawRectangle(500, 0, rCore.GetScreenWidth() - 500, rCore.GetScreenHeight(),
+                    rTextures.Fade(Color.LIGHTGRAY, 0.3f));
 
-            rlj.shapes.DrawCircleSector(center, outerRadius, startAngle, endAngle, segments, Textures.Fade(Color.MAROON,
+            rlj.shapes.DrawCircleSector(center, outerRadius, startAngle, endAngle, segments, rTextures.Fade(Color.MAROON,
                     0.3f));
             rlj.shapes.DrawCircleSectorLines(center, outerRadius, startAngle, endAngle, segments,
-                    Textures.Fade(Color.MAROON, 0.6f));
+                    rTextures.Fade(Color.MAROON, 0.6f));
 
             // Draw GUI controls
             //TODO.txt: RGUI

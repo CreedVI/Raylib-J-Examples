@@ -2,6 +2,7 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 
 public class FormatText{
 
@@ -9,10 +10,13 @@ public class FormatText{
      *
      *   raylib [text] example - Text formatting
      *
-     *   This example has been created using raylib 1.1 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2014 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -52,7 +56,7 @@ public class FormatText{
 
             rlj.text.DrawText(rlj.text.TextFormat("Lives: %02d", lives), 200, 160, 40, Color.BLUE);
 
-            rlj.text.DrawText(rlj.text.TextFormat("Elapsed Time: %02.02f ms", rlj.core.GetFrameTime()*1000), 200, 220, 20, Color.BLACK);
+            rlj.text.DrawText(rlj.text.TextFormat("Elapsed Time: %02.02f ms", rCore.GetFrameTime()*1000), 200, 220, 20, Color.BLACK);
 
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------

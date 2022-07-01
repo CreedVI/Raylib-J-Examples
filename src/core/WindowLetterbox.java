@@ -3,11 +3,12 @@ package core;
 import com.raylib.java.Config;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.RenderTexture;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -17,13 +18,15 @@ public class WindowLetterbox{
      *
      *   raylib-j [core] example - window scale letterbox (and virtual mouse)
      *
-     *   This example has been created using raylib-j (version 0.2)
+     *   This example has been created using raylib-j (version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
      *   raylib is licensed under an unmodified zlib/libpng license
      *   Original example contributed by Anata (@anatagawa) and reviewed by Ramon Santamaria (@raysan5)
      *   https://github.com/raysan5
+     *
+     *   Copyright (c) 2019 Anata (@anatagawa)
      *
      ********************************************************************************************/
 
@@ -32,12 +35,11 @@ public class WindowLetterbox{
     // NOTE: Required for virtual mouse, to clamp inside virtual game size
     static Vector2 ClampValue(Vector2 value, Vector2 min, Vector2 max)
     {
-        Vector2 result = value;
-        result.x = Math.min(result.x, max.x);
-        result.x = Math.max(result.x, min.x);
-        result.y = Math.min(result.y, max.y);
-        result.y = Math.max(result.y, min.y);
-        return result;
+        value.x = Math.min(value.x, max.x);
+        value.x = Math.max(value.x, min.x);
+        value.y = Math.min(value.y, max.y);
+        value.y = Math.max(value.y, min.y);
+        return value;
     }
 
     public static void main(String[] args){
@@ -47,7 +49,7 @@ public class WindowLetterbox{
 
         Raylib rlj = new Raylib();
         // Enable config flags for resizable window and vertical synchro
-        rlj.core.SetConfigFlags(Config.ConfigFlag.FLAG_WINDOW_RESIZABLE | Config.ConfigFlag.FLAG_VSYNC_HINT);
+        rCore.SetConfigFlags(Config.ConfigFlag.FLAG_WINDOW_RESIZABLE | Config.ConfigFlag.FLAG_VSYNC_HINT);
         rlj.core.InitWindow(windowWidth, windowHeight, "raylib-j [core] example - window scale letterbox");
         rlj.core.SetWindowMinSize(320, 240);
 
@@ -56,13 +58,13 @@ public class WindowLetterbox{
 
         // Render texture initialization, used to hold the rendering result so we can easily resize it
         RenderTexture target = rlj.textures.LoadRenderTexture(gameScreenWidth, gameScreenHeight);
-        rlj.textures.SetTextureFilter(target.texture, RLGL.TextureFilterMode.TEXTURE_FILTER_BILINEAR);  // Texture scale
+        rTextures.SetTextureFilter(target.texture, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_BILINEAR);  // Texture scale
         // filter to use
 
         Color[] colors = new Color[10];
         for (int i = 0; i < 10; i++)
-            colors[i] = new Color(Core.GetRandomValue(100, 250), Core.GetRandomValue(50, 150),
-                Core.GetRandomValue(10, 100), 255 );
+            colors[i] = new Color(rCore.GetRandomValue(100, 250), rCore.GetRandomValue(50, 150),
+                    rCore.GetRandomValue(10, 100), 255 );
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -73,23 +75,23 @@ public class WindowLetterbox{
             // Update
             //----------------------------------------------------------------------------------
             // Compute required framebuffer scaling
-            float scale = Math.min((float)rlj.core.GetScreenWidth()/gameScreenWidth,
-                    (float)rlj.core.GetScreenHeight()/gameScreenHeight);
+            float scale = Math.min((float) rCore.GetScreenWidth()/gameScreenWidth,
+                    (float) rCore.GetScreenHeight()/gameScreenHeight);
 
             if (rlj.core.IsKeyPressed(KEY_SPACE))
             {
                 // Recalculate random colors for the bars
                 for (int i = 0; i < 10; i++)
-                    colors[i] = new Color(Core.GetRandomValue(100, 250), Core.GetRandomValue(50, 150),
-                            Core.GetRandomValue(10, 100), 255);
+                    colors[i] = new Color(rCore.GetRandomValue(100, 250), rCore.GetRandomValue(50, 150),
+                            rCore.GetRandomValue(10, 100), 255);
             }
 
             // Update virtual mouse (clamped mouse value behind game screen)
-            Vector2 mouse = rlj.core.GetMousePosition();
+            Vector2 mouse = rCore.GetMousePosition();
             Vector2 virtualMouse = new Vector2();
-            virtualMouse.x = (mouse.x - (rlj.core.GetScreenWidth() - (gameScreenWidth*scale))*0.5f)/scale;
-            virtualMouse.y = (mouse.y - (rlj.core.GetScreenHeight() - (gameScreenHeight*scale))*0.5f)/scale;
-            virtualMouse = ClampValue(virtualMouse, new Vector2(), new Vector2((float)gameScreenWidth, (float)gameScreenHeight));
+            virtualMouse.x = (mouse.x - (rCore.GetScreenWidth() - (gameScreenWidth*scale))*0.5f)/scale;
+            virtualMouse.y = (mouse.y - (rCore.GetScreenHeight() - (gameScreenHeight*scale))*0.5f)/scale;
+            ClampValue(virtualMouse, new Vector2(), new Vector2((float) gameScreenWidth, (float) gameScreenHeight));
 
             // Apply the same transformation as the virtual mouse to the real mouse (i.e. to work with raygui)
             //SetMouseOffset(-(GetScreenWidth() - (gameScreenWidth*scale))*0.5f, -(GetScreenHeight() - (gameScreenHeight*scale))*0.5f);
@@ -119,8 +121,8 @@ public class WindowLetterbox{
             rlj.core.EndTextureMode();
 
             // Draw RenderTexture2D to window, properly scaled
-            rlj.textures.DrawTexturePro(target.texture, new Rectangle(0.0f, 0.0f, (float)target.texture.width, (float)-target.texture.height),
-                    new Rectangle((rlj.core.GetScreenWidth() - ((float)gameScreenWidth*scale))*0.5f, (rlj.core.GetScreenHeight() - ((float)gameScreenHeight*scale))*0.5f,
+            rTextures.DrawTexturePro(target.texture, new Rectangle(0.0f, 0.0f, (float)target.texture.width, (float)-target.texture.height),
+                    new Rectangle((rCore.GetScreenWidth() - ((float)gameScreenWidth*scale))*0.5f, (rCore.GetScreenHeight() - ((float)gameScreenHeight*scale))*0.5f,
                             (float)gameScreenWidth*scale, (float)gameScreenHeight*scale), new Vector2(), 0.0f, Color.WHITE);
 
             rlj.core.EndDrawing();

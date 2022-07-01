@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class ImageLoading{
 
@@ -11,12 +12,13 @@ public class ImageLoading{
      *
      *   raylib-j [textures] example - Image loading and texture creation
      *
-     *   NOTE: Images are loaded in CPU memory (RAM); textures are loaded in GPU memory (VRAM)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   This example has been created using raylib 1.3 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
-     *
-     *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -32,10 +34,10 @@ public class ImageLoading{
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
-        Image image = rlj.textures.LoadImage("resources/raylib-j_logo.png"); // Loaded in CPU memory (RAM)
-        Texture2D texture = rlj.textures.LoadTextureFromImage(image); // Image converted to texture, GPU memory (VRAM)
+        Image image = rTextures.LoadImage("resources/raylib-j_logo.png"); // Loaded in CPU memory (RAM)
+        Texture2D texture = rTextures.LoadTextureFromImage(image); // Image converted to texture, GPU memory (VRAM)
 
-        rlj.textures.UnloadImage(image);   // Once image has been converted to texture and uploaded to VRAM, it can be
+        rTextures.UnloadImage(image);   // Once image has been converted to texture and uploaded to VRAM, it can be
         // unloaded from RAM
         //---------------------------------------------------------------------------------------
 

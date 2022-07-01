@@ -2,21 +2,22 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
 import com.raylib.java.core.camera.Camera2D;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.shapes.rShapes;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.*;
 
-public class Core2DCamera{
+public class Core2DCamera {
 
     /*******************************************************************************************
      *
      *   raylib-j [core] example - 2d camera
      *
-     *   This example has been created using raylib-j (version 0.2)
+     *   This example has been created using raylib-j (version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -47,15 +48,15 @@ public class Core2DCamera{
 
         for (int i = 0; i < MAX_BUILDINGS; i++){
             buildings[i] = new Rectangle();
-            buildings[i].width = (float) Core.GetRandomValue(50, 200);
-            buildings[i].height = (float) Core.GetRandomValue(100, 800);
+            buildings[i].width = (float) rCore.GetRandomValue(50, 200);
+            buildings[i].height = (float) rCore.GetRandomValue(100, 800);
             buildings[i].y = screenHeight - 130.0f - buildings[i].height;
             buildings[i].x = -6000.0f + spacing;
 
             spacing += (int) buildings[i].width;
 
-            buildColors[i] = new Color(Core.GetRandomValue(200, 240), Core.GetRandomValue(200, 240),
-                                       Core.GetRandomValue(200, 250), 255);
+            buildColors[i] = new Color(rCore.GetRandomValue(200, 240), rCore.GetRandomValue(200, 240),
+                    rCore.GetRandomValue(200, 250), 255);
         }
 
         Camera2D camera = new Camera2D();
@@ -74,10 +75,10 @@ public class Core2DCamera{
             //----------------------------------------------------------------------------------
 
             // Player movement
-            if (rlj.core.IsKeyDown(KEY_RIGHT)){
+            if (rCore.IsKeyDown(KEY_RIGHT)){
                 player.x += 2;
             }
-            else if (rlj.core.IsKeyDown(KEY_LEFT)){
+            else if (rCore.IsKeyDown(KEY_LEFT)){
                 player.x -= 2;
             }
 
@@ -85,10 +86,10 @@ public class Core2DCamera{
             camera.target = new Vector2(player.x + 20, player.y + 20);
 
             // Camera rotation controls
-            if (rlj.core.IsKeyDown(KEY_A)){
+            if (rCore.IsKeyDown(KEY_A)){
                 camera.rotation--;
             }
-            else if (rlj.core.IsKeyDown(KEY_S)) {
+            else if (rCore.IsKeyDown(KEY_S)) {
                 camera.rotation++;
             }
 
@@ -101,7 +102,7 @@ public class Core2DCamera{
             }
 
             // Camera zoom controls
-            camera.zoom += ((float) rlj.core.GetMouseWheelMove() * 0.05f);
+            camera.zoom += rCore.GetMouseWheelMove() * 0.05f;
 
             if (camera.zoom > 3.0f){
                 camera.zoom = 3.0f;
@@ -128,10 +129,10 @@ public class Core2DCamera{
             rlj.shapes.DrawRectangle(-6000, 320, 13000, 8000, Color.DARKGRAY);
 
             for (int i = 0; i < MAX_BUILDINGS; i++){
-                rlj.shapes.DrawRectangleRec(buildings[i], buildColors[i]);
+                rShapes.DrawRectangleRec(buildings[i], buildColors[i]);
             }
 
-            rlj.shapes.DrawRectangleRec(player, Color.RED);
+            rShapes.DrawRectangleRec(player, Color.RED);
 
             rlj.shapes.DrawLine((int) camera.target.x, -screenHeight * 10, (int) camera.target.x, screenHeight * 10, Color.GREEN);
             rlj.shapes.DrawLine(-screenWidth * 10, (int) camera.target.y, screenWidth * 10, (int) camera.target.y, Color.GREEN);
@@ -145,7 +146,7 @@ public class Core2DCamera{
             rlj.shapes.DrawRectangle(screenWidth - 5, 5, 5, screenHeight - 10, Color.RED);
             rlj.shapes.DrawRectangle(0, screenHeight - 5, screenWidth, 5, Color.RED);
 
-            rlj.shapes.DrawRectangle(10, 10, 250, 113, Textures.Fade(Color.SKYBLUE, 0.5f));
+            rlj.shapes.DrawRectangle(10, 10, 250, 113, rTextures.Fade(Color.SKYBLUE, 0.5f));
             rlj.shapes.DrawRectangleLines(10, 10, 250, 113, Color.BLUE);
 
             rlj.text.DrawText("Free 2d camera controls:", 20, 20, 10, Color.BLACK);

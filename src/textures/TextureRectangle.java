@@ -6,6 +6,7 @@ import com.raylib.java.core.input.Keyboard;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class TextureRectangle{
 
@@ -13,10 +14,13 @@ public class TextureRectangle{
      *
      *   raylib-j [textures] example - Texture loading and drawing a part defined by a rectangle
      *
-     *   This example has been created using raylib 1.3 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2014 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -34,7 +38,7 @@ public class TextureRectangle{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [texture] example - texture rectangle");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Texture2D scarfy = rlj.textures.LoadTexture("resources/scarfy.png");        // Texture loading
+        Texture2D scarfy = rTextures.LoadTexture("resources/scarfy.png");        // Texture loading
 
         Vector2 position = new Vector2(350.0f, 280.0f);
         Rectangle frameRec = new Rectangle(0.0f, 0.0f, (float)scarfy.width/6, (float)scarfy.height);

@@ -2,18 +2,19 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.text.Font;
-import com.raylib.java.text.Text;
+import com.raylib.java.text.rText;
 import com.raylib.java.textures.Image;
+import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.FileIO;
 
 import java.io.IOException;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
-import static com.raylib.java.rlgl.RLGL.TextureFilterMode.TEXTURE_FILTER_BILINEAR;
-import static com.raylib.java.textures.Textures.LoadTextureFromImage;
 
 public class FontSDF{
 
@@ -21,10 +22,13 @@ public class FontSDF{
      *
      *   raylib [text] example - TTF loading and usage
      *
-     *   This example has been created using raylib 1.3.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -54,37 +58,37 @@ public class FontSDF{
         // Default font generation from TTF font
         Font fontDefault = new Font();
         fontDefault.baseSize = 16;
-        fontDefault.charsCount = 95;
+        fontDefault.glyphCount = 95;
 
         // Loading font data from memory data
         // Parameters > font size: 16, no chars array provided (0), chars count: 95 (autogenerate chars array)
-        fontDefault.chars = rlj.text.LoadFontData(fileData, fileSize, 16, null, 95, Text.FontType.FONT_DEFAULT);
+        fontDefault.glyphs = rlj.text.LoadFontData(fileData, fileSize, 16, null, 95, rText.FontType.FONT_DEFAULT);
         // Parameters > chars count: 95, font size: 16, chars padding in image: 4 px, pack method: 0 (default)
         Image atlas = rlj.text.GenImageFontAtlas(fontDefault, 0);
-        fontDefault.texture = LoadTextureFromImage(atlas);
-        rlj.textures.UnloadImage(atlas);
+        fontDefault.texture = rTextures.LoadTextureFromImage(atlas);
+        rTextures.UnloadImage(atlas);
 
         // SDF font generation from TTF font
         Font fontSDF = new Font();
         fontSDF.baseSize = 16;
-        fontSDF.charsCount = 95;
+        fontSDF.glyphCount = 95;
         // Parameters > font size: 16, no chars array provided (0), chars count: 0 (defaults to 95)
-        fontSDF.chars = rlj.text.LoadFontData(fileData, fileSize, 16, null, 0, Text.FontType.FONT_SDF);
+        fontSDF.glyphs = rlj.text.LoadFontData(fileData, fileSize, 16, null, 0, rText.FontType.FONT_SDF);
         // Parameters > chars count: 95, font size: 16, chars padding in image: 0 px, pack method: 1 (Skyline algorythm)
         atlas = rlj.text.GenImageFontAtlas(fontSDF, 1);
-        fontSDF.texture = LoadTextureFromImage(atlas);
-        rlj.textures.UnloadImage(atlas);
+        fontSDF.texture = rTextures.LoadTextureFromImage(atlas);
+        rTextures.UnloadImage(atlas);
 
         FileIO.UnloadFileData(fileData);      // Free memory from loaded file
 
         // Load SDF required shader (we use default vertex shader)
         Shader shader = rlj.core.LoadShader(null, "resources/shaders/glsl330/sdf.fs");
-        rlj.textures.SetTextureFilter(fontSDF.texture, TEXTURE_FILTER_BILINEAR);    // Required for SDF font
+        rTextures.SetTextureFilter(fontSDF.texture, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_BILINEAR);    // Required for SDF font
 
         Vector2 fontPosition = new Vector2(40, screenHeight / 2.0f - 50);
-        Vector2 textSize = new Vector2();
+        Vector2 textSize;
         float fontSize = 16.0f;
-        int currentFont = 0;            // 0 - fontDefault, 1 - fontSDF
+        int currentFont;            // 0 - fontDefault, 1 - fontSDF
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -94,11 +98,11 @@ public class FontSDF{
         {
             // Update
             //----------------------------------------------------------------------------------
-            fontSize += rlj.core.GetMouseWheelMove() * 8.0f;
+            fontSize += rCore.GetMouseWheelMove() * 8.0f;
 
             if (fontSize < 6) fontSize = 6;
 
-            if (rlj.core.IsKeyDown(KEY_SPACE)){
+            if (rCore.IsKeyDown(KEY_SPACE)){
                 currentFont = 1;
             }
             else{
@@ -106,14 +110,14 @@ public class FontSDF{
             }
 
             if (currentFont == 0){
-                textSize = rlj.text.MeasureTextEx(fontDefault, msg, fontSize, 0);
+                textSize = rText.MeasureTextEx(fontDefault, msg, fontSize, 0);
             }
             else{
-                textSize = rlj.text.MeasureTextEx(fontSDF, msg, fontSize, 0);
+                textSize = rText.MeasureTextEx(fontSDF, msg, fontSize, 0);
             }
 
-            fontPosition.x = rlj.core.GetScreenWidth() / 2 - textSize.x / 2;
-            fontPosition.y = rlj.core.GetScreenHeight() / 2 - textSize.y / 2 + 80;
+            fontPosition.x = rCore.GetScreenWidth() / 2.0f - textSize.x / 2;
+            fontPosition.y = rCore.GetScreenHeight() / 2.0f - textSize.y / 2 + 80;
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -142,11 +146,11 @@ public class FontSDF{
                 rlj.text.DrawText("default font", 315, 40, 30, Color.GRAY);
             }
 
-            rlj.text.DrawText("FONT SIZE: 16.0", rlj.core.GetScreenWidth() - 240, 20, 20, Color.DARKGRAY);
-            rlj.text.DrawText("RENDER SIZE: " + fontSize, rlj.core.GetScreenWidth() - 240, 50, 20, Color.DARKGRAY);
-            rlj.text.DrawText("Use MOUSE WHEEL to SCALE TEXT!", rlj.core.GetScreenWidth() - 240, 90, 10, Color.DARKGRAY);
+            rlj.text.DrawText("FONT SIZE: 16.0", rCore.GetScreenWidth() - 240, 20, 20, Color.DARKGRAY);
+            rlj.text.DrawText("RENDER SIZE: " + fontSize, rCore.GetScreenWidth() - 240, 50, 20, Color.DARKGRAY);
+            rlj.text.DrawText("Use MOUSE WHEEL to SCALE TEXT!", rCore.GetScreenWidth() - 240, 90, 10, Color.DARKGRAY);
 
-            rlj.text.DrawText("HOLD SPACE to USE SDF FONT VERSION!", 340, rlj.core.GetScreenHeight() - 30, 20, Color.MAROON);
+            rlj.text.DrawText("HOLD SPACE to USE SDF FONT VERSION!", 340, rCore.GetScreenHeight() - 30, 20, Color.MAROON);
 
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------
@@ -154,8 +158,8 @@ public class FontSDF{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rlj.text.UnloadFont(fontDefault);    // Default font unloading
-        rlj.text.UnloadFont(fontSDF);        // SDF font unloading
+        rText.UnloadFont(fontDefault);    // Default font unloading
+        rText.UnloadFont(fontSDF);        // SDF font unloading
 
         rlj.core.UnloadShader(shader);       // Unload SDF shader
         //--------------------------------------------------------------------------------------

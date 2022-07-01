@@ -3,6 +3,7 @@ package shaders;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.core.input.Keyboard;
+import com.raylib.java.core.rCore;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 
@@ -19,19 +20,21 @@ public class PaletteSwitch{
      *         on OpenGL ES 2.0 platforms (Android, Raspberry Pi, HTML5), use #version 100 shaders
      *         raylib comes with shaders ready for both versions, check raylib/shaders install folder
      *
-     *   This example has been created using raylib 2.3 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Marco Lizza (@MarcoLizza) and reviewed by Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
-     *   Copyright (c) 2019 Marco Lizza (@MarcoLizza) and Ramon Santamaria (@raysan5)
+     *   Copyright (c) 2019 Marco Lizza (@MarcoLizza)
      *
      ********************************************************************************************/
 
 
-    final static int MAX_PALETTES = 3,
-            COLORS_PER_PALETTE = 8,
-            VALUES_PER_COLOR = 3;
+    final static int MAX_PALETTES = 3;
+    final static int COLORS_PER_PALETTE = 8;
 
     static float[][] palettes = {
             {   // 3-BIT RGB
@@ -86,7 +89,7 @@ public class PaletteSwitch{
 
         // Get variable (uniform) location on the shader to connect with the program
         // NOTE: If uniform variable could not be found in the shader, function returns -1
-        int paletteLoc = rlj.core.GetShaderLocation(shader, "palette");
+        int paletteLoc = rCore.GetShaderLocation(shader, "palette");
 
         int currentPalette = 0;
         int lineHeight = screenHeight / COLORS_PER_PALETTE;
@@ -115,7 +118,7 @@ public class PaletteSwitch{
 
             // Send new value to the shader to be used on drawing.
             // NOTE: We are sending RGB triplets w/o the alpha channel
-            rlj.core.SetShaderValueV(shader, paletteLoc, palettes[currentPalette], RLGL.ShaderUniformDataType.SHADER_UNIFORM_IVEC3, COLORS_PER_PALETTE);
+            rCore.SetShaderValueV(shader, paletteLoc, palettes[currentPalette], RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_IVEC3, COLORS_PER_PALETTE);
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -129,7 +132,7 @@ public class PaletteSwitch{
             for (int i = 0; i < COLORS_PER_PALETTE; i++){
                 // Draw horizontal screen-wide rectangles with increasing "palette index"
                 // The used palette index is encoded in the RGB components of the pixel
-                rlj.shapes.DrawRectangle(0, lineHeight * i, rlj.core.GetScreenWidth(), lineHeight, new Color(i, i, i, 255));
+                rlj.shapes.DrawRectangle(0, lineHeight * i, rCore.GetScreenWidth(), lineHeight, new Color(i, i, i, 255));
             }
 
             rlj.core.EndShaderMode();

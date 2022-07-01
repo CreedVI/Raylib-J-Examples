@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class SrcRec_DestRec{
 
@@ -12,10 +13,13 @@ public class SrcRec_DestRec{
      *
      *   raylib-j [textures] example - Texture source and destination rectangles
      *
-     *   This example has been created using raylib 1.3 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -31,7 +35,7 @@ public class SrcRec_DestRec{
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
-        Texture2D scarfy = rlj.textures.LoadTexture("resources/scarfy.png");        // Texture loading
+        Texture2D scarfy = rTextures.LoadTexture("resources/scarfy.png");        // Texture loading
 
         int frameWidth = scarfy.width/6;
         int frameHeight = scarfy.height;
@@ -69,7 +73,7 @@ public class SrcRec_DestRec{
             // destRec defines the rectangle where our texture part will fit (scaling it to fit)
             // origin defines the point of the texture used as reference for rotation and scaling
             // rotation defines the texture rotation (using origin as rotation point)
-            rlj.textures.DrawTexturePro(scarfy, sourceRec, destRec, origin, (float)rotation, Color.WHITE);
+            rTextures.DrawTexturePro(scarfy, sourceRec, destRec, origin, (float)rotation, Color.WHITE);
 
             rlj.shapes.DrawLine((int)destRec.x, 0, (int)destRec.x, screenHeight, Color.GRAY);
             rlj.shapes.DrawLine(0, (int)destRec.y, screenWidth, (int)destRec.y, Color.GRAY);

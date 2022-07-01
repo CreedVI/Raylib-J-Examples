@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 import com.raylib.java.utils.Easings;
 
 import static com.raylib.java.core.input.Keyboard.*;
@@ -14,7 +15,7 @@ public class EasingsRectArray{
      *
      *   raylib-j [shapes] example - Easings Rectangle Array
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -44,8 +45,8 @@ public class EasingsRectArray{
             for (int x = 0; x < MAX_RECS_X; x++)
             {
                 recs[y*MAX_RECS_X + x] = new Rectangle();
-                recs[y*MAX_RECS_X + x].x = RECS_WIDTH/2 + RECS_WIDTH*x;
-                recs[y*MAX_RECS_X + x].y = RECS_HEIGHT/2 + RECS_HEIGHT*y;
+                recs[y*MAX_RECS_X + x].x = RECS_WIDTH/2.0f + RECS_WIDTH*x;
+                recs[y*MAX_RECS_X + x].y = RECS_HEIGHT/2.0f + RECS_HEIGHT*y;
                 recs[y*MAX_RECS_X + x].width = RECS_WIDTH;
                 recs[y*MAX_RECS_X + x].height = RECS_HEIGHT;
             }
@@ -105,7 +106,7 @@ public class EasingsRectArray{
             {
                 for (int i = 0; i < MAX_RECS_X*MAX_RECS_Y; i++)
                 {
-                    rlj.shapes.DrawRectanglePro(recs[i], new Vector2(recs[i].width/2, recs[i].height/2), rotation,
+                    rShapes.DrawRectanglePro(recs[i], new Vector2(recs[i].width/2, recs[i].height/2), rotation,
                     Color.RED);
                 }
             }

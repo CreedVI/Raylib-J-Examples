@@ -2,16 +2,19 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.text.rText;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.Config.ConfigFlag.FLAG_VSYNC_HINT;
+import static com.raylib.java.core.Color.WHITE;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
+import static com.raylib.java.shapes.rShapes.DrawRectangleRec;
 
 public class Unicode{
 
@@ -19,12 +22,15 @@ public class Unicode{
      *
      *   raylib [text] example - Using unicode with raylib
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Vlad Adrian (@demizdor) and reviewed by Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
-     *   Copyright (c) 2019 Vlad Adrian (@demizdor) and Ramon Santamaria (@raysan5)
+     *   Copyright (c) 2019 Vlad Adrian (@demizdor)
      *
      ********************************************************************************************/
 
@@ -170,7 +176,7 @@ public class Unicode{
 
         rlj = new Raylib();
 
-        rlj.core.SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
+        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib [text] example - unicode");
 
         // Load the font resources
@@ -198,13 +204,13 @@ public class Unicode{
             if (rlj.core.IsKeyPressed(KEY_SPACE)) RandomizeEmoji();
 
             // Set the selected emoji and copy its text to clipboard
-            if (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON) && (hovered != -1) && (hovered != selected)){
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && (hovered != -1) && (hovered != selected)){
                 selected = hovered;
                 selectedPos = hoveredPos;
                 rlj.core.SetClipboardText(messages[emoji[selected].message].text);
             }
 
-            Vector2 mouse = rlj.core.GetMousePosition();
+            Vector2 mouse = rCore.GetMousePosition();
             Vector2 pos = new Vector2(28.8f, 10.0f);
             hovered = -1;
             //----------------------------------------------------------------------------------
@@ -223,7 +229,7 @@ public class Unicode{
 
                 if (!rlj.shapes.CheckCollisionPointRec(mouse, emojiRect)){
                     rlj.text.DrawTextEx(fontEmoji, txt, pos, (float) fontEmoji.baseSize, 1.0f, selected == i ? emoji[i].color :
-                            Textures.Fade(Color.LIGHTGRAY, 0.4f));
+                            rTextures.Fade(Color.LIGHTGRAY, 0.4f));
                 }
                 else{
                     rlj.text.DrawTextEx(fontEmoji, txt, pos, (float) fontEmoji.baseSize, 1.0f, emoji[i].color);
@@ -255,7 +261,7 @@ public class Unicode{
                 }
 
                 // Calculate size for the message box (approximate the height and width)
-                Vector2 sz = rlj.text.MeasureTextEx(font, messages[message].text, (float) font.baseSize, 1.0f);
+                Vector2 sz = rText.MeasureTextEx(font, messages[message].text, (float) font.baseSize, 1.0f);
                 if (sz.x > 300){
                     sz.y *= sz.x / 300;
                     sz.x = 300;
@@ -292,18 +298,18 @@ public class Unicode{
                 }
 
                 // Draw chat bubble
-                rlj.shapes.DrawRectangleRec(msgRect, emoji[selected].color);
+                DrawRectangleRec(msgRect, emoji[selected].color);
                 rlj.shapes.DrawTriangle(a, b, c, emoji[selected].color);
 
                 // Draw the main text message
-                Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2, msgRect.y + verticalPadding / 2, msgRect.width - horizontalPadding, msgRect.height);
-                rlj.text.DrawTextRec(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
+                Rectangle textRect = new Rectangle(msgRect.x + horizontalPadding / 2.0f, msgRect.y + verticalPadding / 2.0f, msgRect.width - horizontalPadding, msgRect.height);
+                DrawTextBoxed(font, messages[message].text, textRect, (float) font.baseSize, 1.0f, true, Color.WHITE);
 
                 // Draw the info text below the main message
                 int size = messages[message].text.length();
                 int len = rlj.text.GetCodepointsCount(messages[message].text);
                 String info = messages[message].language + " " + len + " characters " + size + " bytes";
-                sz = rlj.text.MeasureTextEx(rlj.text.GetFontDefault(), info, 10, 1.0f);
+                sz = rText.MeasureTextEx(rText.GetFontDefault(), info, 10, 1.0f);
                 pos = new Vector2(textRect.x + textRect.width - sz.x, msgRect.y + msgRect.height - sz.y - 2);
                 rlj.text.DrawText(info, (int) pos.x, (int) pos.y, 10, Color.RAYWHITE);
             }
@@ -319,30 +325,157 @@ public class Unicode{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rlj.text.UnloadFont(fontDefault);    // Unload font resource
-        rlj.text.UnloadFont(fontAsian);      // Unload font resource
-        rlj.text.UnloadFont(fontEmoji);      // Unload font resource
+        rText.UnloadFont(fontDefault);    // Unload font resource
+        rText.UnloadFont(fontAsian);      // Unload font resource
+        rText.UnloadFont(fontEmoji);      // Unload font resource
         //--------------------------------------------------------------------------------------
     }
 
     // Fills the emoji array with random emoji (only those emojis present in fontEmoji)
     static void RandomizeEmoji(){
         hovered = selected = -1;
-        int start = Core.GetRandomValue(45, 360);
+        int start = rCore.GetRandomValue(45, 360);
 
         for (int i = 0; i < emoji.length; ++i){
             //Initialize emoji
             emoji[i] = new Emoji();
 
             // 0-179 emoji codepoints (from emoji char array)
-            emoji[i].index = Core.GetRandomValue(0, emojiCodepoints.length-1);
+            emoji[i].index = rCore.GetRandomValue(0, emojiCodepoints.length-1);
 
             // Generate a random color for this emoji
-            emoji[i].color = Textures.Fade(rlj.textures.ColorFromHSV((float) ((start * (i + 1)) % 360), 0.6f, 0.85f), 0.8f);
+            emoji[i].color = rTextures.Fade(rlj.textures.ColorFromHSV((float) ((start * (i + 1)) % 360), 0.6f, 0.85f), 0.8f);
 
             // Set a random message for this emoji
-            emoji[i].message = Core.GetRandomValue(0, messages.length - 1);
+            emoji[i].message = rCore.GetRandomValue(0, messages.length - 1);
         }
+    }
+    //--------------------------------------------------------------------------------------
+    // Module functions definition
+    //--------------------------------------------------------------------------------------
+
+    // Draw text using font inside rectangle limits
+    public static void DrawTextBoxed(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWarp, Color tint) {
+        DrawTextBoxedSelectable(font, text, rec, fontSize, spacing, wordWarp, tint, 0, 0, WHITE, WHITE);
+    }
+
+    public static final int MEASURE_STATE = 0;
+    public static final int DRAW_STATE = 1;
+
+    // Draw text using font inside rectangle limits with support for text selection
+    public static void DrawTextBoxedSelectable(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color tint, int selectStart, int selectLength, Color selectTint, Color selectBackTint) {
+        int length = rText.TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
+
+        float textOffsetY = 0;       // Offset between lines (on line break '\n')
+        float textOffsetX = 0;       // Offset X to next character to draw
+
+        float scaleFactor = fontSize / (float) font.baseSize;     // Character rectangle scaling factor
+
+        // Word/character wrapping mechanism variables
+        int state = wordWrap ? MEASURE_STATE : DRAW_STATE;
+
+        int startLine = -1;         // Index where to begin drawing (where a line begins)
+        int endLine = -1;           // Index where to stop drawing (where a line ends)
+        int lastk = -1;             // Holds last value of the character position
+
+        for(int i = 0, k = 0; i < length; i++, k++) {
+            // Get next codepoint from byte string and glyph index in font
+            int codepointByteCount = 0;
+            int codepoint = rText.GetCodepoint(new char[ text.charAt(i) ], codepointByteCount);
+            int index = rText.GetGlyphIndex(font, codepoint);
+
+            // NOTE: Normally we exit the decoding sequence as soon as a bad byte is found (and return 0x3f)
+            // but we need to draw all of the bad bytes using the '?' symbol moving one byte
+            if (codepoint == 0x3f) codepointByteCount = 1;
+            i += (codepointByteCount - 1);
+
+            float glyphWidth = 0;
+            if (codepoint != '\n')
+            {
+                glyphWidth = (font.glyphs[index].advanceX == 0) ? font.recs[index].width*scaleFactor : font.glyphs[index].advanceX*scaleFactor;
+
+                if (i + 1 < length) glyphWidth = glyphWidth + spacing;
+            }
+
+            // NOTE: When wordWrap is ON we first measure how much of the text we can draw before going outside of the rec container
+            // We store this info in startLine and endLine, then we change states, draw the text between those two variables
+            // and change states again and again recursively until the end of the text (or until we get outside of the container).
+            // When wordWrap is OFF we don't need the measure state so we go to the drawing state immediately
+            // and begin drawing on the next line before we can get outside the container.
+            if (state == MEASURE_STATE) {
+
+                // TODO: There are multiple types of spaces in UNICODE, maybe it's a good idea to add support for more
+                // Ref: http://jkorpela.fi/chars/spaces.html
+                if ((codepoint == ' ') || (codepoint == '\t') || (codepoint == '\n')) endLine = i;
+                if ((textOffsetX + glyphWidth) > rec.width) {
+                    endLine = (endLine < 1)? i : endLine;
+                    if (i == endLine) endLine -= codepointByteCount;
+                    if ((startLine + codepointByteCount) == endLine) endLine = (i - codepointByteCount);
+
+                    state = DRAW_STATE;
+                }
+                else if ((i + 1) == length) {
+                    endLine = i;
+                    state = DRAW_STATE;
+                }
+                else if (codepoint == '\n') state = DRAW_STATE;
+
+                if (state == DRAW_STATE) {
+                    textOffsetX = 0;
+                    i = startLine;
+                    glyphWidth = 0;
+
+                    // Save character position when we switch states
+                    int tmp = lastk;
+                    lastk = k - 1;
+                    k = tmp;
+                }
+            }else {
+                if (codepoint == '\n') {
+                    if (!wordWrap) {
+                        textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
+                        textOffsetX = 0;
+                    }
+                }else {
+                    if (!wordWrap && ((textOffsetX + glyphWidth) > rec.width)) {
+                        textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
+                        textOffsetX = 0;
+                    }
+
+                    // When text overflows rectangle height limit, just stop drawing
+                    if ((textOffsetY + font.baseSize*scaleFactor) > rec.height) break;
+
+                    // Draw selection background
+                    boolean isGlyphSelected = false;
+                    if ((selectStart >= 0) && (k >= selectStart) && (k < (selectStart + selectLength))) {
+                        DrawRectangleRec(new Rectangle(rec.x + textOffsetX - 1, rec.y + textOffsetY, glyphWidth, (float)font.baseSize*scaleFactor), selectBackTint);
+                        isGlyphSelected = true;
+                    }
+
+                    // Draw current character glyph
+                    if ((codepoint != ' ') && (codepoint != '\t')) {
+                        rlj.text.DrawTextCodepoint(font, codepoint, new Vector2(rec.x + textOffsetX, rec.y + textOffsetY), fontSize, isGlyphSelected? selectTint : tint);
+                    }
+                }
+
+                if (wordWrap && (i == endLine))
+                {
+                    textOffsetY += (font.baseSize + font.baseSize/2.0f)*scaleFactor;
+                    textOffsetX = 0;
+                    startLine = endLine;
+                    endLine = -1;
+                    glyphWidth = 0;
+                    selectStart += lastk - k;
+                    k = lastk;
+
+                    state = MEASURE_STATE;
+                }
+            }
+
+            textOffsetX += glyphWidth;
+
+        }
+
     }
 
 }

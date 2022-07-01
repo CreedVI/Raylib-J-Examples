@@ -5,8 +5,23 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class TexturesPoly{
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [textures] example - Textured polygon
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     final static int MAX_POINTS = 11;
 
@@ -42,7 +57,7 @@ public class TexturesPoly{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - textured polygon");
 
-        Texture2D texture = rlj.textures.LoadTexture("resources/cat.png");
+        Texture2D texture = rTextures.LoadTexture("resources/cat.png");
 
         float ang = 0;
 
@@ -71,7 +86,7 @@ public class TexturesPoly{
 
             rlj.text.DrawText("textured polygon", 20, 20, 20, Color.DARKGRAY);
 
-            rlj.textures.DrawTexturePoly(texture, new Vector2( screenWidth/2, screenHeight/2 ),
+            rlj.textures.DrawTexturePoly(texture, new Vector2( screenWidth/2.0f, screenHeight/2.0f ),
                     positions, texcoords, MAX_POINTS, Color.WHITE);
 
             rlj.core.EndDrawing();

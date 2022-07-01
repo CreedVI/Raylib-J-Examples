@@ -2,6 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 import static com.raylib.java.core.input.Keyboard.*;
@@ -10,7 +11,7 @@ import static com.raylib.java.core.input.Keyboard.*;
  *
  *   raylib-j [core] example - Keyboard input
  *
- *   This example has been created using raylib-j (Version 0.1)
+ *   This example has been created using raylib-j (Version 0.4)
  *   Ported by CreedVI
  *   https://github.com/creedvi/raylib-j
  *
@@ -42,16 +43,16 @@ public class InputKeys{
 
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsKeyDown(KEY_RIGHT)){
+            if (rCore.IsKeyDown(KEY_RIGHT)){
                 ballPosition.x += 2.0f;
             }
-            if (rlj.core.IsKeyDown(KEY_LEFT)){
+            if (rCore.IsKeyDown(KEY_LEFT)){
                 ballPosition.x -= 2.0f;
             }
-            if (rlj.core.IsKeyDown(KEY_UP)){
+            if (rCore.IsKeyDown(KEY_UP)){
                 ballPosition.y -= 2.0f;
             }
-            if (rlj.core.IsKeyDown(KEY_DOWN)){
+            if (rCore.IsKeyDown(KEY_DOWN)){
                 ballPosition.y += 2.0f;
             }
             //----------------------------------------------------------------------------------

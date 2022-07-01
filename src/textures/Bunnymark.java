@@ -2,11 +2,12 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class Bunnymark{
 
@@ -14,10 +15,13 @@ public class Bunnymark{
      *
      *   raylib-j [textures] example - Bunnymark
      *
-     *   This example has been created using raylib 1.6 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2014-2019 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -50,7 +54,7 @@ public class Bunnymark{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - bunnymark");
 
         // Load bunny texture
-        Texture2D texBunny = rlj.textures.LoadTexture("resources/wabbit_alpha.png");
+        Texture2D texBunny = rTextures.LoadTexture("resources/wabbit_alpha.png");
 
         Bunny[] bunnies = new Bunny[MAX_BUNNIES];    // Bunnies array
         for (int i = 0; i < bunnies.length; i++){
@@ -67,18 +71,18 @@ public class Bunnymark{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+            if (rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT))
             {
                 // Create more bunnies
                 for (int i = 0; i < 100; i++)
                 {
                     if (bunniesCount < MAX_BUNNIES)
                     {
-                        bunnies[bunniesCount].position = Core.GetMousePosition();
-                        bunnies[bunniesCount].speed.x = (float) Core.GetRandomValue(-250, 250)/60.0f;
-                        bunnies[bunniesCount].speed.y = (float) Core.GetRandomValue(-250, 250)/60.0f;
-                        bunnies[bunniesCount].color = new Color(Core.GetRandomValue(50, 240),
-                                Core.GetRandomValue(80, 240), Core.GetRandomValue(100, 240), 255);
+                        bunnies[bunniesCount].position = rCore.GetMousePosition();
+                        bunnies[bunniesCount].speed.x = (float) rCore.GetRandomValue(-250, 250)/60.0f;
+                        bunnies[bunniesCount].speed.y = (float) rCore.GetRandomValue(-250, 250)/60.0f;
+                        bunnies[bunniesCount].color = new Color(rCore.GetRandomValue(50, 240),
+                                rCore.GetRandomValue(80, 240), rCore.GetRandomValue(100, 240), 255);
                         bunniesCount++;
                     }
                 }
@@ -90,10 +94,10 @@ public class Bunnymark{
                 bunnies[i].position.x += bunnies[i].speed.x;
                 bunnies[i].position.y += bunnies[i].speed.y;
 
-                if (((bunnies[i].position.x + texBunny.width/2) > rlj.core.GetScreenWidth()) ||
-                        ((bunnies[i].position.x + texBunny.width/2) < 0)) bunnies[i].speed.x *= -1;
-                if (((bunnies[i].position.y + texBunny.height/2) > rlj.core.GetScreenHeight()) ||
-                        ((bunnies[i].position.y + texBunny.height/2 - 40) < 0)) bunnies[i].speed.y *= -1;
+                if (((bunnies[i].position.x + texBunny.width/2.0f) > rCore.GetScreenWidth()) ||
+                        ((bunnies[i].position.x + texBunny.width/2.0f) < 0)) bunnies[i].speed.x *= -1;
+                if (((bunnies[i].position.y + texBunny.height/2.0f) > rCore.GetScreenHeight()) ||
+                        ((bunnies[i].position.y + texBunny.height/2.0f - 40) < 0)) bunnies[i].speed.y *= -1;
             }
             //----------------------------------------------------------------------------------
 

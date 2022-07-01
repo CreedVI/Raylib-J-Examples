@@ -2,7 +2,7 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.textures.Textures;
+import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.Easings;
 
 import static com.raylib.java.core.input.Keyboard.*;
@@ -13,7 +13,7 @@ public class EasingsBall{
      *
      *   raylib-j [shapes] example - Easings Ball
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -49,7 +49,7 @@ public class EasingsBall{
             if (state == 0)             // Move ball position X with easing
             {
                 framesCounter++;
-                ballPositionX = (int) Easings.EaseElasticOut(framesCounter, -100, screenWidth/2 + 100, 120);
+                ballPositionX = (int) Easings.EaseElasticOut(framesCounter, -100, screenWidth/2.0f + 100, 120);
 
                 if (framesCounter >= 120)
                 {
@@ -101,7 +101,7 @@ public class EasingsBall{
             rlj.core.ClearBackground(Color.RAYWHITE);
 
             if (state >= 2) rlj.shapes.DrawRectangle(0, 0, screenWidth, screenHeight, Color.GREEN);
-            rlj.shapes.DrawCircle(ballPositionX, 200, ballRadius, Textures.Fade(Color.RED, 1.0f - ballAlpha));
+            rlj.shapes.DrawCircle(ballPositionX, 200, ballRadius, rTextures.Fade(Color.RED, 1.0f - ballAlpha));
 
             if (state == 3) rlj.text.DrawText("PRESS [ENTER] TO PLAY AGAIN!", 240, 200, 20, Color.BLACK);
 

@@ -2,8 +2,23 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 
-public class InputMouseWheel{
+public class InputMouseWheel {
+
+    /*******************************************************************************************
+     *
+     *   raylib-j [core] example - Mouse wheel input
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     public static void main(String[] args){
         // Initialization
@@ -24,7 +39,7 @@ public class InputMouseWheel{
         {
             // Update
             //----------------------------------------------------------------------------------
-            boxPositionY -= (rlj.core.GetMouseWheelMove()*scrollSpeed);
+            boxPositionY -= rCore.GetMouseWheelMove() * scrollSpeed;
             //----------------------------------------------------------------------------------
 
             // Draw

@@ -3,14 +3,17 @@ package textures;
 import com.raylib.java.Config;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.*;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
-import static com.raylib.java.rlgl.RLGL.TextureFilterMode.TEXTURE_FILTER_TRILINEAR;
+import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
 public class DrawTiled{
 
@@ -18,10 +21,15 @@ public class DrawTiled{
      *
      *   raylib-j [textures] example - Draw part of the texture tiled
      *
-     *   This example has been created using raylib 3.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2020 Vlad Adrian (@demizdor) and Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     *   Copyright (c) 2020 Vlad Adrian (@demizdor)
      *
      ********************************************************************************************/
 
@@ -37,12 +45,12 @@ public class DrawTiled{
         int screenHeight = 450;
 
         Raylib rlj = new Raylib();
-        rlj.core.SetConfigFlags(Config.ConfigFlag.FLAG_WINDOW_RESIZABLE); // Make the window resizable
+        rCore.SetConfigFlags(Config.ConfigFlag.FLAG_WINDOW_RESIZABLE); // Make the window resizable
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib-j [textures] example - Draw part of a texture tiled");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Texture2D texPattern = rlj.textures.LoadTexture("resources/patterns.png");
-        rlj.textures.SetTextureFilter(texPattern, TEXTURE_FILTER_TRILINEAR); // Makes the texture smoother when upscaled
+        Texture2D texPattern = rTextures.LoadTexture("resources/patterns.png");
+        rTextures.SetTextureFilter(texPattern, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_TRILINEAR); // Makes the texture smoother when upscaled
 
         // Coordinates for all patterns inside the texture
          Rectangle[] recPattern = {
@@ -89,13 +97,13 @@ public class DrawTiled{
         {
             // Update
             //----------------------------------------------------------------------------------
-            screenWidth = rlj.core.GetScreenWidth();
-            screenHeight = rlj.core.GetScreenHeight();
+            screenWidth = rCore.GetScreenWidth();
+            screenHeight = rCore.GetScreenHeight();
 
             // Handle mouse
-            if (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
             {
-                Vector2 mouse = rlj.core.GetMousePosition();
+                Vector2 mouse = rCore.GetMousePosition();
 
                 // Check which pattern was clicked and set it as the active pattern
                 for (int i = 0; i < recPattern.length; i++)
@@ -158,7 +166,7 @@ public class DrawTiled{
             rlj.text.DrawText("Select Color", 2+MARGIN_SIZE, 10+256+MARGIN_SIZE, 10, BLACK);
             for (int i = 0; i < MAX_COLORS; i++)
             {
-                rlj.shapes.DrawRectangleRec(colorRec[i], colors[i]);
+                rShapes.DrawRectangleRec(colorRec[i], colors[i]);
                 if (activeCol == i) rlj.shapes.DrawRectangleLinesEx(colorRec[i], 3, rlj.textures.ColorAlpha(WHITE,
                         0.5f));
             }
@@ -173,7 +181,7 @@ public class DrawTiled{
             rlj.text.DrawText("Press [SPACE] to reset", 2 + MARGIN_SIZE, 164 + 256 + MARGIN_SIZE, 10, DARKBLUE);
 
             // Draw FPS
-            rlj.text.DrawText(rlj.core.GetFPS() + " FPS", 2 + MARGIN_SIZE, 2 + MARGIN_SIZE, 20, BLACK);
+            rlj.text.DrawText(rCore.GetFPS() + " FPS", 2 + MARGIN_SIZE, 2 + MARGIN_SIZE, 20, BLACK);
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------
         }

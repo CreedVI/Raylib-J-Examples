@@ -5,6 +5,7 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class ShapesTextures{
 
@@ -19,10 +20,13 @@ public class ShapesTextures{
      *         on OpenGL ES 2.0 platforms (Android, Raspberry Pi, HTML5), use #version 100 shaders
      *         raylib comes with shaders ready for both versions, check raylib/shaders install folder
      *
-     *   This example has been created using raylib 1.7 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2015 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -35,7 +39,7 @@ public class ShapesTextures{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shaders] example - shapes and texture shaders");
 
-        Texture2D fudesumi = rlj.textures.LoadTexture("resources/fudesumi.png");
+        Texture2D fudesumi = rTextures.LoadTexture("resources/fudesumi.png");
 
         // Load shader to be used on some parts drawing
         // NOTE 1: Using GLSL 330 shader version, on OpenGL ES 2.0 use GLSL 100 shader version

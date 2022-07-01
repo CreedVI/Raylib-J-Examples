@@ -2,7 +2,7 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 public class FollowingEyes{
@@ -11,7 +11,7 @@ public class FollowingEyes{
      *
      *   raylib-j [shapes] example - Following Eyes
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -31,16 +31,16 @@ public class FollowingEyes{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - following eyes");
 
-        Vector2 scleraLeftPosition = new Vector2( Core.GetScreenWidth()/2 - 100, Core.GetScreenHeight()/2);
-        Vector2 scleraRightPosition = new Vector2(Core.GetScreenWidth()/2 + 100, Core.GetScreenHeight()/2);
+        Vector2 scleraLeftPosition = new Vector2( rCore.GetScreenWidth()/2.0f - 100, rCore.GetScreenHeight()/2.0f);
+        Vector2 scleraRightPosition = new Vector2(rCore.GetScreenWidth()/2.0f + 100, rCore.GetScreenHeight()/2.0f);
         float scleraRadius = 80;
 
-        Vector2 irisLeftPosition = scleraLeftPosition;
-        Vector2 irisRightPosition = scleraRightPosition;
+        Vector2 irisLeftPosition;
+        Vector2 irisRightPosition;
         float irisRadius = 24;
 
-        float angle = 0.0f;
-        float dx = 0.0f, dy = 0.0f, dxx = 0.0f, dyy = 0.0f;
+        float angle;
+        float dx, dy, dxx, dyy;
 
         rlj.core.SetTargetFPS(60);               // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -50,8 +50,8 @@ public class FollowingEyes{
         {
             // Update
             //----------------------------------------------------------------------------------
-            irisLeftPosition = rlj.core.GetMousePosition();
-            irisRightPosition = rlj.core.GetMousePosition();
+            irisLeftPosition = rCore.GetMousePosition();
+            irisRightPosition = rCore.GetMousePosition();
 
             // Check not inside the left eye sclera
             if (!rlj.shapes.CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - 20))

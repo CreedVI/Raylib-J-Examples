@@ -2,23 +2,20 @@ package shaders;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
-import com.raylib.java.core.camera.Camera;
 import com.raylib.java.core.camera.Camera3D;
+import com.raylib.java.core.camera.rCamera;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector3;
+import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.rLights;
 import com.raylib.java.utils.rLights.*;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
-import static com.raylib.java.core.camera.Camera.CameraMode.CAMERA_ORBITAL;
-import static com.raylib.java.core.camera.Camera.CameraProjection.CAMERA_PERSPECTIVE;
+import static com.raylib.java.core.camera.rCamera.CameraProjection.CAMERA_PERSPECTIVE;
 import static com.raylib.java.core.input.Keyboard.*;
-import static com.raylib.java.rlgl.RLGL.ShaderLocationIndex.SHADER_LOC_MATRIX_MODEL;
-import static com.raylib.java.rlgl.RLGL.ShaderLocationIndex.SHADER_LOC_VECTOR_VIEW;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC3;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC4;
 import static com.raylib.java.utils.rLights.LIGHT_POINT;
 import static com.raylib.java.utils.rLights.MAX_LIGHTS;
 
@@ -33,21 +30,15 @@ public class BasicLighting{
      *
      *   NOTE: Shaders used in this example are #version 330 (OpenGL 3.3).
      *
-     *   This example has been created using raylib 2.5 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Example contributed by Chris Camacho (@codifies) and reviewed by Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
-     *   Chris Camacho (@codifies -  http://bedroomcoders.co.uk/) notes:
-     *
-     *   This is based on the PBR lighting example, but greatly simplified to aid learning...
-     *   actually there is very little of the PBR example left!
-     *   When I first looked at the bewildering complexity of the PBR example I feared
-     *   I would never understand how I could do simple lighting with raylib however its
-     *   a testement to the authors of raylib (including rlights.h) that the example
-     *   came together fairly quickly.
-     *
-     *   Copyright (c) 2019 Chris Camacho (@codifies) and Ramon Santamaria (@raysan5)
+     *   Copyright (c) 2019-2021 Chris Camacho (@codifies)
      *
      ********************************************************************************************/
 
@@ -60,7 +51,7 @@ public class BasicLighting{
         int screenHeight = 450;
         Raylib rlj = new Raylib();
 
-        Core.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
+        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib [shaders] example - basic lighting");
 
         // Define the camera to look into our 3d world
@@ -78,7 +69,7 @@ public class BasicLighting{
         */
 
         // Load models texture
-        Texture2D texture = rlj.textures.LoadTexture("resources/texel_checker.png");
+        Texture2D texture = rTextures.LoadTexture("resources/texel_checker.png");
 
         /* Assign texture to default model material
         modelA.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
@@ -89,12 +80,12 @@ public class BasicLighting{
                                    "resources/shaders/glsl330/lighting.fs");
 
         // Get some shader loactions
-        shader.locs[SHADER_LOC_MATRIX_MODEL] = rlj.core.GetShaderLocation(shader, "matModel");
-        shader.locs[SHADER_LOC_VECTOR_VIEW] = rlj.core.GetShaderLocation(shader, "viewPos");
+        shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_MATRIX_MODEL] = rCore.GetShaderLocation(shader, "matModel");
+        shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_VECTOR_VIEW] = rCore.GetShaderLocation(shader, "viewPos");
 
         // ambient light level
-        int ambientLoc = rlj.core.GetShaderLocation(shader, "ambient");
-        rlj.core.SetShaderValue(shader, ambientLoc, new float[]{0.2f, 0.2f, 0.2f, 1.0f}, SHADER_UNIFORM_VEC4);
+        int ambientLoc = rCore.GetShaderLocation(shader, "ambient");
+        rCore.SetShaderValue(shader, ambientLoc, new float[]{0.2f, 0.2f, 0.2f, 1.0f}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC4);
 
         float angle = 6.282f;
 
@@ -111,7 +102,7 @@ public class BasicLighting{
         lights[2] = rLights.CreateLight(LIGHT_POINT, new Vector3(0, 4, 2), new Vector3(), Color.GREEN, shader);
         lights[3] = rLights.CreateLight(LIGHT_POINT, new Vector3(0, 4, 2), new Vector3(), Color.BLUE, shader);
 
-        Camera.SetCameraMode(camera, CAMERA_ORBITAL);  // Set an orbital camera mode
+        Camera3D.SetCameraMode(camera, rCamera.CameraMode.CAMERA_ORBITAL);  // Set an orbital camera mode
 
         rlj.core.SetTargetFPS(60);                       // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -126,7 +117,7 @@ public class BasicLighting{
             if (rlj.core.IsKeyPressed(KEY_G)) { lights[2].enabled = !lights[2].enabled; }
             if (rlj.core.IsKeyPressed(KEY_B)) { lights[3].enabled = !lights[3].enabled; }
 
-            Camera.UpdateCamera(camera);              // Update camera
+            Camera3D.UpdateCamera(camera);              // Update camera
 
             // Make the lights do differing orbits
             angle -= 0.02f;
@@ -151,7 +142,7 @@ public class BasicLighting{
 
             // Update the light shader with the camera view position
             float[] cameraPos = new float[]{ camera.position.x, camera.position.y, camera.position.z };
-            rlj.core.SetShaderValue(shader, shader.locs[SHADER_LOC_VECTOR_VIEW], cameraPos, SHADER_UNIFORM_VEC3);
+            rCore.SetShaderValue(shader, shader.locs[RLGL.rlShaderLocationIndex.RL_SHADER_LOC_VECTOR_VIEW], cameraPos, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC3);
             //----------------------------------------------------------------------------------
 
             // Draw

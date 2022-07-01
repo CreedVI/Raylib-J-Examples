@@ -2,6 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 import static com.raylib.java.core.input.Mouse.MouseButton.*;
@@ -12,7 +13,7 @@ public class InputMouse{
      *
      *   raylib-j [core] example - Mouse input
      *
-     *   This example has been created using raylib-j (Version 0.1)
+     *   This example has been created using raylib-j (Version 0.4)
      *   Ported by CreedVI
      *   https://github.com/creedvi/raylib-j
      *
@@ -42,11 +43,11 @@ public class InputMouse{
         {
             // Update
             //----------------------------------------------------------------------------------
-            ballPosition = rlj.core.GetMousePosition();
+            ballPosition = rCore.GetMousePosition();
 
-            if (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON)) ballColor = Color.MAROON;
-            else if (rlj.core.IsMouseButtonPressed(MOUSE_MIDDLE_BUTTON)) ballColor = Color.LIME;
-            else if (rlj.core.IsMouseButtonPressed(MOUSE_RIGHT_BUTTON)) ballColor = Color.DARKBLUE;
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) ballColor = Color.MAROON;
+            else if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_MIDDLE)) ballColor = Color.LIME;
+            else if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) ballColor = Color.DARKBLUE;
             //----------------------------------------------------------------------------------
 
             // Draw

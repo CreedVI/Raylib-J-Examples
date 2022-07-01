@@ -3,6 +3,7 @@ package textures;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.textures.Texture2D;
+import com.raylib.java.textures.rTextures;
 
 public class LogoRaylib{
 
@@ -10,10 +11,13 @@ public class LogoRaylib{
      *
      *   raylib-j [textures] example - Texture loading and drawing
      *
-     *   This example has been created using raylib 1.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2014 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -27,7 +31,7 @@ public class LogoRaylib{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - texture loading and drawing");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Texture2D texture = rlj.textures.LoadTexture("resources/raylib-j_logo.png");        // Texture loading
+        Texture2D texture = rTextures.LoadTexture("resources/raylib-j_logo.png");        // Texture loading
         //---------------------------------------------------------------------------------------
 
         // Main game loop

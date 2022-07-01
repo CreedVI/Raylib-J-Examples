@@ -2,14 +2,29 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.Core;
+import com.raylib.java.core.rCore;
 import com.raylib.java.shapes.Rectangle;
+import com.raylib.java.shapes.rShapes;
 
 import static com.raylib.java.core.input.Keyboard.*;
 import static com.raylib.java.core.input.Mouse.MouseCursor.MOUSE_CURSOR_DEFAULT;
 import static com.raylib.java.core.input.Mouse.MouseCursor.MOUSE_CURSOR_IBEAM;
 
 public class TextInputBox{
+
+    /*******************************************************************************************
+     *
+     *   raylib [text] example - Input box
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     final static int MAX_INPUT_CHARS = 9;
     static Raylib rlj;
@@ -26,7 +41,7 @@ public class TextInputBox{
         StringBuilder name = new StringBuilder();
         int letterCount = 0;
 
-        Rectangle textBox = new Rectangle(screenWidth / 2 - 100, 180, 225, 50);
+        Rectangle textBox = new Rectangle(screenWidth / 2.0f - 100, 180, 225, 50);
         boolean mouseOnText;
 
         int framesCounter = 0;
@@ -38,7 +53,7 @@ public class TextInputBox{
         while (!rlj.core.WindowShouldClose()) {    // Detect window close button or ESC key
             // Update
             //----------------------------------------------------------------------------------
-            mouseOnText = rlj.shapes.CheckCollisionPointRec(Core.GetMousePosition(), textBox);
+            mouseOnText = rlj.shapes.CheckCollisionPointRec(rCore.GetMousePosition(), textBox);
 
             if (mouseOnText){
                 // Set the window's cursor to the I-Beam
@@ -90,7 +105,7 @@ public class TextInputBox{
 
             rlj.text.DrawText("PLACE MOUSE OVER INPUT BOX!", 240, 140, 20, Color.GRAY);
 
-            rlj.shapes.DrawRectangleRec(textBox, Color.LIGHTGRAY);
+            rShapes.DrawRectangleRec(textBox, Color.LIGHTGRAY);
             if (mouseOnText){
                 rlj.shapes.DrawRectangleLines((int) textBox.x, (int) textBox.y, (int) textBox.width, (int) textBox.height, Color.RED);
             }
@@ -120,17 +135,6 @@ public class TextInputBox{
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------
         }
-    }
-
-    // Check if any key is pressed
-    // NOTE: We limit keys check to keys between 32 (KEY_SPACE) and 126
-    boolean IsAnyKeyPressed(){
-        boolean keyPressed = false;
-        int key = rlj.core.GetKeyPressed();
-
-        if ((key >= 32) && (key <= 126)) keyPressed = true;
-
-        return keyPressed;
     }
 
 }

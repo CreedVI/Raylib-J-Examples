@@ -2,13 +2,13 @@ package shaders;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.core.input.Mouse;
+import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 
 import static com.raylib.java.core.input.Keyboard.KEY_A;
-import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_LEFT_BUTTON;
-import static com.raylib.java.rlgl.RLGL.ShaderUniformDataType.SHADER_UNIFORM_VEC2;
 
 public class HotReloading{
 
@@ -19,10 +19,13 @@ public class HotReloading{
      *   NOTE: This example requires raylib OpenGL 3.3 for shaders support and only #version 330
      *         is currently supported. OpenGL ES 2.0 platforms are not supported at the moment.
      *
-     *   This example has been created using raylib 3.0 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2020 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -42,12 +45,12 @@ public class HotReloading{
         Shader shader = rlj.core.LoadShader(null, fragShaderFileName);
 
         // Get shader locations for required uniforms
-        int resolutionLoc = rlj.core.GetShaderLocation(shader, "resolution");
-        int mouseLoc = rlj.core.GetShaderLocation(shader, "mouse");
-        int timeLoc = rlj.core.GetShaderLocation(shader, "time");
+        int resolutionLoc = rCore.GetShaderLocation(shader, "resolution");
+        int mouseLoc = rCore.GetShaderLocation(shader, "mouse");
+        int timeLoc = rCore.GetShaderLocation(shader, "time");
 
         float[] resolution = {(float) screenWidth, (float) screenHeight};
-        rlj.core.SetShaderValue(shader, resolutionLoc, resolution, SHADER_UNIFORM_VEC2);
+        rCore.SetShaderValue(shader, resolutionLoc, resolution, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
         float totalTime = 0.0f;
         boolean shaderAutoReloading = false;
@@ -60,16 +63,16 @@ public class HotReloading{
         {
             // Update
             //----------------------------------------------------------------------------------
-            totalTime += rlj.core.GetFrameTime();
-            Vector2 mouse = rlj.core.GetMousePosition();
+            totalTime += rCore.GetFrameTime();
+            Vector2 mouse = rCore.GetMousePosition();
             float[] mousePos = {mouse.x, mouse.y};
 
             // Set shader required uniform values
-            rlj.core.SetShaderValue(shader, timeLoc, new float[]{totalTime}, RLGL.ShaderUniformDataType.SHADER_UNIFORM_FLOAT);
-            rlj.core.SetShaderValue(shader, mouseLoc, mousePos, SHADER_UNIFORM_VEC2);
+            rCore.SetShaderValue(shader, timeLoc, new float[]{totalTime}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+            rCore.SetShaderValue(shader, mouseLoc, mousePos, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
             // Hot shader reloading
-            if (shaderAutoReloading || (rlj.core.IsMouseButtonPressed(MOUSE_LEFT_BUTTON))){
+            if (shaderAutoReloading || (rlj.core.IsMouseButtonPressed(Mouse.MouseButton.MOUSE_BUTTON_LEFT))){
                 long currentFragShaderModTime = rlj.core.GetFileModTime(fragShaderFileName);
 
                 // Check if shader file has been modified
@@ -77,17 +80,17 @@ public class HotReloading{
                     // Try reloading updated shader
                     Shader updatedShader = rlj.core.LoadShader(null, fragShaderFileName);
 
-                    if (updatedShader.getId() != rlj.core.rlgl.rlGetShaderDefault().getId()){      // It was correctly loaded
+                    if (updatedShader.getId() != rlj.core.rlgl.rlGetShaderIdDefault()){      // It was correctly loaded
                         rlj.core.UnloadShader(shader);
                         shader = updatedShader;
 
                         // Get shader locations for required uniforms
-                        resolutionLoc = rlj.core.GetShaderLocation(shader, "resolution");
-                        mouseLoc = rlj.core.GetShaderLocation(shader, "mouse");
-                        timeLoc = rlj.core.GetShaderLocation(shader, "time");
+                        resolutionLoc = rCore.GetShaderLocation(shader, "resolution");
+                        mouseLoc = rCore.GetShaderLocation(shader, "mouse");
+                        timeLoc = rCore.GetShaderLocation(shader, "time");
 
                         // Reset required uniforms
-                        rlj.core.SetShaderValue(shader, resolutionLoc, resolution, SHADER_UNIFORM_VEC2);
+                        rCore.SetShaderValue(shader, resolutionLoc, resolution, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
                     }
 
                     fragShaderFileModTime = currentFragShaderModTime;

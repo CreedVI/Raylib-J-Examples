@@ -3,21 +3,21 @@ package core;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 
-/*******************************************************************************************
- *
- *   raylib-j [core] example - Window Test
- *
- *   This example has been created using raylib-j (Version 0.1)
- *   Ported by CreedVI
- *   https://github.com/creedvi/raylib-j
- *
- *   raylib is licensed under an unmodified zlib/libpng license
- *   Original example written and copyright by Ramon Santamaria (@raysan5)
- *   https://github.com/raysan5
- *
- ********************************************************************************************/
+public class BasicWindow {
 
-public class WindowTest{
+    /*******************************************************************************************
+     *
+     *   raylib-j [core] example - Window Test
+     *
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
+     *
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
+     *
+     ********************************************************************************************/
 
     public static void main(String[] args) {
 

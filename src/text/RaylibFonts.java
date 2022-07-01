@@ -4,6 +4,7 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.text.Font;
+import com.raylib.java.text.rText;
 
 public class RaylibFonts{
 
@@ -14,10 +15,13 @@ public class RaylibFonts{
      *   NOTE: raylib is distributed with some free to use fonts (even for commercial pourposes!)
      *         To view details and credits for those fonts, check raylib license file
      *
-     *   This example has been created using raylib 1.7 (www.raylib.com)
-     *   raylib is licensed under an unmodified zlib/libpng license (View raylib.h for details)
+     *   This example has been created using raylib-j (Version 0.4)
+     *   Ported by CreedVI
+     *   https://github.com/creedvi/raylib-j
      *
-     *   Copyright (c) 2017 Ramon Santamaria (@raysan5)
+     *   raylib is licensed under an unmodified zlib/libpng license
+     *   Original example written and copyright by Ramon Santamaria (@raysan5)
+     *   https://github.com/raysan5
      *
      ********************************************************************************************/
 
@@ -62,7 +66,7 @@ public class RaylibFonts{
         for (int i = 0; i < MAX_FONTS; i++)
         {
             positions[i] = new Vector2();
-            positions[i].x = screenWidth/2.0f - rlj.text.MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
+            positions[i].x = screenWidth/2.0f - rText.MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
             positions[i].y = 60.0f + fonts[i].baseSize + 45.0f*i;
         }
 
@@ -107,7 +111,7 @@ public class RaylibFonts{
 
         // Fonts unloading
         for (int i = 0; i < MAX_FONTS; i++){
-            rlj.text.UnloadFont(fonts[i]);
+            rText.UnloadFont(fonts[i]);
         }
         //--------------------------------------------------------------------------------------
     }
