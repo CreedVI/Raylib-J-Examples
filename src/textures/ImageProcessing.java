@@ -2,19 +2,16 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static textures.ImageProcessing.ImageProcess.*;
 import static com.raylib.java.core.input.Keyboard.KEY_DOWN;
 import static com.raylib.java.core.input.Keyboard.KEY_UP;
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
-import static com.raylib.java.textures.rTextures.LoadImageColors;
 
 public class ImageProcessing{
 
@@ -70,10 +67,10 @@ public class ImageProcessing{
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
-        Image imOrigin = rTextures.LoadImage("resources/parrots.png");   // Loaded in CPU memory (RAM)
+        Image imOrigin = rlj.textures.LoadImage("resources/parrots.png");   // Loaded in CPU memory (RAM)
         rlj.textures.ImageFormat(imOrigin, RLGL.rlPixelFormat.RL_PIXELFORMAT_UNCOMPRESSED_R8G8B8A8); // Format
         // image to RGBA 32bit (required for texture update) <-- ISSUE
-        Texture2D texture = rTextures.LoadTextureFromImage(imOrigin);    // Image converted to texture, GPU memory
+        Texture2D texture = rlj.textures.LoadTextureFromImage(imOrigin);    // Image converted to texture, GPU memory
         // (VRAM)
 
         Image imCopy = rlj.textures.ImageCopy(imOrigin);
@@ -98,10 +95,10 @@ public class ImageProcessing{
 
             // Mouse toggle group logic
             for (int i = 0; i < NUM_PROCESSES; i++){
-                if (rlj.shapes.CheckCollisionPointRec(rCore.GetMousePosition(), toggleRecs[i])){
+                if (rlj.shapes.CheckCollisionPointRec(rlj.core.GetMousePosition(), toggleRecs[i])){
                     mouseHoverRec = i;
 
-                    if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)){
+                    if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT.ordinal())){
                         currentProcess = i;
                         textureReload = true;
                     }
@@ -143,7 +140,7 @@ public class ImageProcessing{
                     }
                 }
 
-                Color[] pixels = LoadImageColors(imCopy);    // Load pixel data from image (RGBA 32bit)
+                Color[] pixels = rlj.textures.LoadImageColors(imCopy);    // Load pixel data from image (RGBA 32bit)
                 rlj.textures.UpdateTexture(texture, pixels);             // Update texture with new image data
                 rlj.textures.UnloadImageColors(pixels);                  // Unload pixels data from RAM
 
@@ -184,8 +181,8 @@ public class ImageProcessing{
         // De-Initialization
         //--------------------------------------------------------------------------------------
         rlj.textures.UnloadTexture(texture);       // Unload texture from VRAM
-        rTextures.UnloadImage(imOrigin);        // Unload image-origin from RAM
-        rTextures.UnloadImage(imCopy);          // Unload image-copy from RAM
+        rlj.textures.UnloadImage(imOrigin);        // Unload image-origin from RAM
+        rlj.textures.UnloadImage(imCopy);          // Unload image-copy from RAM
         //--------------------------------------------------------------------------------------
     }
 

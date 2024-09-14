@@ -132,7 +132,7 @@ public class PaletteSwitch{
             for (int i = 0; i < COLORS_PER_PALETTE; i++){
                 // Draw horizontal screen-wide rectangles with increasing "palette index"
                 // The used palette index is encoded in the RGB components of the pixel
-                rlj.shapes.DrawRectangle(0, lineHeight * i, rCore.GetScreenWidth(), lineHeight, new Color(i, i, i, 255));
+                rlj.shapes.DrawRectangle(0, lineHeight * i, rlj.core.GetScreenWidth(), lineHeight, new Color(i, i, i, 255));
             }
 
             rlj.core.EndShaderMode();

@@ -4,7 +4,6 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_RIGHT;
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
@@ -48,20 +47,20 @@ public class ImageGeneration{
 
         Texture2D[] textures = new Texture2D[ NUM_TEXTURES];
 
-        textures[0] = rTextures.LoadTextureFromImage(verticalGradient);
-        textures[1] = rTextures.LoadTextureFromImage(horizontalGradient);
-        textures[2] = rTextures.LoadTextureFromImage(radialGradient);
-        textures[3] = rTextures.LoadTextureFromImage(checked);
-        textures[4] = rTextures.LoadTextureFromImage(whiteNoise);
-        textures[5] = rTextures.LoadTextureFromImage(cellular);
+        textures[0] = rlj.textures.LoadTextureFromImage(verticalGradient);
+        textures[1] = rlj.textures.LoadTextureFromImage(horizontalGradient);
+        textures[2] = rlj.textures.LoadTextureFromImage(radialGradient);
+        textures[3] = rlj.textures.LoadTextureFromImage(checked);
+        textures[4] = rlj.textures.LoadTextureFromImage(whiteNoise);
+        textures[5] = rlj.textures.LoadTextureFromImage(cellular);
 
         // Unload image data (CPU RAM)
-        rTextures.UnloadImage(verticalGradient);
-        rTextures.UnloadImage(horizontalGradient);
-        rTextures.UnloadImage(radialGradient);
-        rTextures.UnloadImage(checked);
-        rTextures.UnloadImage(whiteNoise);
-        rTextures.UnloadImage(cellular);
+        rlj.textures.UnloadImage(verticalGradient);
+        rlj.textures.UnloadImage(horizontalGradient);
+        rlj.textures.UnloadImage(radialGradient);
+        rlj.textures.UnloadImage(checked);
+        rlj.textures.UnloadImage(whiteNoise);
+        rlj.textures.UnloadImage(cellular);
 
         int currentTexture = 0;
 
@@ -72,7 +71,7 @@ public class ImageGeneration{
         while (!rlj.core.WindowShouldClose()){
             // Update
             //----------------------------------------------------------------------------------
-            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT) || rlj.core.IsKeyPressed(KEY_RIGHT)){
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT.ordinal()) || rlj.core.IsKeyPressed(KEY_RIGHT)){
                 currentTexture = (currentTexture + 1) % NUM_TEXTURES; // Cycle between the textures
             }
             //----------------------------------------------------------------------------------
@@ -85,8 +84,8 @@ public class ImageGeneration{
 
             rlj.textures.DrawTexture(textures[currentTexture], 0, 0, Color.WHITE);
 
-            rlj.shapes.DrawRectangle(30, 400, 325, 30, rTextures.Fade(Color.SKYBLUE, 0.5f));
-            rlj.shapes.DrawRectangleLines(30, 400, 325, 30, rTextures.Fade(Color.WHITE, 0.5f));
+            rlj.shapes.DrawRectangle(30, 400, 325, 30, rlj.textures.Fade(Color.SKYBLUE, 0.5f));
+            rlj.shapes.DrawRectangleLines(30, 400, 325, 30, rlj.textures.Fade(Color.WHITE, 0.5f));
             rlj.text.DrawText("MOUSE LEFT BUTTON to CYCLE PROCEDURAL TEXTURES", 40, 410, 10, Color.WHITE);
 
             switch (currentTexture) {

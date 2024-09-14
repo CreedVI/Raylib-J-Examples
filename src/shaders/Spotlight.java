@@ -7,7 +7,6 @@ import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 
@@ -59,7 +58,7 @@ public class Spotlight{
         rlj = new Raylib(screenWidth, screenHeight, "raylib - shader spotlight");
         rlj.core.HideCursor();
 
-        Texture2D texRay = rTextures.LoadTexture("resources/raysan.png");
+        Texture2D texRay = rlj.textures.LoadTexture("resources/raysan.png");
 
         Star[] stars = new Star[MAX_STARS];
 
@@ -96,19 +95,19 @@ public class Spotlight{
         // Tell the shader how wide the screen is so we can have
         // a pitch black half and a dimly lit half.
         int wLoc = rCore.GetShaderLocation(shdrSpot, "screenWidth");
-        float sw = (float) rCore.GetScreenWidth();
+        float sw = (float) rlj.core.GetScreenWidth();
         rCore.SetShaderValue(shdrSpot, wLoc, new float[]{sw}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
 
         // Randomize the locations and velocities of the spotlights
         // and initialize the shader locations
         for (int i = 0; i < MAX_SPOTS; i++){
-            spots[i].pos.x = rCore.GetRandomValue(64, screenWidth - 64);
-            spots[i].pos.y = rCore.GetRandomValue(64, screenHeight - 64);
+            spots[i].pos.x = rlj.core.GetRandomValue(64, screenWidth - 64);
+            spots[i].pos.y = rlj.core.GetRandomValue(64, screenHeight - 64);
             spots[i].vel = new Vector2(0, 0);
 
             while ((Math.abs(spots[i].vel.x) + Math.abs(spots[i].vel.y)) < 2){
-                spots[i].vel.x = rCore.GetRandomValue(-400, 40) / 10.0f;
-                spots[i].vel.y = rCore.GetRandomValue(-400, 40) / 10.0f;
+                spots[i].vel.x = rlj.core.GetRandomValue(-400, 40) / 10.0f;
+                spots[i].vel.y = rlj.core.GetRandomValue(-400, 40) / 10.0f;
             }
 
             spots[i].inner = 28.0f * (i + 1);
@@ -137,7 +136,7 @@ public class Spotlight{
             // Update the spots, send them to the shader
             for (int i = 0; i < MAX_SPOTS; i++){
                 if (i == 0){
-                    Vector2 mp = rCore.GetMousePosition();
+                    Vector2 mp = rlj.core.GetMousePosition();
                     spots[i].pos.x = mp.x;
                     spots[i].pos.y = screenHeight - mp.y;
                 }
@@ -200,11 +199,11 @@ public class Spotlight{
     }
 
     static void ResetStar(Star s){
-        s.pos = new Vector2(rCore.GetScreenWidth() / 2.0f, rCore.GetScreenHeight() / 2.0f);
+        s.pos = new Vector2(rlj.core.GetScreenWidth() / 2.0f, rlj.core.GetScreenHeight() / 2.0f);
 
         do{
-            s.vel.x = (float) rCore.GetRandomValue(-1000, 1000) / 100.0f;
-            s.vel.y = (float) rCore.GetRandomValue(-1000, 1000) / 100.0f;
+            s.vel.x = (float) rlj.core.GetRandomValue(-1000, 1000) / 100.0f;
+            s.vel.y = (float) rlj.core.GetRandomValue(-1000, 1000) / 100.0f;
 
         } while (!(Math.abs(s.vel.x) + Math.abs(s.vel.y) > 1));
 
@@ -214,8 +213,8 @@ public class Spotlight{
     static void UpdateStar(Star s){
         s.pos = Raymath.Vector2Add(s.pos, s.vel);
 
-        if ((s.pos.x < 0) || (s.pos.x > rCore.GetScreenWidth()) ||
-                (s.pos.y < 0) || (s.pos.y > rCore.GetScreenHeight())){
+        if ((s.pos.x < 0) || (s.pos.x > rlj.core.GetScreenWidth()) ||
+                (s.pos.y < 0) || (s.pos.y > rlj.core.GetScreenHeight())){
             ResetStar(s);
         }
     }

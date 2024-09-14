@@ -2,12 +2,10 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -55,17 +53,17 @@ public class ParticlesBlending{
         {
             mouseTail[i] = new Particle();
             mouseTail[i].position = new Vector2();
-            mouseTail[i].color = new Color(rCore.GetRandomValue(0, 255), rCore.GetRandomValue(0, 255),
-                    rCore.GetRandomValue(0, 255), 255);
+            mouseTail[i].color = new Color(rlj.core.GetRandomValue(0, 255), rlj.core.GetRandomValue(0, 255),
+                    rlj.core.GetRandomValue(0, 255), 255);
             mouseTail[i].alpha = 1.0f;
-            mouseTail[i].size = (float)rCore.GetRandomValue(1, 30)/20.0f;
-            mouseTail[i].rotation = (float)rCore.GetRandomValue(0, 360);
+            mouseTail[i].size = (float)rlj.core.GetRandomValue(1, 30)/20.0f;
+            mouseTail[i].rotation = (float)rlj.core.GetRandomValue(0, 360);
             mouseTail[i].active = false;
         }
 
         float gravity = 3.0f;
 
-        Texture2D smoke = rTextures.LoadTexture("resources/spark_flame.png");
+        Texture2D smoke = rlj.textures.LoadTexture("resources/spark_flame.png");
 
         int blending = RLGL.rlBlendMode.RL_BLEND_ALPHA;
 
@@ -88,7 +86,7 @@ public class ParticlesBlending{
                 {
                     mouseTail[i].active = true;
                     mouseTail[i].alpha = 1.0f;
-                    mouseTail[i].position = rCore.GetMousePosition();
+                    mouseTail[i].position = rlj.core.GetMousePosition();
                     i = MAX_PARTICLES;
                 }
             }
@@ -129,12 +127,12 @@ public class ParticlesBlending{
             for (int i = 0; i < MAX_PARTICLES; i++)
             {
                 if (mouseTail[i].active){
-                    rTextures.DrawTexturePro(smoke,
+                    rlj.textures.DrawTexturePro(smoke,
                             new Rectangle(0.0f, 0.0f, smoke.width, smoke.height),
                             new Rectangle(mouseTail[i].position.x, mouseTail[i].position.y,
                                     smoke.width*mouseTail[i].size, smoke.height*mouseTail[i].size),
                             new Vector2((smoke.width*mouseTail[i].size/2.0f), smoke.height*mouseTail[i].size/2.0f),
-                            mouseTail[i].rotation, rTextures.Fade(mouseTail[i].color, mouseTail[i].alpha));
+                            mouseTail[i].rotation, rlj.textures.Fade(mouseTail[i].color, mouseTail[i].alpha));
                 }
             }
 

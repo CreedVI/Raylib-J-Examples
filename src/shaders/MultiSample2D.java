@@ -7,7 +7,6 @@ import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_LEFT;
 import static com.raylib.java.core.input.Keyboard.KEY_RIGHT;
@@ -45,12 +44,12 @@ public class MultiSample2D{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib - multiple sample2D");
 
         Image imRed = rlj.textures.GenImageColor(800, 450, new Color(255, 0, 0, 255));
-        Texture2D texRed = rTextures.LoadTextureFromImage(imRed);
-        rTextures.UnloadImage(imRed);
+        Texture2D texRed = rlj.textures.LoadTextureFromImage(imRed);
+        rlj.textures.UnloadImage(imRed);
 
         Image imBlue = rlj.textures.GenImageColor(800, 450, new Color(0, 0, 255, 255));
-        Texture2D texBlue = rTextures.LoadTextureFromImage(imBlue);
-        rTextures.UnloadImage(imBlue);
+        Texture2D texBlue = rlj.textures.LoadTextureFromImage(imBlue);
+        rlj.textures.UnloadImage(imBlue);
 
         Shader shader = rlj.core.LoadShader( null, "resources/shaders/color_mix.fs");
 
@@ -69,13 +68,13 @@ public class MultiSample2D{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rCore.IsKeyDown(KEY_RIGHT)) dividerValue[0] += 0.01f;
-            else if (rCore.IsKeyDown(KEY_LEFT)) dividerValue[0] -= 0.01f;
+            if (rlj.core.IsKeyDown(KEY_RIGHT)) dividerValue[0] += 0.01f;
+            else if (rlj.core.IsKeyDown(KEY_LEFT)) dividerValue[0] -= 0.01f;
 
             if (dividerValue[0] < 0.0f) dividerValue[0] = 0.0f;
             else if (dividerValue[0] > 1.0f) dividerValue[0] = 1.0f;
 
-            rCore.SetShaderValue(shader, dividerLoc, dividerValue, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
+            rlj.core.SetShaderValue(shader, dividerLoc, dividerValue, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -98,7 +97,7 @@ public class MultiSample2D{
             rlj.core.EndShaderMode();
 
             rlj.text.DrawText("Use KEY_LEFT/KEY_RIGHT to move texture mixing in shader!", 80,
-                    rCore.GetScreenHeight() - 40, 20, Color.RAYWHITE);
+                    rlj.core.GetScreenHeight() - 40, 20, Color.RAYWHITE);
 
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------

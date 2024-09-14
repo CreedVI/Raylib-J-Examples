@@ -4,7 +4,6 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 public class TextureToImage{
 
@@ -35,16 +34,16 @@ public class TextureToImage{
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
-        Image image = rTextures.LoadImage("resources/raylib-j_logo.png");  // Load image data into CPU memory (RAM)
-        Texture2D texture = rTextures.LoadTextureFromImage(image);       // Image converted to texture, GPU memory
+        Image image = rlj.textures.LoadImage("resources/raylib-j_logo.png");  // Load image data into CPU memory (RAM)
+        Texture2D texture = rlj.textures.LoadTextureFromImage(image);       // Image converted to texture, GPU memory
         // (RAM -> VRAM)
-        rTextures.UnloadImage(image); // Unload image data from CPU memory (RAM)
+        rlj.textures.UnloadImage(image); // Unload image data from CPU memory (RAM)
 
-        image = rTextures.LoadImageFromTexture(texture); // Retrieve image data from GPU memory (VRAM -> RAM)
+        image = rlj.textures.LoadImageFromTexture(texture); // Retrieve image data from GPU memory (VRAM -> RAM)
         rlj.textures.UnloadTexture(texture); // Unload texture from GPU memory (VRAM)
 
-        texture = rTextures.LoadTextureFromImage(image); // Recreate texture from retrieved image data (RAM -> VRAM)
-        rTextures.UnloadImage(image); // Unload retrieved image data from CPU memory (RAM)
+        texture = rlj.textures.LoadTextureFromImage(image); // Recreate texture from retrieved image data (RAM -> VRAM)
+        rlj.textures.UnloadImage(image); // Unload retrieved image data from CPU memory (RAM)
         //---------------------------------------------------------------------------------------
 
         // Main game loop

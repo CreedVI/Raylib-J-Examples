@@ -2,19 +2,17 @@ package shaders;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.camera.Camera3D;
-import com.raylib.java.core.camera.rCamera;
+import com.raylib.java.core.rcamera.Camera3D;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector3;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 import com.raylib.java.utils.rLights;
 import com.raylib.java.utils.rLights.*;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
-import static com.raylib.java.core.camera.rCamera.CameraProjection.CAMERA_PERSPECTIVE;
+import static com.raylib.java.core.rcamera.Camera3D.CameraProjection.CAMERA_PERSPECTIVE;
 import static com.raylib.java.core.input.Keyboard.*;
 import static com.raylib.java.utils.rLights.LIGHT_POINT;
 import static com.raylib.java.utils.rLights.MAX_LIGHTS;
@@ -51,11 +49,11 @@ public class BasicLighting{
         int screenHeight = 450;
         Raylib rlj = new Raylib();
 
-        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
+        rlj.core.SetConfigFlags(FLAG_MSAA_4X_HINT);  // Enable Multi Sampling Anti Aliasing 4x (if available)
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib [shaders] example - basic lighting");
 
         // Define the camera to look into our 3d world
-        Camera3D camera = new Camera3D();
+        Camera3D camera = new Camera3D(rlj);
         camera.position = new Vector3(2.0f, 2.0f, 6.0f);    // Camera position
         camera.target = new Vector3(0.0f, 0.5f, 0.0f);      // Camera looking at point
         camera.up = new Vector3(0.0f, 1.0f, 0.0f);          // Camera up vector (rotation towards target)
@@ -69,7 +67,7 @@ public class BasicLighting{
         */
 
         // Load models texture
-        Texture2D texture = rTextures.LoadTexture("resources/texel_checker.png");
+        Texture2D texture = rlj.textures.LoadTexture("resources/texel_checker.png");
 
         /* Assign texture to default model material
         modelA.materials[0].maps[MATERIAL_MAP_DIFFUSE].texture = texture;
@@ -102,7 +100,7 @@ public class BasicLighting{
         lights[2] = rLights.CreateLight(LIGHT_POINT, new Vector3(0, 4, 2), new Vector3(), Color.GREEN, shader);
         lights[3] = rLights.CreateLight(LIGHT_POINT, new Vector3(0, 4, 2), new Vector3(), Color.BLUE, shader);
 
-        Camera3D.SetCameraMode(camera, rCamera.CameraMode.CAMERA_ORBITAL);  // Set an orbital camera mode
+        camera.SetCameraMode(Camera3D.CameraMode.CAMERA_ORBITAL);  // Set an orbital camera mode
 
         rlj.core.SetTargetFPS(60);                       // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -117,7 +115,7 @@ public class BasicLighting{
             if (rlj.core.IsKeyPressed(KEY_G)) { lights[2].enabled = !lights[2].enabled; }
             if (rlj.core.IsKeyPressed(KEY_B)) { lights[3].enabled = !lights[3].enabled; }
 
-            Camera3D.UpdateCamera(camera);              // Update camera
+            camera.UpdateCamera();              // Update camera
 
             // Make the lights do differing orbits
             angle -= 0.02f;

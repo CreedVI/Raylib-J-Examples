@@ -5,7 +5,6 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 public class SrcRec_DestRec{
 
@@ -35,7 +34,7 @@ public class SrcRec_DestRec{
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
 
-        Texture2D scarfy = rTextures.LoadTexture("resources/scarfy.png");        // Texture loading
+        Texture2D scarfy = rlj.textures.LoadTexture("resources/scarfy.png");        // Texture loading
 
         int frameWidth = scarfy.width/6;
         int frameHeight = scarfy.height;
@@ -73,7 +72,7 @@ public class SrcRec_DestRec{
             // destRec defines the rectangle where our texture part will fit (scaling it to fit)
             // origin defines the point of the texture used as reference for rotation and scaling
             // rotation defines the texture rotation (using origin as rotation point)
-            rTextures.DrawTexturePro(scarfy, sourceRec, destRec, origin, (float)rotation, Color.WHITE);
+            rlj.textures.DrawTexturePro(scarfy, sourceRec, destRec, origin, (float)rotation, Color.WHITE);
 
             rlj.shapes.DrawLine((int)destRec.x, 0, (int)destRec.x, screenHeight, Color.GRAY);
             rlj.shapes.DrawLine(0, (int)destRec.y, screenWidth, (int)destRec.y, Color.GRAY);

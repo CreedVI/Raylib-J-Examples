@@ -6,7 +6,7 @@
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
       <element id="module-output" name="Raylib-J_Examples" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/lib/Raylib-J_0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/lib/Raylib-J-0.5.2.jar" path-in-jar="/" />
     </root>
   </artifact>
 </component>

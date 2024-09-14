@@ -2,12 +2,10 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.camera.Camera2D;
-import com.raylib.java.core.rCore;
+import com.raylib.java.core.rcamera.Camera2D;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.*;
 
@@ -48,15 +46,15 @@ public class Core2DCamera {
 
         for (int i = 0; i < MAX_BUILDINGS; i++){
             buildings[i] = new Rectangle();
-            buildings[i].width = (float) rCore.GetRandomValue(50, 200);
-            buildings[i].height = (float) rCore.GetRandomValue(100, 800);
+            buildings[i].width = (float) rlj.core.GetRandomValue(50, 200);
+            buildings[i].height = (float) rlj.core.GetRandomValue(100, 800);
             buildings[i].y = screenHeight - 130.0f - buildings[i].height;
             buildings[i].x = -6000.0f + spacing;
 
             spacing += (int) buildings[i].width;
 
-            buildColors[i] = new Color(rCore.GetRandomValue(200, 240), rCore.GetRandomValue(200, 240),
-                    rCore.GetRandomValue(200, 250), 255);
+            buildColors[i] = new Color(rlj.core.GetRandomValue(200, 240), rlj.core.GetRandomValue(200, 240),
+                    rlj.core.GetRandomValue(200, 250), 255);
         }
 
         Camera2D camera = new Camera2D();
@@ -75,10 +73,10 @@ public class Core2DCamera {
             //----------------------------------------------------------------------------------
 
             // Player movement
-            if (rCore.IsKeyDown(KEY_RIGHT)){
+            if (rlj.core.IsKeyDown(KEY_RIGHT)){
                 player.x += 2;
             }
-            else if (rCore.IsKeyDown(KEY_LEFT)){
+            else if (rlj.core.IsKeyDown(KEY_LEFT)){
                 player.x -= 2;
             }
 
@@ -86,10 +84,10 @@ public class Core2DCamera {
             camera.target = new Vector2(player.x + 20, player.y + 20);
 
             // Camera rotation controls
-            if (rCore.IsKeyDown(KEY_A)){
+            if (rlj.core.IsKeyDown(KEY_A)){
                 camera.rotation--;
             }
-            else if (rCore.IsKeyDown(KEY_S)) {
+            else if (rlj.core.IsKeyDown(KEY_S)) {
                 camera.rotation++;
             }
 
@@ -102,7 +100,7 @@ public class Core2DCamera {
             }
 
             // Camera zoom controls
-            camera.zoom += rCore.GetMouseWheelMove() * 0.05f;
+            camera.zoom += rlj.core.GetMouseWheelMove() * 0.05f;
 
             if (camera.zoom > 3.0f){
                 camera.zoom = 3.0f;
@@ -146,7 +144,7 @@ public class Core2DCamera {
             rlj.shapes.DrawRectangle(screenWidth - 5, 5, 5, screenHeight - 10, Color.RED);
             rlj.shapes.DrawRectangle(0, screenHeight - 5, screenWidth, 5, Color.RED);
 
-            rlj.shapes.DrawRectangle(10, 10, 250, 113, rTextures.Fade(Color.SKYBLUE, 0.5f));
+            rlj.shapes.DrawRectangle(10, 10, 250, 113, rlj.textures.Fade(Color.SKYBLUE, 0.5f));
             rlj.shapes.DrawRectangleLines(10, 10, 250, 113, Color.BLUE);
 
             rlj.text.DrawText("Free 2d camera controls:", 20, 20, 10, Color.BLACK);

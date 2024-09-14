@@ -5,7 +5,6 @@ import com.raylib.java.core.rCore;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.RAYWHITE;
 import static com.raylib.java.core.Color.WHITE;
@@ -45,7 +44,7 @@ public class TextureWaves{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shaders] example - texture waves");
 
         // Load texture texture to apply shaders
-        Texture2D texture = rTextures.LoadTexture("resources/space.png");
+        Texture2D texture = rlj.textures.LoadTexture("resources/space.png");
 
         // Load shader and setup location points and values
         Shader shader = rlj.core.LoadShader(null, "resources/shaders/glsl330/wave.fs");
@@ -66,7 +65,7 @@ public class TextureWaves{
         float[] speedX = {8.0f};
         float[] speedY = {8.0f};
 
-        float[] screenSize = { (float) rCore.GetScreenWidth(), (float) rCore.GetScreenHeight() };
+        float[] screenSize = { (float) rlj.core.GetScreenWidth(), (float) rlj.core.GetScreenHeight() };
         rCore.SetShaderValue(shader, rCore.GetShaderLocation(shader, "size"), screenSize, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
         rCore.SetShaderValue(shader, freqXLoc, freqX, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
         rCore.SetShaderValue(shader, freqYLoc, freqY, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
@@ -85,7 +84,7 @@ public class TextureWaves{
         {
             // Update
             //----------------------------------------------------------------------------------
-            seconds += rCore.GetFrameTime();
+            seconds += rlj.core.GetFrameTime();
 
             rCore.SetShaderValue(shader, secondsLoc, new float[]{seconds}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------

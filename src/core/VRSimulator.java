@@ -2,8 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.camera.Camera3D;
-import com.raylib.java.core.camera.rCamera;
+import com.raylib.java.core.rcamera.Camera3D;
 import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.raymath.Vector3;
@@ -90,17 +89,17 @@ public class VRSimulator{
 
         // Initialize framebuffer for stereo rendering
         // NOTE: Screen size should match HMD aspect ratio
-        RenderTexture target = rlj.textures.LoadRenderTexture(rCore.GetScreenWidth(), rCore.GetScreenHeight());
+        RenderTexture target = rlj.textures.LoadRenderTexture(rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight());
 
         // Define the camera to look into our 3d world
-        Camera3D camera = new Camera3D();
+        Camera3D camera = new Camera3D(rlj);
         camera.position = new Vector3(5.0f, 2.0f, 5.0f);    // Camera position
         camera.target = new Vector3(0.0f, 2.0f, 0.0f);      // Camera looking at point
         camera.up = new Vector3(0.0f, 1.0f, 0.0f);          // Camera up vector
         camera.fovy = 60.0f;                                // Camera field-of-view Y
-        camera.projection = rCamera.CameraProjection.CAMERA_PERSPECTIVE;             // Cam()era type
+        camera.projection = Camera3D.CameraProjection.CAMERA_PERSPECTIVE;             // Camera type
 
-        Camera3D.SetCameraMode(camera, rCamera.CameraMode.CAMERA_FIRST_PERSON);         // Set first person camera mode
+        camera.SetCameraMode(Camera3D.CameraMode.CAMERA_FIRST_PERSON);         // Set first person camera mode
 
         rlj.core.SetTargetFPS(90);                   // Set our game to run at 90 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -110,7 +109,7 @@ public class VRSimulator{
         {
             // Update
             //----------------------------------------------------------------------------------
-            Camera3D.UpdateCamera(camera);          // Update camera (simulator mode)
+            camera.UpdateCamera();          // Update camera (simulator mode)
             //----------------------------------------------------------------------------------
 
             // Draw

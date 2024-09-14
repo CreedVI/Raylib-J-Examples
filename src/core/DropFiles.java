@@ -2,7 +2,6 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.textures.rTextures;
 
 public class DropFiles{
@@ -43,7 +42,7 @@ public class DropFiles{
             // Update
             //----------------------------------------------------------------------------------
             if (rlj.core.IsFileDropped()){
-                droppedFiles = rlj.core.GetDroppedFiles();
+                droppedFiles = rlj.core.LoadDroppedFiles();
                 count = rlj.core.GetDroppedFilesCount();
             }
             //----------------------------------------------------------------------------------
@@ -62,10 +61,10 @@ public class DropFiles{
 
                 for (int i = 0; i < count; i++){
                     if (i % 2 == 0){
-                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, rTextures.Fade(Color.LIGHTGRAY, 0.5f));
+                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, rlj.textures.Fade(Color.LIGHTGRAY, 0.5f));
                     }
                     else{
-                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, rTextures.Fade(Color.LIGHTGRAY, 0.3f));
+                        rlj.shapes.DrawRectangle(0, 85 + 40 * i, screenWidth, 40, rlj.textures.Fade(Color.LIGHTGRAY, 0.3f));
                     }
 
                     rlj.text.DrawText(droppedFiles[i], 120, 100 + 40 * i, 10, Color.GRAY);
@@ -80,7 +79,7 @@ public class DropFiles{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rCore.ClearDroppedFiles();    // Clear internal buffers
+        rlj.core.ClearDroppedFiles();    // Clear internal buffers
         //--------------------------------------------------------------------------------------
 
     }

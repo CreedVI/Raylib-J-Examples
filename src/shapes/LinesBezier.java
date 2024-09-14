@@ -3,7 +3,6 @@ package shapes;
 import com.raylib.java.Config;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.core.input.Mouse.MouseButton;
 import com.raylib.java.raymath.Vector2;
 
@@ -32,7 +31,7 @@ public class LinesBezier{
         final int screenWidth = 800;
         final int screenHeight = 450;
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - cubic-bezier lines");
-        rCore.SetConfigFlags(Config.ConfigFlag.FLAG_MSAA_4X_HINT);
+        rlj.core.SetConfigFlags(Config.ConfigFlag.FLAG_MSAA_4X_HINT);
 
         Vector2 start = new Vector2();
         Vector2 end = new Vector2(screenWidth, screenHeight);
@@ -45,8 +44,8 @@ public class LinesBezier{
         {
             // Update
             //----------------------------------------------------------------------------------
-            if (rCore.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT)) start = rCore.GetMousePosition();
-            else if (rCore.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT)) end = rCore.GetMousePosition();
+            if (rlj.core.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_LEFT.ordinal())) start = rlj.core.GetMousePosition();
+            else if (rlj.core.IsMouseButtonDown(MouseButton.MOUSE_BUTTON_RIGHT.ordinal())) end = rlj.core.GetMousePosition();
             //----------------------------------------------------------------------------------
 
             // Draw

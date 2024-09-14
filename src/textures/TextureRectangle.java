@@ -6,7 +6,6 @@ import com.raylib.java.core.input.Keyboard;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 public class TextureRectangle{
 
@@ -38,7 +37,7 @@ public class TextureRectangle{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [texture] example - texture rectangle");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Texture2D scarfy = rTextures.LoadTexture("resources/scarfy.png");        // Texture loading
+        Texture2D scarfy = rlj.textures.LoadTexture("resources/scarfy.png");        // Texture loading
 
         Vector2 position = new Vector2(350.0f, 280.0f);
         Rectangle frameRec = new Rectangle(0.0f, 0.0f, (float)scarfy.width/6, (float)scarfy.height);

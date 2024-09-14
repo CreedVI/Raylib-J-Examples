@@ -6,7 +6,6 @@ import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.rlgl.shader.Shader;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 
@@ -41,8 +40,8 @@ public class TextureDrawing{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shaders] example - texture drawing");
 
         Image imBlank = rlj.textures.GenImageColor(1024, 1024, BLANK);
-        Texture2D texture = rTextures.LoadTextureFromImage(imBlank);  // Load blank texture to fill on shader
-        rTextures.UnloadImage(imBlank);
+        Texture2D texture = rlj.textures.LoadTextureFromImage(imBlank);  // Load blank texture to fill on shader
+        rlj.textures.UnloadImage(imBlank);
 
         // NOTE: Using GLSL 330 shader version, on OpenGL ES 2.0 use GLSL 100 shader version
         Shader shader = rlj.core.LoadShader(null, "resources/shaders/glsl330/cubes_panning.fs");
@@ -59,7 +58,7 @@ public class TextureDrawing{
         {
             // Update
             //----------------------------------------------------------------------------------
-            time = (float) rCore.GetTime();
+            time = (float) rlj.core.GetTime();
             rCore.SetShaderValue(shader, timeLoc, new float[]{time}, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_FLOAT);
             //----------------------------------------------------------------------------------
 

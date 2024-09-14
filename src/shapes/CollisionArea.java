@@ -5,8 +5,6 @@ import com.raylib.java.core.Color;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 
-import static com.raylib.java.core.rCore.GetScreenHeight;
-import static com.raylib.java.core.rCore.GetScreenWidth;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
 public class CollisionArea{
@@ -33,11 +31,11 @@ public class CollisionArea{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - collision area");
 
         // Box A: Moving box
-        Rectangle boxA = new Rectangle(10, GetScreenHeight()/2.0f - 50, 200, 100);
+        Rectangle boxA = new Rectangle(10, rlj.core.GetScreenHeight()/2.0f - 50, 200, 100);
         int boxASpeedX = 4;
 
         // Box B: Mouse moved box
-        Rectangle boxB = new Rectangle(GetScreenWidth()/2.0f - 30, GetScreenHeight()/2.0f - 30, 60, 60);
+        Rectangle boxB = new Rectangle(rlj.core.GetScreenWidth()/2.0f - 30, rlj.core.GetScreenHeight()/2.0f - 30, 60, 60);
 
         Rectangle boxCollision = new Rectangle(); // Collision rectangle
 
@@ -58,17 +56,17 @@ public class CollisionArea{
             if (!pause) boxA.x += boxASpeedX;
 
             // Bounce box on x screen limits
-            if (((boxA.x + boxA.width) >= GetScreenWidth()) || (boxA.x <= 0)) boxASpeedX *= -1;
+            if (((boxA.x + boxA.width) >= rlj.core.GetScreenWidth()) || (boxA.x <= 0)) boxASpeedX *= -1;
 
             // Update player-controlled-box (box02)
             boxB.x = rlj.core.GetMouseX() - boxB.width/2;
             boxB.y = rlj.core.GetMouseY() - boxB.height/2;
 
             // Make sure Box B does not go out of move area limits
-            if ((boxB.x + boxB.width) >= GetScreenWidth()) boxB.x = GetScreenWidth() - boxB.width;
+            if ((boxB.x + boxB.width) >= rlj.core.GetScreenWidth()) boxB.x = rlj.core.GetScreenWidth() - boxB.width;
             else if (boxB.x <= 0) boxB.x = 0;
 
-            if ((boxB.y + boxB.height) >= GetScreenHeight()) boxB.y = GetScreenHeight() - boxB.height;
+            if ((boxB.y + boxB.height) >= rlj.core.GetScreenHeight()) boxB.y = rlj.core.GetScreenHeight() - boxB.height;
             else if (boxB.y <= screenUpperLimit) boxB.y = screenUpperLimit;
 
             // Check boxes collision
@@ -98,12 +96,12 @@ public class CollisionArea{
                 rShapes.DrawRectangleRec(boxCollision, Color.LIME);
 
                 // Draw collision message
-                rlj.text.DrawText("COLLISION!", GetScreenWidth()/2 - rlj.text.MeasureText("COLLISION!", 20)/2,
+                rlj.text.DrawText("COLLISION!", rlj.core.GetScreenWidth()/2 - rlj.text.MeasureText("COLLISION!", 20)/2,
                         screenUpperLimit/2 - 10, 20, Color.BLACK);
 
                 // Draw collision area
                 rlj.text.DrawText(("Collision Area: " + (int)boxCollision.width*(int)boxCollision.height),
-                        GetScreenWidth()/2 - 100, screenUpperLimit + 10, 20, Color.BLACK);
+                        rlj.core.GetScreenWidth()/2 - 100, screenUpperLimit + 10, 20, Color.BLACK);
             }
 
             rlj.text.DrawFPS(10, 10);

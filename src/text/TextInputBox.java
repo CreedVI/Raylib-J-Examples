@@ -2,7 +2,6 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 
@@ -53,11 +52,11 @@ public class TextInputBox{
         while (!rlj.core.WindowShouldClose()) {    // Detect window close button or ESC key
             // Update
             //----------------------------------------------------------------------------------
-            mouseOnText = rlj.shapes.CheckCollisionPointRec(rCore.GetMousePosition(), textBox);
+            mouseOnText = rlj.shapes.CheckCollisionPointRec(rlj.core.GetMousePosition(), textBox);
 
             if (mouseOnText){
                 // Set the window's cursor to the I-Beam
-                rlj.core.SetMouseCursor(MOUSE_CURSOR_IBEAM);
+                rlj.core.SetMouseCursor(MOUSE_CURSOR_IBEAM.ordinal());
 
                 // Get char pressed (unicode character) on the queue
                 int key = rlj.core.GetCharPressed();
@@ -84,7 +83,7 @@ public class TextInputBox{
                 }
             }
             else{
-                rlj.core.SetMouseCursor(MOUSE_CURSOR_DEFAULT);
+                rlj.core.SetMouseCursor(MOUSE_CURSOR_DEFAULT.ordinal());
             }
 
             if (mouseOnText){

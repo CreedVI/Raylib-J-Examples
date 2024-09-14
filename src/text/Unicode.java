@@ -2,12 +2,9 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
-import com.raylib.java.text.rText;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.Config.ConfigFlag.FLAG_MSAA_4X_HINT;
 import static com.raylib.java.Config.ConfigFlag.FLAG_VSYNC_HINT;
@@ -176,7 +173,7 @@ public class Unicode{
 
         rlj = new Raylib();
 
-        rCore.SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
+        rlj.core.SetConfigFlags(FLAG_MSAA_4X_HINT | FLAG_VSYNC_HINT);
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib [text] example - unicode");
 
         // Load the font resources
@@ -204,13 +201,13 @@ public class Unicode{
             if (rlj.core.IsKeyPressed(KEY_SPACE)) RandomizeEmoji();
 
             // Set the selected emoji and copy its text to clipboard
-            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT) && (hovered != -1) && (hovered != selected)){
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT.ordinal()) && (hovered != -1) && (hovered != selected)){
                 selected = hovered;
                 selectedPos = hoveredPos;
                 rlj.core.SetClipboardText(messages[emoji[selected].message].text);
             }
 
-            Vector2 mouse = rCore.GetMousePosition();
+            Vector2 mouse = rlj.core.GetMousePosition();
             Vector2 pos = new Vector2(28.8f, 10.0f);
             hovered = -1;
             //----------------------------------------------------------------------------------
@@ -229,7 +226,7 @@ public class Unicode{
 
                 if (!rlj.shapes.CheckCollisionPointRec(mouse, emojiRect)){
                     rlj.text.DrawTextEx(fontEmoji, txt, pos, (float) fontEmoji.baseSize, 1.0f, selected == i ? emoji[i].color :
-                            rTextures.Fade(Color.LIGHTGRAY, 0.4f));
+                            rlj.textures.Fade(Color.LIGHTGRAY, 0.4f));
                 }
                 else{
                     rlj.text.DrawTextEx(fontEmoji, txt, pos, (float) fontEmoji.baseSize, 1.0f, emoji[i].color);
@@ -261,7 +258,7 @@ public class Unicode{
                 }
 
                 // Calculate size for the message box (approximate the height and width)
-                Vector2 sz = rText.MeasureTextEx(font, messages[message].text, (float) font.baseSize, 1.0f);
+                Vector2 sz = rlj.text.MeasureTextEx(font, messages[message].text, (float) font.baseSize, 1.0f);
                 if (sz.x > 300){
                     sz.y *= sz.x / 300;
                     sz.x = 300;
@@ -309,7 +306,7 @@ public class Unicode{
                 int size = messages[message].text.length();
                 int len = rlj.text.GetCodepointsCount(messages[message].text);
                 String info = messages[message].language + " " + len + " characters " + size + " bytes";
-                sz = rText.MeasureTextEx(rText.GetFontDefault(), info, 10, 1.0f);
+                sz = rlj.text.MeasureTextEx(rlj.text.GetFontDefault(), info, 10, 1.0f);
                 pos = new Vector2(textRect.x + textRect.width - sz.x, msgRect.y + msgRect.height - sz.y - 2);
                 rlj.text.DrawText(info, (int) pos.x, (int) pos.y, 10, Color.RAYWHITE);
             }
@@ -325,29 +322,29 @@ public class Unicode{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rText.UnloadFont(fontDefault);    // Unload font resource
-        rText.UnloadFont(fontAsian);      // Unload font resource
-        rText.UnloadFont(fontEmoji);      // Unload font resource
+        rlj.text.UnloadFont(fontDefault);    // Unload font resource
+        rlj.text.UnloadFont(fontAsian);      // Unload font resource
+        rlj.text.UnloadFont(fontEmoji);      // Unload font resource
         //--------------------------------------------------------------------------------------
     }
 
     // Fills the emoji array with random emoji (only those emojis present in fontEmoji)
     static void RandomizeEmoji(){
         hovered = selected = -1;
-        int start = rCore.GetRandomValue(45, 360);
+        int start = rlj.core.GetRandomValue(45, 360);
 
         for (int i = 0; i < emoji.length; ++i){
             //Initialize emoji
             emoji[i] = new Emoji();
 
             // 0-179 emoji codepoints (from emoji char array)
-            emoji[i].index = rCore.GetRandomValue(0, emojiCodepoints.length-1);
+            emoji[i].index = rlj.core.GetRandomValue(0, emojiCodepoints.length-1);
 
             // Generate a random color for this emoji
-            emoji[i].color = rTextures.Fade(rlj.textures.ColorFromHSV((float) ((start * (i + 1)) % 360), 0.6f, 0.85f), 0.8f);
+            emoji[i].color = rlj.textures.Fade(rlj.textures.ColorFromHSV((float) ((start * (i + 1)) % 360), 0.6f, 0.85f), 0.8f);
 
             // Set a random message for this emoji
-            emoji[i].message = rCore.GetRandomValue(0, messages.length - 1);
+            emoji[i].message = rlj.core.GetRandomValue(0, messages.length - 1);
         }
     }
     //--------------------------------------------------------------------------------------
@@ -364,7 +361,7 @@ public class Unicode{
 
     // Draw text using font inside rectangle limits with support for text selection
     public static void DrawTextBoxedSelectable(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color tint, int selectStart, int selectLength, Color selectTint, Color selectBackTint) {
-        int length = rText.TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
+        int length = rlj.text.TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
 
         float textOffsetY = 0;       // Offset between lines (on line break '\n')
         float textOffsetX = 0;       // Offset X to next character to draw
@@ -381,8 +378,8 @@ public class Unicode{
         for(int i = 0, k = 0; i < length; i++, k++) {
             // Get next codepoint from byte string and glyph index in font
             int codepointByteCount = 0;
-            int codepoint = rText.GetCodepoint(new char[ text.charAt(i) ], codepointByteCount);
-            int index = rText.GetGlyphIndex(font, codepoint);
+            int codepoint = rlj.text.GetCodepoint(new char[ text.charAt(i) ], codepointByteCount);
+            int index = rlj.text.GetGlyphIndex(font, codepoint);
 
             // NOTE: Normally we exit the decoding sequence as soon as a bad byte is found (and return 0x3f)
             // but we need to draw all of the bad bytes using the '?' symbol moving one byte

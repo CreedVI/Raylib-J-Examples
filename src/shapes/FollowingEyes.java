@@ -2,7 +2,6 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 public class FollowingEyes{
@@ -31,8 +30,8 @@ public class FollowingEyes{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - following eyes");
 
-        Vector2 scleraLeftPosition = new Vector2( rCore.GetScreenWidth()/2.0f - 100, rCore.GetScreenHeight()/2.0f);
-        Vector2 scleraRightPosition = new Vector2(rCore.GetScreenWidth()/2.0f + 100, rCore.GetScreenHeight()/2.0f);
+        Vector2 scleraLeftPosition = new Vector2( rlj.core.GetScreenWidth()/2.0f - 100, rlj.core.GetScreenHeight()/2.0f);
+        Vector2 scleraRightPosition = new Vector2(rlj.core.GetScreenWidth()/2.0f + 100, rlj.core.GetScreenHeight()/2.0f);
         float scleraRadius = 80;
 
         Vector2 irisLeftPosition;
@@ -50,8 +49,8 @@ public class FollowingEyes{
         {
             // Update
             //----------------------------------------------------------------------------------
-            irisLeftPosition = rCore.GetMousePosition();
-            irisRightPosition = rCore.GetMousePosition();
+            irisLeftPosition = rlj.core.GetMousePosition();
+            irisRightPosition = rlj.core.GetMousePosition();
 
             // Check not inside the left eye sclera
             if (!rlj.shapes.CheckCollisionPointCircle(irisLeftPosition, scleraLeftPosition, scleraRadius - 20))

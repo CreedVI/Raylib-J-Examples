@@ -2,10 +2,8 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.text.Font;
-import com.raylib.java.text.rText;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -70,7 +68,7 @@ public class FontLoading{
         while (!rlj.core.WindowShouldClose()) {   // Detect window close button or ESC key
             // Update
             //----------------------------------------------------------------------------------
-            useTtf = rCore.IsKeyDown(KEY_SPACE);
+            useTtf = rlj.core.IsKeyDown(KEY_SPACE);
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -84,12 +82,12 @@ public class FontLoading{
             if (!useTtf)
             {
                 rlj.text.DrawTextEx(fontBm, msg, new Vector2(20.0f, 100.0f), (float)fontBm.baseSize, 2, Color.MAROON);
-                rlj.text.DrawText("Using BMFont (Angelcode) imported", 20, rCore.GetScreenHeight() - 30, 20, Color.GRAY);
+                rlj.text.DrawText("Using BMFont (Angelcode) imported", 20, rlj.core.GetScreenHeight() - 30, 20, Color.GRAY);
             }
             else
             {
                 rlj.text.DrawTextEx(fontTtf, msg, new Vector2(20.0f, 100.0f), (float)fontTtf.baseSize, 2, Color.LIME);
-                rlj.text.DrawText("Using TTF font generated", 20, rCore.GetScreenHeight() - 30, 20, Color.GRAY);
+                rlj.text.DrawText("Using TTF font generated", 20, rlj.core.GetScreenHeight() - 30, 20, Color.GRAY);
             }
 
             rlj.core.EndDrawing();
@@ -98,8 +96,8 @@ public class FontLoading{
 
         // De-Initialization
         //--------------------------------------------------------------------------------------
-        rText.UnloadFont(fontBm);     // AngelCode Font unloading
-        rText.UnloadFont(fontTtf);    // TTF Font unloading
+        rlj.text.UnloadFont(fontBm);     // AngelCode Font unloading
+        rlj.text.UnloadFont(fontTtf);    // TTF Font unloading
         //--------------------------------------------------------------------------------------
 
     }

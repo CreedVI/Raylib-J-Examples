@@ -3,13 +3,11 @@ package textures;
 import com.raylib.java.Config;
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.*;
@@ -45,12 +43,12 @@ public class DrawTiled{
         int screenHeight = 450;
 
         Raylib rlj = new Raylib();
-        rCore.SetConfigFlags(Config.ConfigFlag.FLAG_WINDOW_RESIZABLE); // Make the window resizable
+        rlj.core.SetConfigFlags(Config.ConfigFlag.FLAG_WINDOW_RESIZABLE); // Make the window resizable
         rlj.core.InitWindow(screenWidth, screenHeight, "raylib-j [textures] example - Draw part of a texture tiled");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Texture2D texPattern = rTextures.LoadTexture("resources/patterns.png");
-        rTextures.SetTextureFilter(texPattern, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_TRILINEAR); // Makes the texture smoother when upscaled
+        Texture2D texPattern = rlj.textures.LoadTexture("resources/patterns.png");
+        rlj.textures.SetTextureFilter(texPattern, RLGL.rlTextureFilterMode.RL_TEXTURE_FILTER_TRILINEAR); // Makes the texture smoother when upscaled
 
         // Coordinates for all patterns inside the texture
          Rectangle[] recPattern = {
@@ -97,13 +95,13 @@ public class DrawTiled{
         {
             // Update
             //----------------------------------------------------------------------------------
-            screenWidth = rCore.GetScreenWidth();
-            screenHeight = rCore.GetScreenHeight();
+            screenWidth = rlj.core.GetScreenWidth();
+            screenHeight = rlj.core.GetScreenHeight();
 
             // Handle mouse
-            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+            if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT.ordinal()))
             {
-                Vector2 mouse = rCore.GetMousePosition();
+                Vector2 mouse = rlj.core.GetMousePosition();
 
                 // Check which pattern was clicked and set it as the active pattern
                 for (int i = 0; i < recPattern.length; i++)
@@ -181,7 +179,7 @@ public class DrawTiled{
             rlj.text.DrawText("Press [SPACE] to reset", 2 + MARGIN_SIZE, 164 + 256 + MARGIN_SIZE, 10, DARKBLUE);
 
             // Draw FPS
-            rlj.text.DrawText(rCore.GetFPS() + " FPS", 2 + MARGIN_SIZE, 2 + MARGIN_SIZE, 20, BLACK);
+            rlj.text.DrawText(rlj.core.GetFPS() + " FPS", 2 + MARGIN_SIZE, 2 + MARGIN_SIZE, 20, BLACK);
             rlj.core.EndDrawing();
             //----------------------------------------------------------------------------------
         }

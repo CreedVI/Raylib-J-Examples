@@ -2,7 +2,6 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 
 import static com.raylib.java.core.input.Keyboard.*;
@@ -43,16 +42,16 @@ public class InputKeys{
 
             // Update
             //----------------------------------------------------------------------------------
-            if (rCore.IsKeyDown(KEY_RIGHT)){
+            if (rlj.core.IsKeyDown(KEY_RIGHT)){
                 ballPosition.x += 2.0f;
             }
-            if (rCore.IsKeyDown(KEY_LEFT)){
+            if (rlj.core.IsKeyDown(KEY_LEFT)){
                 ballPosition.x -= 2.0f;
             }
-            if (rCore.IsKeyDown(KEY_UP)){
+            if (rlj.core.IsKeyDown(KEY_UP)){
                 ballPosition.y -= 2.0f;
             }
-            if (rCore.IsKeyDown(KEY_DOWN)){
+            if (rlj.core.IsKeyDown(KEY_DOWN)){
                 ballPosition.y += 2.0f;
             }
             //----------------------------------------------------------------------------------
