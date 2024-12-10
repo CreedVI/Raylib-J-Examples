@@ -2,7 +2,6 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_R;
 
@@ -143,21 +142,21 @@ public class LogoAnim{
             }
             else if (state == 3)
             {
-                rlj.shapes.DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, rTextures.Fade(Color.BLACK,
+                rlj.shapes.DrawRectangle(logoPositionX, logoPositionY, topSideRecWidth, 16, rlj.textures.Fade(Color.BLACK,
                         alpha));
                 rlj.shapes.DrawRectangle(logoPositionX, logoPositionY + 16, 16, leftSideRecHeight - 32,
-                        rTextures.Fade(Color.BLACK, alpha));
+                        rlj.textures.Fade(Color.BLACK, alpha));
 
                 rlj.shapes.DrawRectangle(logoPositionX + 240, logoPositionY + 16, 16, rightSideRecHeight - 32,
-                        rTextures.Fade(Color.BLACK, alpha));
+                        rlj.textures.Fade(Color.BLACK, alpha));
                 rlj.shapes.DrawRectangle(logoPositionX, logoPositionY + 240, bottomSideRecWidth, 16,
-                        rTextures.Fade(Color.BLACK, alpha));
+                        rlj.textures.Fade(Color.BLACK, alpha));
 
                 rlj.shapes.DrawRectangle(screenWidth/2 - 112, screenHeight/2 - 112, 224, 224,
-                        rTextures.Fade(Color.RAYWHITE, alpha));
+                        rlj.textures.Fade(Color.RAYWHITE, alpha));
 
                 rlj.text.DrawText(rlj.text.TextSubtext("raylib", 0, lettersCount), screenWidth/2 - 44,
-                        screenHeight/2 + 48, 50, rTextures.Fade(Color.BLACK, alpha));
+                        screenHeight/2 + 48, 50, rlj.textures.Fade(Color.BLACK, alpha));
             }
             else if (state == 4)
             {

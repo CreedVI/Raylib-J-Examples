@@ -58,13 +58,13 @@ public class JuliaSet{
         Shader shader = rlj.core.LoadShader(null, "resources/shaders/glsl330/julia_set.fs");
 
         // Create a RenderTexture2D to be used for render to texture
-        RenderTexture target = rlj.textures.LoadRenderTexture(rCore.GetScreenWidth(), rCore.GetScreenHeight());
+        RenderTexture target = rlj.textures.LoadRenderTexture(rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight());
 
         // c constant to use in z^2 + c
         float[] c = {pointsOfInterest[0][0], pointsOfInterest[0][1]};
 
         // Offset and zoom to draw the julia set at. (centered on screen and default size)
-        float[] offset = {-(float) rCore.GetScreenWidth() / 2, -(float) rCore.GetScreenHeight() / 2};
+        float[] offset = {-(float) rlj.core.GetScreenWidth() / 2, -(float) rlj.core.GetScreenHeight() / 2};
 
         float zoom = 1.0f;
 
@@ -77,7 +77,7 @@ public class JuliaSet{
         int offsetLoc = rCore.GetShaderLocation(shader, "offset");
 
         // Tell the shader what the screen dimensions, zoom, offset and c are
-        float[] screenDims = {(float) rCore.GetScreenWidth(), (float) rCore.GetScreenHeight()};
+        float[] screenDims = {(float) rlj.core.GetScreenWidth(), (float) rlj.core.GetScreenHeight()};
         rCore.SetShaderValue(shader, rCore.GetShaderLocation(shader, "screenDims"), screenDims, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
         rCore.SetShaderValue(shader, cLoc, c, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
@@ -142,18 +142,18 @@ public class JuliaSet{
 
                 // TODO.txt: The idea is to zoom and move around with mouse
                 // Probably offset movement should be proportional to zoom level
-                if (rCore.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_LEFT) || rCore.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_RIGHT)){
-                    if (rCore.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_LEFT)) zoom += zoom * 0.003f;
-                    if (rCore.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_RIGHT)) zoom -= zoom * 0.003f;
+                if (rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_LEFT.ordinal()) || rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_RIGHT.ordinal())){
+                    if (rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_LEFT.ordinal())) zoom += zoom * 0.003f;
+                    if (rlj.core.IsMouseButtonDown(Mouse.MouseButton.MOUSE_BUTTON_RIGHT.ordinal())) zoom -= zoom * 0.003f;
 
-                    Vector2 mousePos = rCore.GetMousePosition();
+                    Vector2 mousePos = rlj.core.GetMousePosition();
 
                     offsetSpeed.x = mousePos.x - (float) screenWidth / 2;
                     offsetSpeed.y = mousePos.y - (float) screenHeight / 2;
 
                     // Slowly move camera to targetOffset
-                    offset[0] += rCore.GetFrameTime() * offsetSpeed.x * 0.8f;
-                    offset[1] += rCore.GetFrameTime() * offsetSpeed.y * 0.8f;
+                    offset[0] += rlj.core.GetFrameTime() * offsetSpeed.x * 0.8f;
+                    offset[1] += rlj.core.GetFrameTime() * offsetSpeed.y * 0.8f;
                 }
                 else{
                     offsetSpeed = new Vector2(0.0f, 0.0f);
@@ -163,7 +163,7 @@ public class JuliaSet{
                 rCore.SetShaderValue(shader, offsetLoc, offset, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
                 // Increment c value with time
-                float amount = rCore.GetFrameTime() * incrementSpeed * 0.0005f;
+                float amount = rlj.core.GetFrameTime() * incrementSpeed * 0.0005f;
                 c[0] += amount;
                 c[1] += amount;
 
@@ -185,7 +185,7 @@ public class JuliaSet{
             // NOTE: Rectangle uses font white character texture coordinates,
             // so shader can not be applied here directly because input vertexTexCoord
             // do not represent full screen coordinates (space where want to apply shader)
-            rlj.shapes.DrawRectangle(0, 0, rCore.GetScreenWidth(), rCore.GetScreenHeight(), Color.BLACK);
+            rlj.shapes.DrawRectangle(0, 0, rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight(), Color.BLACK);
             rlj.core.EndTextureMode();
 
             // Draw the saved texture and rendered julia set with shader

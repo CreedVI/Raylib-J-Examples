@@ -2,7 +2,6 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.shapes.Rectangle;
 
 import static com.raylib.java.core.input.Keyboard.KEY_S;
@@ -63,7 +62,7 @@ public class ScissorTest {
 
             // Draw full screen rectangle and some text
             // NOTE: Only part defined by scissor area will be rendered
-            rlj.shapes.DrawRectangle(0, 0, rCore.GetScreenWidth(), rCore.GetScreenHeight(), Color.RED);
+            rlj.shapes.DrawRectangle(0, 0, rlj.core.GetScreenWidth(), rlj.core.GetScreenHeight(), Color.RED);
             rlj.text.DrawText("Move the mouse around to reveal this text!", 190, 200, 20, Color.LIGHTGRAY);
 
             if (scissorMode){

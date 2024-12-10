@@ -5,7 +5,6 @@ import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 public class TexturesPoly{
 
@@ -57,7 +56,7 @@ public class TexturesPoly{
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - textured polygon");
 
-        Texture2D texture = rTextures.LoadTexture("resources/cat.png");
+        Texture2D texture = rlj.textures.LoadTexture("resources/cat.png");
 
         float ang = 0;
 

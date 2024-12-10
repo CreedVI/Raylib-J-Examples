@@ -2,10 +2,10 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
+import com.raylib.java.extras.Easings;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-import com.raylib.java.utils.Easings;
 
 import static com.raylib.java.core.input.Keyboard.*;
 

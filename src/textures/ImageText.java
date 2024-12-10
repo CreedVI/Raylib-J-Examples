@@ -2,13 +2,10 @@ package textures;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.text.Font;
-import com.raylib.java.text.rText;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -38,7 +35,7 @@ public class ImageText{
 
         Raylib rlj  = new Raylib(screenWidth, screenHeight, "raylib-j [texture] example - image text drawing");
 
-        Image parrots = rTextures.LoadImage("resources/parrots.png"); // Load image in CPU memory (RAM)
+        Image parrots = rlj.textures.LoadImage("resources/parrots.png"); // Load image in CPU memory (RAM)
 
         // TTF Font loading with custom generation parameters
         Font font = rlj.text.LoadFontEx("resources/KAISG.ttf", 64, null, 0);
@@ -48,10 +45,10 @@ public class ImageText{
                 (float)font.baseSize, 0.0f, Color.RED);
 
         // Image converted to texture, uploaded to GPU memory (VRAM)
-        Texture2D texture = rTextures.LoadTextureFromImage(parrots);
+        Texture2D texture = rlj.textures.LoadTextureFromImage(parrots);
 
         // Once image has been converted to texture and uploaded to VRAM, it can be unloaded from RAM
-        rTextures.UnloadImage(parrots);
+        rlj.textures.UnloadImage(parrots);
 
         Vector2 position = new Vector2(screenWidth/2.0f - texture.width/2.0f, screenHeight/2.0f - texture.height/2.0f - 20);
 
@@ -65,7 +62,7 @@ public class ImageText{
         {
             // Update
             //----------------------------------------------------------------------------------
-            showFont = rCore.IsKeyDown(KEY_SPACE);
+            showFont = rlj.core.IsKeyDown(KEY_SPACE);
             //----------------------------------------------------------------------------------
 
             // Draw
@@ -97,7 +94,7 @@ public class ImageText{
         //--------------------------------------------------------------------------------------
         rlj.textures.UnloadTexture(texture);     // Texture unloading
 
-        rText.UnloadFont(font);           // Unload custom spritefont
+        rlj.text.UnloadFont(font);           // Unload custom spritefont
         //--------------------------------------------------------------------------------------
     }
 

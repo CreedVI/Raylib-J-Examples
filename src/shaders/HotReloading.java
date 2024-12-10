@@ -63,8 +63,8 @@ public class HotReloading{
         {
             // Update
             //----------------------------------------------------------------------------------
-            totalTime += rCore.GetFrameTime();
-            Vector2 mouse = rCore.GetMousePosition();
+            totalTime += rlj.core.GetFrameTime();
+            Vector2 mouse = rlj.core.GetMousePosition();
             float[] mousePos = {mouse.x, mouse.y};
 
             // Set shader required uniform values
@@ -72,7 +72,7 @@ public class HotReloading{
             rCore.SetShaderValue(shader, mouseLoc, mousePos, RLGL.rlShaderUniformDataType.RL_SHADER_UNIFORM_VEC2);
 
             // Hot shader reloading
-            if (shaderAutoReloading || (rlj.core.IsMouseButtonPressed(Mouse.MouseButton.MOUSE_BUTTON_LEFT))){
+            if (shaderAutoReloading || (rlj.core.IsMouseButtonPressed(Mouse.MouseButton.MOUSE_BUTTON_LEFT.ordinal()))){
                 long currentFragShaderModTime = rlj.core.GetFileModTime(fragShaderFileName);
 
                 // Check if shader file has been modified

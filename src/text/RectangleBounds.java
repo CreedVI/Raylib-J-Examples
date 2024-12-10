@@ -2,12 +2,9 @@ package text;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.text.Font;
-import com.raylib.java.text.rText;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
@@ -62,7 +59,7 @@ public class RectangleBounds {
 
         Vector2 lastMouse = new Vector2(); // Stores last mouse coordinates
         Color borderColor = MAROON;         // Container border color
-        Font font = rText.GetFontDefault();       // Get default system font
+        Font font = rlj.text.GetFontDefault();       // Get default system font
 
         rlj.core.SetTargetFPS(60);                   // Set our game to run at 60 frames-per-second
         //--------------------------------------------------------------------------------------
@@ -74,15 +71,15 @@ public class RectangleBounds {
             //----------------------------------------------------------------------------------
             if (rlj.core.IsKeyPressed(KEY_SPACE)) wordWrap = !wordWrap;
 
-            Vector2 mouse = rCore.GetMousePosition();
+            Vector2 mouse = rlj.core.GetMousePosition();
 
             // Check if the mouse is inside the container and toggle border color
-            if (rlj.shapes.CheckCollisionPointRec(mouse, container)) borderColor = rTextures.Fade(MAROON, 0.4f);
+            if (rlj.shapes.CheckCollisionPointRec(mouse, container)) borderColor = rlj.textures.Fade(MAROON, 0.4f);
             else if (!resizing) borderColor = MAROON;
 
             // Container resizing logic
             if (resizing) {
-                if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) resizing = false;
+                if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT.ordinal())) resizing = false;
 
                 float width = container.width + (mouse.x - lastMouse.x);
                 container.width = (width > minWidth) ? Math.min(width, maxWidth) : minWidth;
@@ -91,7 +88,7 @@ public class RectangleBounds {
                 container.height = (height > minHeight) ? Math.min(height, maxHeight) : minHeight;
             } else {
                 // Check if we're resizing
-                if (rCore.IsMouseButtonDown(MOUSE_BUTTON_LEFT) && rlj.shapes.CheckCollisionPointRec(mouse, resizer))
+                if (rlj.core.IsMouseButtonDown(MOUSE_BUTTON_LEFT.ordinal()) && rlj.shapes.CheckCollisionPointRec(mouse, resizer))
                     resizing = true;
             }
 
@@ -150,7 +147,7 @@ public class RectangleBounds {
 
     // Draw text using font inside rectangle limits with support for text selection
     public static void DrawTextBoxedSelectable(Font font, String text, Rectangle rec, float fontSize, float spacing, boolean wordWrap, Color tint, int selectStart, int selectLength, Color selectTint, Color selectBackTint) {
-        int length = rText.TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
+        int length = rlj.text.TextLength(text);  // Total length in bytes of the text, scanned by codepoints in loop
 
         float textOffsetY = 0;       // Offset between lines (on line break '\n')
         float textOffsetX = 0;       // Offset X to next character to draw
@@ -167,8 +164,8 @@ public class RectangleBounds {
         for(int i = 0, k = 0; i < length; i++, k++) {
             // Get next codepoint from byte string and glyph index in font
             int codepointByteCount = 0;
-            int codepoint = rText.GetCodepoint(new char[ text.charAt(i) ], codepointByteCount);
-            int index = rText.GetGlyphIndex(font, codepoint);
+            int codepoint = rlj.text.GetCodepoint(new char[ text.charAt(i) ], codepointByteCount);
+            int index = rlj.text.GetGlyphIndex(font, codepoint);
 
             // NOTE: Normally we exit the decoding sequence as soon as a bad byte is found (and return 0x3f)
             // but we need to draw all of the bad bytes using the '?' symbol moving one byte

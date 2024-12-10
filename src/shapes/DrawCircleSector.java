@@ -2,9 +2,7 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
-import com.raylib.java.textures.rTextures;
 
 public class DrawCircleSector{
 
@@ -31,7 +29,7 @@ public class DrawCircleSector{
         final int screenHeight = 450;
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib [shapes] example - draw circle sector");
 
-        Vector2 center = new Vector2((rCore.GetScreenWidth() - 300)/2.0f, rCore.GetScreenHeight()/2.0f);
+        Vector2 center = new Vector2((rlj.core.GetScreenWidth() - 300)/2.0f, rlj.core.GetScreenHeight()/2.0f);
 
         float outerRadius = 180.0f;
         int startAngle = 0;
@@ -54,14 +52,14 @@ public class DrawCircleSector{
 
             rlj.core.ClearBackground(Color.RAYWHITE);
 
-            rlj.shapes.DrawLine(500, 0, 500, rCore.GetScreenHeight(), rTextures.Fade(Color.LIGHTGRAY, 0.6f));
-            rlj.shapes.DrawRectangle(500, 0, rCore.GetScreenWidth() - 500, rCore.GetScreenHeight(),
-                    rTextures.Fade(Color.LIGHTGRAY, 0.3f));
+            rlj.shapes.DrawLine(500, 0, 500, rlj.core.GetScreenHeight(), rlj.textures.Fade(Color.LIGHTGRAY, 0.6f));
+            rlj.shapes.DrawRectangle(500, 0, rlj.core.GetScreenWidth() - 500, rlj.core.GetScreenHeight(),
+                    rlj.textures.Fade(Color.LIGHTGRAY, 0.3f));
 
-            rlj.shapes.DrawCircleSector(center, outerRadius, startAngle, endAngle, segments, rTextures.Fade(Color.MAROON,
+            rlj.shapes.DrawCircleSector(center, outerRadius, startAngle, endAngle, segments, rlj.textures.Fade(Color.MAROON,
                     0.3f));
             rlj.shapes.DrawCircleSectorLines(center, outerRadius, startAngle, endAngle, segments,
-                    rTextures.Fade(Color.MAROON, 0.6f));
+                    rlj.textures.Fade(Color.MAROON, 0.6f));
 
             // Draw GUI controls
             //TODO.txt: RGUI

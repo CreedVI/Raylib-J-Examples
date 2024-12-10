@@ -2,7 +2,6 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 
 public class InputMouseWheel {
 
@@ -39,7 +38,7 @@ public class InputMouseWheel {
         {
             // Update
             //----------------------------------------------------------------------------------
-            boxPositionY -= rCore.GetMouseWheelMove() * scrollSpeed;
+            boxPositionY -= rlj.core.GetMouseWheelMove() * scrollSpeed;
             //----------------------------------------------------------------------------------
 
             // Draw

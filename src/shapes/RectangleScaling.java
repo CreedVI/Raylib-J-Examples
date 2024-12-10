@@ -2,11 +2,9 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Mouse.MouseButton.MOUSE_BUTTON_LEFT;
 
@@ -49,7 +47,7 @@ public class RectangleScaling{
         {
             // Update
             //----------------------------------------------------------------------------------
-            mousePosition = rCore.GetMousePosition();
+            mousePosition = rlj.core.GetMousePosition();
 
             if (rlj.shapes.CheckCollisionPointRec(mousePosition, rec) &&
                     rlj.shapes.CheckCollisionPointRec(mousePosition,
@@ -57,7 +55,7 @@ public class RectangleScaling{
                             rec.y + rec.height - MOUSE_SCALE_MARK_SIZE, MOUSE_SCALE_MARK_SIZE, MOUSE_SCALE_MARK_SIZE)))
             {
                 mouseScaleReady = true;
-                if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) mouseScaleMode = true;
+                if (rlj.core.IsMouseButtonPressed(MOUSE_BUTTON_LEFT.ordinal())) mouseScaleMode = true;
             }
             else mouseScaleReady = false;
 
@@ -71,7 +69,7 @@ public class RectangleScaling{
                 if (rec.width < MOUSE_SCALE_MARK_SIZE) rec.width = MOUSE_SCALE_MARK_SIZE;
                 if (rec.height < MOUSE_SCALE_MARK_SIZE) rec.height = MOUSE_SCALE_MARK_SIZE;
 
-                if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT)) mouseScaleMode = false;
+                if (rlj.core.IsMouseButtonReleased(MOUSE_BUTTON_LEFT.ordinal())) mouseScaleMode = false;
             }
             //----------------------------------------------------------------------------------
 
@@ -83,7 +81,7 @@ public class RectangleScaling{
 
             rlj.text.DrawText("Scale rectangle dragging from bottom-right corner!", 10, 10, 20, Color.GRAY);
 
-            rShapes.DrawRectangleRec(rec, rTextures.Fade(Color.GREEN, 0.5f));
+            rShapes.DrawRectangleRec(rec, rlj.textures.Fade(Color.GREEN, 0.5f));
 
             if (mouseScaleReady)
             {

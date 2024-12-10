@@ -5,7 +5,6 @@ import com.raylib.java.core.Color;
 import com.raylib.java.rlgl.RLGL;
 import com.raylib.java.textures.Image;
 import com.raylib.java.textures.Texture2D;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
 
@@ -39,19 +38,19 @@ public class BlendModes{
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [textures] example - blend modes");
 
         // NOTE: Textures MUST be loaded after Window initialization (OpenGL context is required)
-        Image bgImage = rTextures.LoadImage("resources/cyberpunk_street_background.png"); // Loaded in CPU
+        Image bgImage = rlj.textures.LoadImage("resources/cyberpunk_street_background.png"); // Loaded in CPU
         // memory (RAM)
-        Texture2D bgTexture = rTextures.LoadTextureFromImage(bgImage); // Image converted to texture, GPU memory
+        Texture2D bgTexture = rlj.textures.LoadTextureFromImage(bgImage); // Image converted to texture, GPU memory
         // (VRAM)
 
-        Image fgImage = rTextures.LoadImage("resources/cyberpunk_street_foreground.png"); // Loaded in CPU
+        Image fgImage = rlj.textures.LoadImage("resources/cyberpunk_street_foreground.png"); // Loaded in CPU
         // memory (RAM)
-        Texture2D fgTexture = rTextures.LoadTextureFromImage(fgImage); // Image converted to texture, GPU memory
+        Texture2D fgTexture = rlj.textures.LoadTextureFromImage(fgImage); // Image converted to texture, GPU memory
         // (VRAM)
 
         // Once image has been converted to texture and uploaded to VRAM, it can be unloaded from RAM
-        rTextures.UnloadImage(bgImage);
-        rTextures.UnloadImage(fgImage);
+        rlj.textures.UnloadImage(bgImage);
+        rlj.textures.UnloadImage(fgImage);
 
         final int blendCountMax = 4;
         int blendMode = RLGL.rlBlendMode.RL_BLEND_ALPHA;

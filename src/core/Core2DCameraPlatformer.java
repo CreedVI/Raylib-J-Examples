@@ -2,8 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
-import com.raylib.java.core.camera.Camera2D;
+import com.raylib.java.core.rcamera.Camera2D;
 import com.raylib.java.raymath.Raymath;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
@@ -120,11 +119,11 @@ public class Core2DCameraPlatformer{
         {
             // Update
             //----------------------------------------------------------------------------------
-            float deltaTime = rCore.GetFrameTime();
+            float deltaTime = rlj.core.GetFrameTime();
 
             UpdatePlayer(player, envItems, envItemsLength, deltaTime);
 
-            camera.zoom += (rCore.GetMouseWheelMove()*0.05f);
+            camera.zoom += (rlj.core.GetMouseWheelMove()*0.05f);
 
             if (camera.zoom > 3.0f) camera.zoom = 3.0f;
             else if (camera.zoom < 0.25f) camera.zoom = 0.25f;
@@ -187,9 +186,9 @@ public class Core2DCameraPlatformer{
 
     static void UpdatePlayer(Player player, EnvItem[] envItems, int envItemsLength, float delta)
     {
-        if (rCore.IsKeyDown(KEY_LEFT)) player.position.x -= PLAYER_HOR_SPD*delta;
-        if (rCore.IsKeyDown(KEY_RIGHT)) player.position.x += PLAYER_HOR_SPD*delta;
-        if (rCore.IsKeyDown(KEY_SPACE) && player.canJump) {
+        if (rlj.core.IsKeyDown(KEY_LEFT)) player.position.x -= PLAYER_HOR_SPD*delta;
+        if (rlj.core.IsKeyDown(KEY_RIGHT)) player.position.x += PLAYER_HOR_SPD*delta;
+        if (rlj.core.IsKeyDown(KEY_SPACE) && player.canJump) {
             player.speed = -PLAYER_JUMP_SPD;
             player.canJump = false;
         }

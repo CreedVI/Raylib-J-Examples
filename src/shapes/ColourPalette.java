@@ -2,11 +2,9 @@ package shapes;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.rCore;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.shapes.Rectangle;
 import com.raylib.java.shapes.rShapes;
-import com.raylib.java.textures.rTextures;
 
 import static com.raylib.java.core.Color.*;
 import static com.raylib.java.core.input.Keyboard.KEY_SPACE;
@@ -75,7 +73,7 @@ public class ColourPalette{
         {
             // Update
             //----------------------------------------------------------------------------------
-            mousePoint = rCore.GetMousePosition();
+            mousePoint = rlj.core.GetMousePosition();
 
             for (int i = 0; i < MAX_COLORS_COUNT; i++)
             {
@@ -90,18 +88,18 @@ public class ColourPalette{
             rlj.core.ClearBackground(RAYWHITE);
 
             rlj.text.DrawText("raylib colors palette", 28, 42, 20, BLACK);
-            rlj.text.DrawText("press SPACE to see all colors", rCore.GetScreenWidth() - 180,
-                    rCore.GetScreenHeight() - 40, 10, GRAY);
+            rlj.text.DrawText("press SPACE to see all colors", rlj.core.GetScreenWidth() - 180,
+                    rlj.core.GetScreenHeight() - 40, 10, GRAY);
 
             for (int i = 0; i < MAX_COLORS_COUNT; i++)    // Draw all rectangles
             {
-                rShapes.DrawRectangleRec(colorsRecs[i], rTextures.Fade(colors[i], colorState[i]? 0.6f : 1.0f));
+                rShapes.DrawRectangleRec(colorsRecs[i], rlj.textures.Fade(colors[i], colorState[i]? 0.6f : 1.0f));
 
-                if (rCore.IsKeyDown(KEY_SPACE) || colorState[i])
+                if (rlj.core.IsKeyDown(KEY_SPACE) || colorState[i])
                 {
                     rlj.shapes.DrawRectangle((int)colorsRecs[i].x, (int)(colorsRecs[i].y + colorsRecs[i].height - 26),
                             (int)colorsRecs[i].width, 20, BLACK);
-                    rlj.shapes.DrawRectangleLinesEx(colorsRecs[i], 6, rTextures.Fade(BLACK, 0.3f));
+                    rlj.shapes.DrawRectangleLinesEx(colorsRecs[i], 6, rlj.textures.Fade(BLACK, 0.3f));
                     rlj.text.DrawText(colorNames[i],
                             (int)(colorsRecs[i].x + colorsRecs[i].width - rlj.text.MeasureText(colorNames[i], 10) - 12),
                             (int)(colorsRecs[i].y + colorsRecs[i].height - 20), 10, colors[i]);

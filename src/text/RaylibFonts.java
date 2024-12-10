@@ -4,7 +4,6 @@ import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
 import com.raylib.java.raymath.Vector2;
 import com.raylib.java.text.Font;
-import com.raylib.java.text.rText;
 
 public class RaylibFonts{
 
@@ -66,7 +65,7 @@ public class RaylibFonts{
         for (int i = 0; i < MAX_FONTS; i++)
         {
             positions[i] = new Vector2();
-            positions[i].x = screenWidth/2.0f - rText.MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
+            positions[i].x = screenWidth/2.0f - rlj.text.MeasureTextEx(fonts[i], messages[i], fonts[i].baseSize*2.0f, (float)spacings[i]).x/2.0f;
             positions[i].y = 60.0f + fonts[i].baseSize + 45.0f*i;
         }
 
@@ -111,7 +110,7 @@ public class RaylibFonts{
 
         // Fonts unloading
         for (int i = 0; i < MAX_FONTS; i++){
-            rText.UnloadFont(fonts[i]);
+            rlj.text.UnloadFont(fonts[i]);
         }
         //--------------------------------------------------------------------------------------
     }

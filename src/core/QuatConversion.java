@@ -2,8 +2,7 @@ package core;
 
 import com.raylib.java.Raylib;
 import com.raylib.java.core.Color;
-import com.raylib.java.core.camera.Camera3D;
-import com.raylib.java.core.camera.rCamera;
+import com.raylib.java.core.rcamera.Camera3D;
 import com.raylib.java.raymath.Matrix;
 import com.raylib.java.raymath.Quaternion;
 import com.raylib.java.raymath.Raymath;
@@ -38,12 +37,12 @@ public class QuatConversion {
 
         Raylib rlj = new Raylib(screenWidth, screenHeight, "raylib-j [core] example - quat conversions");
 
-        Camera3D camera = new Camera3D();
+        Camera3D camera = new Camera3D(rlj);
         camera.position = new Vector3(0.0f, 10.0f, 10.0f);  // Camera position
         camera.target = new Vector3(0.0f, 0.0f, 0.0f);      // Camera looking at point
         camera.up = new Vector3(0.0f, 1.0f, 0.0f);          // Camera up vector (rotation towards target)
         camera.fovy = 45.0f;                                // Camera field-of-view Y
-        camera.projection = rCamera.CameraProjection.CAMERA_PERSPECTIVE;                   // Camera mode type
+        camera.projection = Camera3D.CameraProjection.CAMERA_PERSPECTIVE;                   // Camera mode type
 
         //TODO.txt: Module MODELS
         //Mesh mesh = GenMeshCylinder(0.2f, 1.0f, 32);
